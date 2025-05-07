@@ -1,2 +1,13 @@
 <!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<view class="login-container">
+  <text class="title">登录</text>
+  <view class="form-group">
+    <input placeholder="请输入账号/邮箱/用户名" required="required" type="text" model:value="{{user_num}}" bindinput="onInputUserNum" bindconfirm="onLogin"/>
+  </view>
+  <view class="form-group">
+    <input placeholder="请输入密码" required="required" password="true" model:value="{{user_passwd}}" bindinput="onInputUserPasswd" bindconfirm="onLogin"/>
+  </view>
+  <button type="primary" bindtap="onLogin">登录</button>
+  <button type="default" bindtap="goRegister">去注册</button>
+</view>
+<footer-bar />
