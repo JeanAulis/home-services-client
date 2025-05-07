@@ -19,9 +19,9 @@ public class OrderController {
         return ResponseEntity.ok(orderService.saveOrder(order));
     }
 
-    @GetMapping("/user/{phoneNum}")
-    public ResponseEntity<List<Order>> getOrdersByUserPhone(@PathVariable String phoneNum) {
-        return ResponseEntity.ok(orderService.findByUserPhoneNum(phoneNum));
+    @GetMapping("/user/{userPhoneNum}")
+    public ResponseEntity<List<Order>> getOrdersByUserPhone(@PathVariable String userPhoneNum) {
+        return ResponseEntity.ok(orderService.findByUserPhoneNum(userPhoneNum));
     }
 
     @GetMapping("/{orderId}")

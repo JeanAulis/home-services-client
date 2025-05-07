@@ -12,40 +12,56 @@ public class Order {
     @Column(length = 12)
     private String orderId;
 
-    @Column(name = "user_phone_num")
+    @Column(nullable = false, unique = true)
     private String userPhoneNum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "service_type")
+    @Column(nullable = false)
     private ServiceType serviceType;
 
-    @Column(name = "service_location")
+    @Column(nullable = false)
     private String serviceLocation;
 
-    @Column(name = "service_time")
     private LocalDateTime serviceTime;
 
-    private String Cleaner;
+    @Column(nullable = false)
+    private String cleaner;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order status")
-    private OrderStatus orderStatus;
+    @Column(nullable = false)
+    private OrderStatus orderStatus = OrderStatus.未支付;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "pay_method")
+    @Column(nullable = false)
     private PayMethod payMethod;
+
+    private LocalDateTime timeOfOrder;
+
+    private LocalDateTime paymentTime;
 
     private String other;
 
     public enum ServiceType {
-        日常保洁, 深度保洁, 清洗空调内外机, 物品收纳
+        日常保洁,
+        深度保洁,
+        清洗空调内外机,
+        物品收纳
     }
 
     public enum OrderStatus {
-        未支付, 已支付, 待接单, 待确认, 服务中, 已完成
+        未支付,
+        已支付,
+        待接单,
+        待确认,
+        服务中,
+        已完成
     }
 
     public enum PayMethod {
-        银行卡支付, 扫码支付, 微信支付, 云闪付支付, 其他支付方式
+        银行卡支付,
+        扫码支付,
+        微信支付,
+        云闪付支付,
+        其他支付方式
     }
 } 

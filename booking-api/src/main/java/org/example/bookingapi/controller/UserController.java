@@ -17,9 +17,9 @@ public class UserController {
         return ResponseEntity.ok(userInfoService.saveUser(userInfo));
     }
 
-    @GetMapping("/{phoneNum}")
-    public ResponseEntity<UserInfo> getUserByPhone(@PathVariable String phoneNum) {
-        UserInfo user = userInfoService.findByPhoneNum(phoneNum);
+    @GetMapping("/{userPhoneNum}")
+    public ResponseEntity<UserInfo> getUserByPhone(@PathVariable String userPhoneNum) {
+        UserInfo user = userInfoService.findByPhoneNum(userPhoneNum);
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 } 

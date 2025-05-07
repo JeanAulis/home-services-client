@@ -16,8 +16,8 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public List<Order> findByUserPhoneNum(String phoneNum) {
-        return orderRepository.findByUserPhoneNum(phoneNum);
+    public List<Order> findByUserPhoneNum(String userPhoneNum) {
+        return orderRepository.findByUserPhoneNum(userPhoneNum);
     }
 
     public Order findByOrderId(String orderId) {

@@ -14,7 +14,7 @@ public class UserInfoService {
         return userInfoRepository.save(userInfo);
     }
 
-    public UserInfo findByPhoneNum(String phoneNum) {
-        return userInfoRepository.findByUserPhoneNum(phoneNum);
+    public UserInfo findByPhoneNum(String userPhoneNum) {
+        return userInfoRepository.findByUserPhoneNum(userPhoneNum);
     }
 } 
