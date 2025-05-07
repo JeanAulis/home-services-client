@@ -11,22 +11,18 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "user_email")
     private String userEmail;
 
-    @Column(name = "user_phone_num", unique = true)
+    @Column(nullable = false, unique = true)
     private String userPhoneNum;
 
-    @Column(name = "user_passwd")
+    @Column(nullable = false)
     private String userPasswd;
 
-    @Column(name = "user_qq_num")
     private String userQqNum;
 
-    @Column(name = "user_wechat_num")
     private String userWechatNum;
 
     private String other;
