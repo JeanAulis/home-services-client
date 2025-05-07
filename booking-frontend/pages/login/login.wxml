@@ -1,2 +1,17 @@
 <!--pages/login/login.wxml-->
 <text>pages/login/login.wxml</text>
+<view class="login-view">
+	<p style="fornt-size=;">登陆</p>
+	<view class="">
+		<input class="login-account" >
+		<input class="login-passwd" >
+		<input class="login-verify" >
+	</view>
+
+
+
+<view>
+	<footer> </footer>
+</view>
+
+</view>
