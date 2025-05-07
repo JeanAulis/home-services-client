@@ -1,6 +1,20 @@
 # home-services-client
 微信家政服务小程序
 
+
+
+
+> [!NOTE]
+>
+> idea创建时添加以下依赖：
+> Spring Web
+> Spring Data JPA
+> MySQL Driver
+> Lombok
+> Spring Boot DevTools
+
+
+
 此小程序初步确定添加以下功能：
 
 - 登录、注册页面
