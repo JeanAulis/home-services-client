@@ -16,7 +16,7 @@ Page({
   },
   onRegister() {
     wx.request({
-      url: 'http://localhost:8124/api/user/register',
+      url: 'http://localhost:8080/api/user/register',
       method: 'POST',
       data: {
         userName: this.data.user_name,
