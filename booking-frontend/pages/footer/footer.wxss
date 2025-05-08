@@ -1,0 +1,34 @@
+.footer-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding: 16rpx 32rpx;
+  box-sizing: border-box;
+  z-index: 999;
+}
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  background: #f0f0f0;
+}
+.footer-info {
+  display: flex;
+  flex-direction: column;
+}
+.footer-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.footer-id {
+  font-size: 28rpx;
+  color: #888;
+} 

@@ -1,66 +1,40 @@
-// pages/register/register.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    // 删除 user_num
+    user_passwd: '',
+    user_name: '',
+    user_email: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  onInputUserPasswd(e) {
+    this.setData({ user_passwd: e.detail.value });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  onInputUserName(e) {
+    this.setData({ user_name: e.detail.value });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  onInputUserEmail(e) {
+    this.setData({ user_email: e.detail.value });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  onRegister() {
+    wx.request({
+      url: 'http://localhost:8124/api/user/register',
+      method: 'POST',
+      data: {
+        userName: this.data.user_name,
+        userPasswd: this.data.user_passwd,
+        userEmail: this.data.user_email
+      },
+      success: res => {
+        if (res.data.code === 200) {
+          wx.showToast({ title: '注册成功', icon: 'success' });
+          wx.redirectTo({ url: '/pages/login/login' });
+        } else if (res.data.code === 400) {
+          wx.showToast({ title: '用户名已存在', icon: 'none' });
+        } else if (res.data.code === 401) {
+          wx.showToast({ title: '邮箱格式不合法', icon: 'none' });
+        } else {
+          wx.showToast({ title: res.data.msg || '注册失败', icon: 'none' });
+        }
+      }
+    });
   }
 })

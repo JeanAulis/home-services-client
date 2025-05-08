@@ -1,17 +1,16 @@
-<!--pages/register/register.wxml-->
-<text>pages/register/register.wxml</text>
-<view class="register-view"> 
-         <p style="fornt-size=;">注册</p> 
-         <view class=""> 
-                 <input class="register-account" > 
-                 <input class="register-passwd" > 
-                 <input class="register-verify" > 
-         </view> 
-  
-  
-  
- <view> 
-         <footer> </footer> 
- </view> 
-  
- </view>
+<view class="register-container">
+  <text class="title">注册</text>
+
+  <!-- 删除账号输入框 -->
+  <view class="form-group">
+    <input placeholder="请输入用户名" required="required" type="text" model:value="{{user_name}}" bindinput="onInputUserName" bindconfirm="onRegister"/>
+  </view>
+  <view class="form-group">
+    <input placeholder="请输入密码" required="required" password="true" model:value="{{user_passwd}}" bindinput="onInputUserPasswd" bindconfirm="onRegister"/>
+  </view>
+  <view class="form-group">
+    <input placeholder="请输入邮箱(可选)" type="text" model:value="{{user_email}}" bindinput="onInputUserEmail" bindconfirm="onRegister"/>
+  </view>
+  <button type="primary" bindtap="onRegister">注册</button>
+</view>
+<footer-bar />

@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "footer-bar": "../footer/footer"
+  }
 }

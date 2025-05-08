@@ -1,0 +1,7 @@
+<view class="footer-bar">
+  <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+  <view class="footer-info">
+    <text class="footer-name">{{name}}</text>
+    <text class="footer-id">{{studentId}}</text>
+  </view>
+</view> 
