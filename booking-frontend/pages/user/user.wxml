@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-info">
+      <view class="avatar-wrapper">
+        <image class="avatar" src="{{userInfo.avatarUrl || '/icon/default-avatar.png'}}" mode="aspectFill"></image>
+      </view>
+      <view class="user-detail">
+        <view wx:if="{{isLogin}}" class="username">{{userInfo.userName || '用户昵称'}}</view>
+        <view wx:else class="login-btn" bindtap="goLogin">点击登录</view>
+      </view>
+    </view>
+    <view class="more-btn" bindtap="goProfile">
+      <text>更多</text>
+      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    </view>
+  </view>
+
+  <!-- 用户资产 -->
+  <view class="asset-card">
+    <view class="asset-item" bindtap="goPoints">
+      <view class="asset-num">{{isLogin ? (userInfo.points || '0') : '--'}}</view>
+      <view class="asset-name">积分</view>
+    </view>
+    <view class="asset-item" bindtap="goCoupons">
+      <view class="asset-num">{{isLogin ? (userInfo.coupons || '0') : '--'}}</view>
+      <view class="asset-name">优惠券</view>
+    </view>
+    <view class="asset-item" bindtap="goCollection">
+      <view class="asset-num">{{isLogin ? (userInfo.collections || '0') : '--'}}</view>
+      <view class="asset-name">收藏</view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="function-list">
+    <view class="function-item" bindtap="goAddress">
+      <view class="function-left">
+        <image class="function-icon" src="/icon/address.png"></image>
+        <text class="function-text">地址管理</text>
+      </view>
+      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    </view>
+    
+    <view class="function-item" bindtap="goSetting">
+      <view class="function-left">
+        <image class="function-icon" src="/icon/setting.png"></image>
+        <text class="function-text">设置</text>
+      </view>
+      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    </view>
+  </view>
+</view> 
