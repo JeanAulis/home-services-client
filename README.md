@@ -4,7 +4,7 @@
 
 
 
-> [!NOTE]
+> [!IMPORTANT]
 >
 > idea创建时添加以下依赖：
 > Spring Web
