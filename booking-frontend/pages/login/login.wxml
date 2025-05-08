@@ -1,4 +1,4 @@
-<view class="login-container">
+<view class="container">
   <text class="title">登录</text>
   <view class="form-group">
     <input placeholder="请输入账号/邮箱/用户名" required="required" type="text" model:value="{{user_num}}" bindinput="onInputUserNum" bindconfirm="onLogin"/>
@@ -9,4 +9,3 @@
   <button type="primary" bindtap="onLogin">登录</button>
   <button type="default" bindtap="goRegister">去注册</button>
 </view>
-<footer-bar />
