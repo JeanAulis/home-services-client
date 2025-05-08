@@ -19,7 +19,7 @@ Page({
   },
   onLogin() {
     wx.request({
-      url: 'http://localhost:8124/api/user/login',
+      url: 'http://localhost:8080/api/user/login',
       method: 'POST',
       data: {
         userNum: this.data.user_num,
