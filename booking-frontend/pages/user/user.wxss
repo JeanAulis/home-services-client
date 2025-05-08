@@ -1,7 +1,10 @@
 .container {
-  padding: 30rpx;
+  padding: 10rpx;
   background-color: #f7f7f7;
   min-height: 100vh;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
 }
 
 /* 用户信息卡片 */
@@ -11,10 +14,11 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  border-radius: 12rpx 12rpx 0 0;
+  padding: 20rpx 30rpx;
+  margin-bottom: 1rpx;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .user-info {
@@ -23,14 +27,14 @@
 }
 
 .avatar-wrapper {
-  margin-right: 30rpx;
+  margin-right: 20rpx;
 }
 
 .avatar {
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 60rpx;
-  border: 4rpx solid #f0f0f0;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+  border: 2rpx solid #f0f0f0;
 }
 
 .user-detail {
@@ -40,14 +44,14 @@
 }
 
 .username {
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #333;
-  margin-bottom: 8rpx;
+  margin-bottom: 4rpx;
 }
 
 .login-btn {
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #1296db;
 }
@@ -56,13 +60,13 @@
   display: flex;
   align-items: center;
   color: #999;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .arrow-icon {
-  width: 32rpx;
-  height: 32rpx;
-  margin-left: 8rpx;
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 4rpx;
 }
 
 /* 资产卡片 */
@@ -70,10 +74,11 @@
   display: flex;
   justify-content: space-around;
   background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx 20rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  padding: 16rpx 0;
+  margin-bottom: 1rpx;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .asset-item {
@@ -84,31 +89,32 @@
 }
 
 .asset-num {
-  font-size: 36rpx;
+  font-size: 30rpx;
   font-weight: 600;
   color: #333;
-  margin-bottom: 8rpx;
+  margin-bottom: 4rpx;
 }
 
 .asset-name {
-  font-size: 26rpx;
+  font-size: 24rpx;
   color: #999;
 }
 
 /* 功能列表 */
 .function-list {
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 0 0 12rpx 12rpx;
   overflow: hidden;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .function-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30rpx;
-  border-bottom: 1rpx solid #f5f5f5;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f2f2f2;
 }
 
 .function-item:last-child {
@@ -121,25 +127,25 @@
 }
 
 .function-icon {
-  width: 40rpx;
-  height: 40rpx;
+  width: 32rpx;
+  height: 32rpx;
   margin-right: 20rpx;
 }
 
 .function-text {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #333;
 }
 
 .info-list {
   border-top: 1rpx solid #eee;
-  padding-top: 20rpx;
+  padding-top: 15rpx;
 }
 
 .info-item {
   display: flex;
   justify-content: space-between;
-  padding: 20rpx 0;
+  padding: 15rpx 0;
   border-bottom: 1rpx solid #eee;
 }
 
@@ -149,18 +155,18 @@
 
 .label {
   color: #666;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .value {
   color: #333;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .action-list {
   background-color: #fff;
   border-radius: 12rpx;
-  padding: 20rpx;
+  padding: 15rpx;
 }
 
 .action-btn {
@@ -168,6 +174,6 @@
   color: #fff;
   border: none;
   border-radius: 8rpx;
-  font-size: 28rpx;
-  padding: 20rpx 0;
+  font-size: 26rpx;
+  padding: 15rpx 0;
 } 
