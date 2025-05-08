@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="setting-list">
+    <view class="setting-item" bindtap="goPrivacy">
+      <view class="setting-left">
+        <text class="setting-text">隐私政策</text>
+      </view>
+      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    </view>
+    
+    <view class="setting-item" bindtap="goPermission">
+      <view class="setting-left">
+        <text class="setting-text">权限管理</text>
+      </view>
+      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    </view>
+    
+    <view class="setting-item" bindtap="clearCache">
+      <view class="setting-left">
+        <text class="setting-text">清除缓存</text>
+      </view>
+      <view class="setting-right">
+        <text class="cache-size">{{cacheSize}}MB</text>
+      </view>
+    </view>
+    
+    <view class="setting-item">
+      <view class="setting-left">
+        <text class="setting-text">当前版本</text>
+      </view>
+      <view class="setting-right">
+        <text class="version">1.0.0</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="logout-btn-wrap" wx:if="{{isLogin}}">
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+</view> 

@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/login/login",
     "pages/logs/logs",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/user/user"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -27,6 +28,12 @@
         "text": "订单",
         "iconPath": "icon/order.png",
         "selectedIconPath": "icon/order-active.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "icon/user.png",
+        "selectedIconPath": "icon/user-active.png"
       }
     ]
   },
