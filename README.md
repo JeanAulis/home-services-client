@@ -7,11 +7,12 @@
 > [!IMPORTANT]
 >
 > idea创建时添加以下依赖：
-> Spring Web
-> Spring Data JPA
-> MySQL Driver
-> Lombok
-> Spring Boot DevTools
+>
+> - Spring Web
+> - Spring Data JPA
+> - MySQL Driver
+> - Lombok
+> - Spring Boot DevTools
 
 
 
