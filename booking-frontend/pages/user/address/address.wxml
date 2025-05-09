@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading">加载中...</view>
+  </view>
+  
+  <view class="address-list" wx:else>
+    <block wx:if="{{addresses.length > 0}}">
+      <view class="address-item" wx:for="{{addresses}}" wx:key="addressId">
+        <view class="address-content" bindtap="editAddress" data-id="{{item.addressId}}">
+          <view class="address-header">
+            <view class="name-phone">
+              <text class="name">{{item.name}}</text>
+              <text class="phone">{{item.phone}}</text>
+            </view>
+          </view>
+          <view class="address-detail">{{item.province}}{{item.city}}{{item.district}}{{item.detailAddress}}</view>
+        </view>
+        <view class="address-actions">
+          <view class="action-item" bindtap="deleteAddress" data-id="{{item.addressId}}">
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <view class="empty-address" wx:else>
+      <image class="empty-icon" src="/icon/address-empty.png"></image>
+      <text class="empty-text">暂无地址信息</text>
+      <text class="empty-tips">请添加新的收货地址</text>
+    </view>
+  </view>
+  
+  <view class="add-btn-container">
+    <button class="add-address-btn" bindtap="addAddress">添加新地址</button>
+  </view>
+</view> 

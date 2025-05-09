@@ -6,7 +6,9 @@
     "pages/register/register",
     "pages/user/user",
     "pages/order/detail/detail",
-    "pages/user/profile/profile"
+    "pages/user/profile/profile",
+    "pages/user/address/address",
+    "pages/user/address/edit/edit"
   ],
   "window": {
     "navigationBarTextStyle": "black",
