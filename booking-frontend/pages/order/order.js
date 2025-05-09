@@ -20,19 +20,43 @@ Page({
   // 检查登录状态
   checkLoginStatus() {
     const userInfo = wx.getStorageSync('userInfo')
-    if (userInfo) {
+    console.log("获取到的用户信息：", userInfo)
+    
+    if (userInfo && userInfo.userInfo && userInfo.userInfo.userNum) {
+      // 直接从userInfo中获取userNum
+      this.setData({
+        userInfo: userInfo.userInfo,
+        isLogin: true
+      })
+      this.getOrderList()
+    } else if (userInfo && userInfo.userNum) {
+      // 兼容直接将userNum存储在userInfo中的情况
       this.setData({
         userInfo: userInfo,
         isLogin: true
       })
       this.getOrderList()
     } else {
-      this.setData({
-        userInfo: {},
-        isLogin: false,
-        orderList: [],
-        loading: false
-      })
+      // 如果没有找到userNum，尝试从localStorage获取
+      const userNum = wx.getStorageSync('userNum')
+      if (userNum) {
+        const userInfoObj = userInfo || {}
+        userInfoObj.userNum = userNum
+        this.setData({
+          userInfo: userInfoObj,
+          isLogin: true
+        })
+        this.getOrderList()
+      } else {
+        // 真的没找到userNum，显示未登录状态
+        console.log("没有找到用户账号，显示未登录状态")
+        this.setData({
+          userInfo: {},
+          isLogin: false,
+          orderList: [],
+          loading: false
+        })
+      }
     }
   },
 
@@ -45,25 +69,58 @@ Page({
 
   // 跳转首页下单
   goOrder() {
-    wx.navigateTo({
-      url: 'pages/index/index'
+    wx.switchTab({
+      url: '/pages/index/index'
     })
   },
 
   // 获取订单列表
   getOrderList() {
     this.setData({ loading: true })
-    // 这里应该是调用接口获取订单列表
+    
+    // 检查userNum是否存在
+    const userNum = this.data.userInfo.userNum
+    console.log("当前用户账号:", userNum)
+    
+    if (!userNum) {
+      console.log("用户账号不存在，无法获取订单")
+      wx.showToast({
+        title: '登录信息异常，请重新登录',
+        icon: 'none'
+      })
+      this.setData({
+        orderList: [],
+        loading: false
+      })
+      return
+    }
+    
     wx.request({
       url: 'http://localhost:8080/api/order/list',
       method: 'GET',
       data: {
-        userNum: this.data.userInfo.userNum
+        userNum: userNum
       },
       success: res => {
+        console.log("订单接口返回数据:", res.data)
+        
         if (res.data.code === 200) {
+          const orders = res.data.data || []
+          
+          const formattedOrders = orders.map(order => {
+            return {
+              orderId: order.orderId,
+              orderTime: order.created_at ? new Date(order.created_at).toLocaleString() : '未知时间',
+              orderStatus: this.formatOrderStatus(order.orderStatus),
+              orderAmount: order.orderAmount,
+              serviceName: order.serviceName
+            }
+          })
+          
+          console.log("格式化后的订单数据:", formattedOrders)
+          
           this.setData({
-            orderList: res.data.data || [],
+            orderList: formattedOrders,
             loading: false
           })
         } else {
@@ -77,8 +134,9 @@ Page({
           })
         }
       },
-      fail: () => {
-        // 模拟数据，后端接口完成后可移除
+      fail: (err) => {
+        console.error("获取订单失败:", err)
+        
         const mockOrders = [
           {
             orderId: 'O202306150001',
@@ -102,6 +160,18 @@ Page({
         })
       }
     })
+  },
+
+  // 添加状态格式化方法
+  formatOrderStatus(status) {
+    const statusMap = {
+      'PENDING': '待支付',
+      'PAID': '已支付',
+      'PROCESSING': '进行中',
+      'COMPLETED': '已完成',
+      'CANCELLED': '已取消'
+    }
+    return statusMap[status] || status
   },
 
   // 查看订单详情
