@@ -1,5 +1,5 @@
 /booking-frontend/images
-/booking-frontend/icon
+# /booking-frontend/icon
 /booking-frontend/icon_svg
 /booking-api/src/main/resources/application.properties
 *.sql
