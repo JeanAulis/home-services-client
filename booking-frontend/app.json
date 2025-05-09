@@ -2,9 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/login/login",
-    "pages/logs/logs",
+    "pages/order/order",
     "pages/register/register",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/order/detail/detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -24,7 +25,7 @@
         "selectedIconPath": "icon/home-active.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/order/order",
         "text": "订单",
         "iconPath": "icon/order.png",
         "selectedIconPath": "icon/order-active.png"
