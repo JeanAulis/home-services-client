@@ -10,9 +10,11 @@
         <view wx:else class="login-btn" bindtap="goLogin">点击登录</view>
       </view>
     </view>
-    <view class="more-btn" bindtap="goProfile">
-      <text>更多</text>
-      <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+    <view class="more-section" bindtap="goProfile">
+      <view class="more-btn">
+        <text>更多</text>
+        <image class="arrow-icon" src="/icon/arrow-right.png"></image>
+      </view>
     </view>
   </view>
 

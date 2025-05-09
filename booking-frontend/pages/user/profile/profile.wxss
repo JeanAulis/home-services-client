@@ -1,29 +1,48 @@
 .container {
   padding: 30rpx;
+  width: 100%;
   background-color: #f7f7f7;
   min-height: 100vh;
 }
 
 .profile-card {
   background-color: #fff;
-  border-radius: 16rpx;
+  border-radius: 12rpx;
   padding: 30rpx;
+  width: 95%;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
 }
 
 .title {
-  font-size: 34rpx;
-  font-weight: 600;
-  color: #333;
+  font-size: 36rpx;
+  font-weight: bold;
   margin-bottom: 30rpx;
   display: block;
+  color: #333;
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 20rpx;
 }
 
 .content {
+  padding: 10rpx 0;
+}
+
+.info-item {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 300rpx;
+  padding: 25rpx 0;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+
+.label {
+  color: #666;
+  font-size: 30rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 30rpx;
 }
 
 .placeholder {
