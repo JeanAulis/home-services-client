@@ -3,3 +3,4 @@
 /booking-frontend/icon_svg
 /booking-api/src/main/resources/application.properties
 *.sql
+.vscode/settings.json
