@@ -30,6 +30,7 @@
     <view wx:else class="empty-container">
       <image class="empty-icon" src="/icon/empty-order.png"></image>
       <text class="empty-text">暂无订单</text>
+      <button class="go-order" bindtap="goOrder">去下单</button>
     </view>
   </view>
   

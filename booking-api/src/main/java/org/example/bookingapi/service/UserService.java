@@ -6,4 +6,6 @@ public interface UserService {
     UserInfo register(UserInfo userInfo);
     UserInfo login(String userName, String password);
     boolean isUserNameExist(String userName);
+    boolean isUserNumExist(String userNum);
+    UserInfo getUserByUserNum(String userNum);
 }
