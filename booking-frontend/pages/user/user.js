@@ -15,6 +15,7 @@ Page({
   // 检查登录状态
   checkLoginStatus() {
     const userInfo = wx.getStorageSync('userInfo')
+    console.log('获取到的userInfo:', userInfo || null)
     if (userInfo) {
       // 确保积分、优惠券、收藏有默认值
       const updatedUserInfo = {
@@ -23,6 +24,7 @@ Page({
         coupons: userInfo.coupons || 1,
         collections: userInfo.collections || 0
       }
+      console.log('更新后的userInfo:', updatedUserInfo)
       this.setData({
         userInfo: updatedUserInfo,
         isLogin: true
@@ -42,7 +44,7 @@ Page({
     })
   },
 
-  // 跳转到个人资料
+  // 跳转到个人资料页面，处理 "更多" 按钮的点击
   goProfile() {
     if (!this.data.isLogin) {
       wx.showToast({
@@ -54,9 +56,26 @@ Page({
       }, 1000)
       return
     }
-    wx.navigateTo({
-      url: '/pages/user/profile/profile'
-    })
+    
+    // 检查profile页面是否存在并完善
+    try {
+      wx.navigateTo({
+        url: '/pages/user/profile/profile',
+        fail: (err) => {
+          console.error('导航到个人资料页面失败:', err);
+          wx.showToast({
+            title: '个人资料页面正在开发中',
+            icon: 'none'
+          })
+        }
+      })
+    } catch (err) {
+      console.error('跳转到个人资料页面出错:', err);
+      wx.showToast({
+        title: '个人资料页面暂不可用',
+        icon: 'none'
+      })
+    }
   },
 
   // 跳转到积分页面

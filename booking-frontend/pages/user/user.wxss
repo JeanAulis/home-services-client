@@ -57,6 +57,12 @@
   color: #1296db;
 }
 
+.more-section {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
 .more-btn {
   display: flex;
   align-items: center;

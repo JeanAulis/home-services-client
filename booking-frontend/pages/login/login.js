@@ -37,9 +37,27 @@ Page({
         userPasswd: this.data.user_passwd
       },
       success: res => {
+        console.log('登录响应数据:', res.data);
         if (res.data.code === 200) {
+          // 获取用户信息和资产信息
+          const serverUserInfo = res.data.data.userInfo || {};
+          const serverAssets = res.data.data.assets || {};
+          
+          // 确保用户信息包含必要字段
+          const userInfo = {
+            userId: serverUserInfo.userId,
+            userNum: serverUserInfo.userNum,
+            userName: serverUserInfo.userName,
+            userEmail: serverUserInfo.userEmail, 
+            avatarUrl: serverUserInfo.avatarUrl || '/icon/default-avatar.png',
+            points: serverAssets.points || 0,
+            coupons: serverAssets.coupons || 0,
+            collections: serverAssets.collections || 0
+          };
+          console.log('准备保存的用户信息:', userInfo);
+          
           // 存储用户信息到本地
-          wx.setStorageSync('userInfo', res.data.data);
+          wx.setStorageSync('userInfo', userInfo);
           wx.showToast({ title: '登录成功', icon: 'success' });
           
           // 获取当前页面栈
@@ -59,7 +77,8 @@ Page({
           wx.showToast({ title: res.data.msg || '登录失败', icon: 'none' });
         }
       },
-      fail: () => {
+      fail: (err) => {
+        console.error('登录请求失败:', err);
         wx.showToast({ 
           title: '网络错误，请稍后再试', 
           icon: 'none' 
