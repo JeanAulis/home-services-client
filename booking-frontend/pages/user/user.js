@@ -16,8 +16,15 @@ Page({
   checkLoginStatus() {
     const userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
+      // 确保积分、优惠券、收藏有默认值
+      const updatedUserInfo = {
+        ...userInfo,
+        points: userInfo.points || 100,
+        coupons: userInfo.coupons || 1,
+        collections: userInfo.collections || 0
+      }
       this.setData({
-        userInfo: userInfo,
+        userInfo: updatedUserInfo,
         isLogin: true
       })
     } else {

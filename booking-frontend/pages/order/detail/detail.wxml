@@ -1,0 +1,73 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading"></view>
+    <text>加载中...</text>
+  </view>
+  
+  <view wx:elif="{{orderDetail}}" class="order-detail">
+    <view class="status-card">
+      <view class="status-header">
+        <text class="status-text">{{orderDetail.orderStatus}}</text>
+      </view>
+      <view class="service-name">{{orderDetail.serviceName}}</view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">订单信息</view>
+      <view class="info-item">
+        <text class="info-label">订单编号</text>
+        <text class="info-value">{{orderDetail.orderId}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">下单时间</text>
+        <text class="info-value">{{orderDetail.orderTime}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">服务时间</text>
+        <text class="info-value">{{orderDetail.serviceTime}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">服务金额</text>
+        <text class="info-value price">¥{{orderDetail.orderAmount}}</text>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">联系信息</view>
+      <view class="info-item">
+        <text class="info-label">联系人</text>
+        <text class="info-value">{{orderDetail.contactName}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">联系电话</text>
+        <text class="info-value">{{orderDetail.contactPhone}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">服务地址</text>
+        <text class="info-value">{{orderDetail.address}}</text>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-title">支付信息</view>
+      <view class="info-item">
+        <text class="info-label">支付方式</text>
+        <text class="info-value">{{orderDetail.paymentMethod}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">支付时间</text>
+        <text class="info-value">{{orderDetail.paymentTime}}</text>
+      </view>
+    </view>
+    
+    <view wx:if="{{orderDetail.remarks}}" class="info-card">
+      <view class="card-title">备注信息</view>
+      <view class="remark-content">{{orderDetail.remarks}}</view>
+    </view>
+  </view>
+  
+  <view wx:else class="error-container">
+    <image class="error-icon" src="/icon/error.png"></image>
+    <text class="error-text">订单信息获取失败</text>
+  </view>
+</view> 
