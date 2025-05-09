@@ -7,17 +7,23 @@
   <view class="address-list" wx:else>
     <block wx:if="{{addresses.length > 0}}">
       <view class="address-item" wx:for="{{addresses}}" wx:key="addressId">
-        <view class="address-content" bindtap="editAddress" data-id="{{item.addressId}}">
+        <view class="address-content" bindtap="editAddress" data-id="{{item.addressId || item.id}}">
           <view class="address-header">
             <view class="name-phone">
-              <text class="name">{{item.name}}</text>
-              <text class="phone">{{item.phone}}</text>
+              <text class="name">{{item.receiverName || item.name || '未设置'}}</text>
+              <text class="phone">{{item.phone || '未设置'}}</text>
             </view>
+            <view class="default-tag" wx:if="{{item.isDefault}}">默认</view>
           </view>
-          <view class="address-detail">{{item.province}}{{item.city}}{{item.district}}{{item.detailAddress}}</view>
+          <view class="address-detail">
+            {{item.province || ''}}{{item.city || ''}}{{item.district || ''}}{{item.detail || ''}}
+          </view>
         </view>
         <view class="address-actions">
-          <view class="action-item" bindtap="deleteAddress" data-id="{{item.addressId}}">
+          <view class="action-item" bindtap="setDefault" data-id="{{item.addressId || item.id}}" wx:if="{{!item.isDefault}}">
+            <text>设为默认</text>
+          </view>
+          <view class="action-item" bindtap="deleteAddress" data-id="{{item.addressId || item.id}}">
             <text>删除</text>
           </view>
         </view>

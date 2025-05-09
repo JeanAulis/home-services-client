@@ -37,6 +37,19 @@ public class UserAddressController {
         }
     }
     
+    @GetMapping("/get")
+    public Object getAddressById(@RequestParam Long id, @RequestParam String userNum) {
+        try {
+            UserAddress address = userAddressService.getAddressById(id, userNum);
+            if (address == null) {
+                return new Result(404, "地址不存在", null);
+            }
+            return new Result(200, "获取地址详情成功", address);
+        } catch (Exception e) {
+            return new Result(500, "获取地址详情失败: " + e.getMessage(), null);
+        }
+    }
+    
     @PostMapping("/add")
     public Object addAddress(@RequestBody UserAddress address) {
         try {

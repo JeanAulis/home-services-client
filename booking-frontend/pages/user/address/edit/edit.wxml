@@ -14,8 +14,10 @@
       <text class="form-label">所在地区</text>
       <picker mode="region" bindchange="onRegionChange" value="{{region}}">
         <view class="picker-view">
-          <text class="picker-text">{{province || ''}}{{city ? ' ' + city : ''}}{{district ? ' ' + district : ''}}</text>
-          <text class="picker-placeholder" wx:if="{{!province && !city && !district}}">请选择所在地区</text>
+          <view class="picker-content">
+            <text class="picker-text" wx:if="{{province && city && district}}">{{province || ''}}{{city ? ' ' + city : ''}}{{district ? ' ' + district : ''}}</text>
+            <text class="picker-placeholder" wx:else>请选择所在地区</text>
+          </view>
           <image class="arrow-icon" src="/icon/arrow-right.png"></image>
         </view>
       </picker>
@@ -23,7 +25,14 @@
     
     <view class="form-item">
       <text class="form-label">详细地址</text>
-      <textarea class="form-textarea" value="{{detailAddress}}" placeholder="请输入详细地址信息，如街道、小区、楼栋号、单元室等" bindinput="onDetailAddressInput" />
+      <textarea class="form-textarea" value="{{detail}}" placeholder="请输入详细地址信息，如街道、小区、楼栋号、单元室等" bindinput="onDetailAddressInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="default-switch">
+        <text class="switch-label">设为默认收货地址</text>
+        <switch checked="{{isDefault}}" bindchange="onDefaultChange" color="#1296db" />
+      </view>
     </view>
   </view>
   

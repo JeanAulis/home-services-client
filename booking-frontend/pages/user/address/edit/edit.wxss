@@ -11,6 +11,7 @@
 .form-group {
   background-color: #fff;
   border-radius: 12rpx;
+  width: 95%;
   padding: 0 30rpx;
   margin-bottom: 30rpx;
 }
@@ -54,6 +55,13 @@
   justify-content: space-between;
 }
 
+.picker-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .picker-text {
   font-size: 28rpx;
   color: #333;
@@ -62,11 +70,13 @@
 .picker-placeholder {
   font-size: 28rpx;
   color: #999;
+  text-align: left;
 }
 
 .arrow-icon {
   width: 24rpx;
   height: 24rpx;
+  flex-shrink: 0;
 }
 
 .btn-container {
@@ -80,4 +90,16 @@
   font-size: 30rpx;
   border-radius: 8rpx;
   width: 100%;
+}
+
+.default-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.switch-label {
+  font-size: 28rpx;
+  color: #333;
 } 
