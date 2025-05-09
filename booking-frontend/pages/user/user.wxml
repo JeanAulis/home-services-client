@@ -50,4 +50,9 @@
       <image class="arrow-icon" src="/icon/arrow-right.png"></image>
     </view>
   </view>
+  
+  <!-- 退出登录按钮 -->
+  <view wx:if="{{isLogin}}" class="logout-container">
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
 </view> 

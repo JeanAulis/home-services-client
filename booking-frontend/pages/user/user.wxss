@@ -177,4 +177,20 @@
   border-radius: 8rpx;
   font-size: 26rpx;
   padding: 15rpx 0;
+}
+
+/* 退出登录按钮样式 */
+.logout-container {
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logout-btn {
+  background-color: #f8f8f8;
+  color: #ff4d4f;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+  width: 100%;
 } 
