@@ -26,6 +26,15 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
+    public UserAddress getAddressById(Long id, String userNum) {
+        Optional<UserAddress> address = userAddressRepository.findById(id);
+        if (address.isEmpty() || !address.get().getUserNum().equals(userNum)) {
+            return null;
+        }
+        return address.get();
+    }
+
+    @Override
     @Transactional
     public UserAddress addAddress(UserAddress address) {
         // 如果是设为默认地址，先将其他地址设为非默认

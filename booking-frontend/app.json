@@ -8,7 +8,8 @@
     "pages/order/detail/detail",
     "pages/user/profile/profile",
     "pages/user/address/address",
-    "pages/user/address/edit/edit"
+    "pages/user/address/edit/edit",
+    "pages/user/setting/setting"
   ],
   "window": {
     "navigationBarTextStyle": "black",

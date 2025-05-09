@@ -11,6 +11,9 @@ public interface UserAddressService {
     // 获取用户默认地址
     UserAddress getDefaultAddress(String userNum);
     
+    // 获取单个地址详情
+    UserAddress getAddressById(Long id, String userNum);
+    
     // 添加新地址
     UserAddress addAddress(UserAddress address);
     
