@@ -37,14 +37,14 @@ Page({
   // 前往隐私政策
   goPrivacy() {
     wx.navigateTo({
-      url: '/pages/user/privacy/privacy'
+      url: '/pages/user/setting/privacy/privacy'
     })
   },
 
   // 前往权限管理
   goPermission() {
     wx.navigateTo({
-      url: '/pages/user/permission/permission'
+      url: '/pages/user/setting/permission/permission'
     })
   },
 

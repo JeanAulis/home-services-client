@@ -1,6 +1,7 @@
 .container {
   padding: 30rpx;
   background-color: #f7f7f7;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -10,6 +11,7 @@
   overflow: hidden;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
   margin-bottom: 30rpx;
+  width: 95%;
 }
 
 .setting-item {
