@@ -38,7 +38,13 @@ Page({
   // 跳转到个人资料
   goProfile() {
     if (!this.data.isLogin) {
-      this.goLogin()
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.goLogin()
+      }, 1000)
       return
     }
     wx.navigateTo({
@@ -49,7 +55,13 @@ Page({
   // 跳转到积分页面
   goPoints() {
     if (!this.data.isLogin) {
-      this.goLogin()
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.goLogin()
+      }, 1000)
       return
     }
     wx.navigateTo({
@@ -60,7 +72,13 @@ Page({
   // 跳转到优惠券页面
   goCoupons() {
     if (!this.data.isLogin) {
-      this.goLogin()
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.goLogin()
+      }, 1000)
       return
     }
     wx.navigateTo({
@@ -71,7 +89,13 @@ Page({
   // 跳转到收藏页面
   goCollection() {
     if (!this.data.isLogin) {
-      this.goLogin()
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.goLogin()
+      }, 1000)
       return
     }
     wx.navigateTo({
@@ -82,7 +106,13 @@ Page({
   // 跳转到地址管理
   goAddress() {
     if (!this.data.isLogin) {
-      this.goLogin()
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        this.goLogin()
+      }, 1000)
       return
     }
     wx.navigateTo({
@@ -92,6 +122,10 @@ Page({
 
   // 跳转到设置页面
   goSetting() {
+    if (!this.data.isLogin) {
+      this.goLogin()
+      return
+    }
     wx.navigateTo({
       url: '/pages/user/setting/setting'
     })
@@ -105,9 +139,14 @@ Page({
         if (res.confirm) {
           // 清除本地存储的用户信息
           wx.removeStorageSync('userInfo')
-          // 跳转到登录页
-          wx.reLaunch({
-            url: '/pages/login/login'
+          // 刷新当前页面状态
+          this.setData({
+            userInfo: {},
+            isLogin: false
+          })
+          wx.showToast({
+            title: '已退出登录',
+            icon: 'success'
           })
         }
       }
