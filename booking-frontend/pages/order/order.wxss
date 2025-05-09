@@ -139,7 +139,7 @@
 }
 
 .not-login-bg {
-  width: 300rpx;
+  width: 450rpx;
   height: 300rpx;
   margin-bottom: 30rpx;
 }
@@ -150,10 +150,20 @@
   margin-bottom: 40rpx;
 }
 
+.go-order {
+  margin-top: 100rpx;
+  width: 240rpx;
+  height: 80rpx;
+  background-color: #1296db;
+  color: #ffffff;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+}
+
 .login-btn {
   width: 240rpx;
   height: 80rpx;
-  line-height: 80rpx;
+  /* line-height: 80rpx; */
   background-color: #1296db;
   color: #ffffff;
   font-size: 32rpx;

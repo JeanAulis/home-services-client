@@ -23,13 +23,24 @@ public class UserServiceImpl implements UserService {
                 return null; // 邮箱格式不合法
             }
         }
-        // 密码加密
-        userInfo.setUserPasswd(MD5Util.md5(userInfo.getUserPasswd()));
         // 自动生成账号（userNum），与触发器逻辑一致
         if (userInfo.getUserNum() == null || userInfo.getUserNum().isEmpty()) {
-            String random = java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);
-            userInfo.setUserNum("dict" + random);
+            // 生成一个不重复的userNum
+            String random;
+            String userNum;
+            do {
+                random = java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);
+                userNum = "dict" + random;
+            } while (isUserNumExist(userNum));
+            userInfo.setUserNum(userNum);
+        } else {
+            // 如果用户主动提供了userNum，检查是否已存在
+            if (isUserNumExist(userInfo.getUserNum())) {
+                return null; // 账号已存在
+            }
         }
+        // 密码加密
+        userInfo.setUserPasswd(MD5Util.md5(userInfo.getUserPasswd()));
         return userRepository.save(userInfo);
     }
 
@@ -55,5 +66,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserNameExist(String userName) {
         return userRepository.findByUserName(userName) != null;
+    }
+    
+    @Override
+    public boolean isUserNumExist(String userNum) {
+        return userRepository.existsByUserNum(userNum);
+    }
+    
+    @Override
+    public UserInfo getUserByUserNum(String userNum) {
+        return userRepository.findByUserNum(userNum);
     }
 }

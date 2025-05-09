@@ -43,6 +43,13 @@ Page({
     })
   },
 
+  // 跳转首页下单
+  goOrder() {
+    wx.navigateTo({
+      url: 'pages/index/index'
+    })
+  },
+
   // 获取订单列表
   getOrderList() {
     this.setData({ loading: true })

@@ -25,6 +25,9 @@ public class UserInfo {
 
     @Column(name = "other")
     private String other;
+    
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 
     // getter 和 setter
     public Integer getUserId() { return userId; }
@@ -39,4 +42,6 @@ public class UserInfo {
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
     public String getOther() { return other; }
     public void setOther(String other) { this.other = other; }
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 } 
