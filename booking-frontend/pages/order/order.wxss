@@ -226,7 +226,7 @@ scroll-view {
 .login-btn {
   width: 280rpx;
   height: 90rpx;
-  line-height: 90rpx;
+  /* line-height: 90rpx; */
   background-color: #1296db;
   color: #ffffff;
   font-size: 34rpx;
