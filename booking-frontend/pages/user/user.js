@@ -148,10 +148,6 @@ Page({
 
   // 跳转到设置页面
   goSetting() {
-    if (!this.data.isLogin) {
-      this.goLogin()
-      return
-    }
     wx.navigateTo({
       url: '/pages/user/setting/setting'
     })

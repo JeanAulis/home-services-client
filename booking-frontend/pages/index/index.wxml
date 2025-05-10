@@ -1,6 +1,64 @@
 <!--index.wxml-->
+<!-- 自定义导航栏 -->
+<nav-bar 
+  title="首页" 
+  textStyle="black" 
+  leftButtonType="search" 
+  showSearch="{{false}}"
+  scrollTrigger="{{80}}"
+></nav-bar>
+
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
+    <!-- 顶部轮播图 -->
+    <view class="banner-section">
+      <swiper class="banner" indicator-dots autoplay circular>
+        <swiper-item wx:for="{{banners}}" wx:key="index">
+          <image src="{{item.imageUrl}}" mode="aspectFill" class="banner-image"></image>
+        </swiper-item>
+      </swiper>
+    </view>
     
+    <!-- 服务分类 -->
+    <view class="category-section">
+      <view class="section-title">服务分类</view>
+      <view class="category-list">
+        <view class="category-item" wx:for="{{categories}}" wx:key="id">
+          <image class="category-icon" src="{{item.iconUrl}}"></image>
+          <text class="category-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 热门服务 -->
+    <view class="popular-section">
+      <view class="section-title">热门服务</view>
+      <view class="service-list">
+        <view class="service-item" wx:for="{{popularServices}}" wx:key="id">
+          <image class="service-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+          <view class="service-info">
+            <text class="service-name">{{item.name}}</text>
+            <text class="service-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 推荐服务商 -->
+    <view class="provider-section">
+      <view class="section-title">推荐服务商</view>
+      <view class="provider-list">
+        <view class="provider-item" wx:for="{{providers}}" wx:key="id">
+          <image class="provider-avatar" src="{{item.avatarUrl}}" mode="aspectFill"></image>
+          <view class="provider-info">
+            <text class="provider-name">{{item.name}}</text>
+            <view class="provider-rating">
+              <text class="rating-score">{{item.rating}}</text>
+              <text class="rating-count">{{item.ratingCount}}条评价</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </scroll-view>

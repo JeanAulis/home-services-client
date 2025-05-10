@@ -3,6 +3,7 @@ Page({
     userInfo: {},
     isLogin: false,
     orderList: [],
+    originalOrderList: [], // 存储原始订单列表
     loading: true
   },
 
@@ -54,6 +55,7 @@ Page({
           userInfo: {},
           isLogin: false,
           orderList: [],
+          originalOrderList: [],
           loading: false
         })
       }
@@ -90,6 +92,7 @@ Page({
       })
       this.setData({
         orderList: [],
+        originalOrderList: [],
         loading: false
       })
       return
@@ -121,11 +124,13 @@ Page({
           
           this.setData({
             orderList: formattedOrders,
+            originalOrderList: formattedOrders, // 保存原始数据
             loading: false
           })
         } else {
           this.setData({
             orderList: [],
+            originalOrderList: [],
             loading: false
           })
           wx.showToast({
@@ -156,6 +161,7 @@ Page({
         
         this.setData({
           orderList: mockOrders,
+          originalOrderList: mockOrders, // 保存原始数据
           loading: false
         })
       }
@@ -180,5 +186,36 @@ Page({
     wx.navigateTo({
       url: `/pages/order/detail/detail?id=${orderId}`
     })
+  },
+
+  // 搜索订单
+  onSearchOrder(e) {
+    const keyword = e.detail.value;
+    console.log('搜索订单:', keyword);
+    
+    if (!keyword) {
+      // 如果搜索词为空，显示所有订单
+      this.setData({
+        orderList: this.data.originalOrderList
+      });
+      return;
+    }
+    
+    // 搜索订单号、服务名称或状态
+    const filteredOrders = this.data.originalOrderList.filter(order => {
+      return order.orderId.toLowerCase().includes(keyword.toLowerCase()) || 
+             order.serviceName.toLowerCase().includes(keyword.toLowerCase()) ||
+             order.orderStatus.includes(keyword);
+    });
+    
+    this.setData({
+      orderList: filteredOrders
+    });
+    
+    // 提示搜索结果
+    wx.showToast({
+      title: `找到 ${filteredOrders.length} 个订单`,
+      icon: 'none'
+    });
   }
 }) 

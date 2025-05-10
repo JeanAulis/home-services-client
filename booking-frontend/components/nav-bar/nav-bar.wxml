@@ -1,0 +1,58 @@
+<view>
+  <view class="custom-nav" style="background-color: {{navBgColor}};">
+    <!-- 状态栏 -->
+    <view class="status-bar" style="height: {{statusBarHeight}}px"></view>
+    
+    <!-- 导航栏 -->
+    <view class="nav-bar" style="height: {{navBarHeight}}px">
+      <!-- 左侧按钮 -->
+      <view wx:if="{{leftButtonType !== 'none'}}" class="nav-left {{textStyle}}" bindtap="handleLeftButtonTap">
+        <!-- 返回按钮 -->
+        <view wx:if="{{leftButtonType === 'back'}}" class="circle-button">
+          <view class="back-icon"></view>
+        </view>
+        
+        <!-- 首页按钮 -->
+        <view wx:elif="{{leftButtonType === 'home'}}" class="circle-button">
+          <view class="home-icon"></view>
+        </view>
+        
+        <!-- 搜索按钮 -->
+        <view wx:elif="{{leftButtonType === 'search'}}" class="circle-button">
+          <view class="search-icon"></view>
+        </view>
+      </view>
+      
+      <!-- 标题或搜索框 -->
+      <block wx:if="{{showSearch && showSearchInput}}">
+        <view class="search-container">
+          <input 
+            class="search-input"
+            placeholder="{{searchPlaceholder}}"
+            placeholder-class="placeholder-dark"
+            value="{{searchValue}}"
+            bindinput="onSearchInput"
+            bindconfirm="onSearchConfirm"
+            confirm-type="search"
+            focus="{{showSearchInput}}"
+            style="color: #333333;"
+          />
+          <view class="search-btn" style="color: #333333;" bindtap="doSearch">搜索</view>
+        </view>
+      </block>
+      <block wx:elif="{{showSearch && !showSearchInput}}">
+        <view class="nav-title {{textStyle}}">{{title}}</view>
+        <view class="search-entry {{textStyle}}" bindtap="toggleSearchInput">
+          <view class="search-icon-small"></view>
+          <text>{{searchPlaceholder}}</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="nav-title {{textStyle}}">{{title}}</view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 占位元素，保持页面内容不被导航栏遮挡 -->
+  <view style="width: 100%; height: {{totalHeight}}px;"></view>
+</view>
