@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "地址管理",
-  "usingComponents": {}
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  }
 } 

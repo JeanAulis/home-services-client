@@ -16,15 +16,9 @@ Page({
   // 检查登录状态
   checkLoginStatus() {
     const userInfo = wx.getStorageSync('userInfo')
-    if (userInfo) {
-      this.setData({
-        isLogin: true
-      })
-    } else {
-      this.setData({
-        isLogin: false
-      })
-    }
+    this.setData({
+      isLogin: !!userInfo
+    })
   },
 
   // 获取缓存大小（模拟）
@@ -68,6 +62,13 @@ Page({
 
   // 退出登录
   onLogout() {
+    if (!this.data.isLogin) {
+      wx.navigateTo({
+        url: '/pages/login/login'
+      })
+      return
+    }
+
     wx.showModal({
       title: '提示',
       content: '确定要退出登录吗？',

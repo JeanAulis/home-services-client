@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "我的订单"
+  "navigationBarTitleText": "订单",
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  }
 } 

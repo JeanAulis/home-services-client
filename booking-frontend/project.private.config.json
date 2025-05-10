@@ -16,6 +16,13 @@
           "scene": null
         },
         {
+          "name": "pages/user/setting/permission/permission",
+          "pathName": "pages/user/setting/permission/permission",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/register/register",
           "pathName": "pages/register/register",
           "query": "",

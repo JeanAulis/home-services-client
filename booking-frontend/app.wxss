@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
+  justify-content: flex-start;
+  padding: 0;
   box-sizing: border-box;
+  padding-top: 180rpx; /* 适应导航栏高度 */
 } 

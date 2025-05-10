@@ -1,6 +1,7 @@
 Page({
   data: {
     addresses: [],
+    originalAddresses: [],
     isLoading: true
   },
 
@@ -61,7 +62,8 @@ Page({
           addresses = this.sortAddresses(addresses);
           
           this.setData({
-            addresses: addresses
+            addresses: addresses,
+            originalAddresses: addresses
           })
         } else {
           wx.showToast({
@@ -250,5 +252,40 @@ Page({
         wx.hideLoading()
       }
     })
+  },
+  
+  // 搜索地址
+  onSearchAddress(e) {
+    const keyword = e.detail.value;
+    console.log('搜索地址:', keyword);
+    
+    if (!keyword) {
+      // 如果搜索词为空，显示所有地址
+      this.setData({
+        addresses: this.data.originalAddresses
+      });
+      return;
+    }
+    
+    // 搜索收件人姓名、电话或地址内容
+    const filteredAddresses = this.data.originalAddresses.filter(address => {
+      const name = address.receiverName || address.name || '';
+      const phone = address.phone || '';
+      const addressDetail = `${address.province || ''}${address.city || ''}${address.district || ''}${address.detail || ''}`;
+      
+      return name.includes(keyword) || 
+             phone.includes(keyword) || 
+             addressDetail.includes(keyword);
+    });
+    
+    this.setData({
+      addresses: filteredAddresses
+    });
+    
+    // 提示搜索结果
+    wx.showToast({
+      title: `找到 ${filteredAddresses.length} 个地址`,
+      icon: 'none'
+    });
   }
 }) 

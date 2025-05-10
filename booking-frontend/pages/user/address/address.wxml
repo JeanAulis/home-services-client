@@ -1,3 +1,11 @@
+<!-- 自定义导航栏 -->
+<nav-bar 
+  title="地址管理" 
+  textStyle="black" 
+  leftButtonType="back" 
+  showSearch="{{false}}"
+></nav-bar>
+
 <view class="container">
   <!-- 加载中提示 -->
   <view class="loading-container" wx:if="{{isLoading}}">

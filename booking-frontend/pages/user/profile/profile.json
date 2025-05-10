@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "个人资料",
-  "usingComponents": {}
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  }
 } 

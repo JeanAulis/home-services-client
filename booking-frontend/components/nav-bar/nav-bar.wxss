@@ -1,0 +1,191 @@
+.custom-nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: background-color 0.3s ease-out;
+}
+
+.nav-bar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-left {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.circle-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-icon {
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(45deg);
+}
+
+.home-icon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  position: relative;
+}
+
+.home-icon::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid currentColor;
+}
+
+.search-icon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  position: relative;
+}
+
+.search-icon::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 6px;
+  background-color: currentColor;
+  bottom: -5px;
+  right: -1px;
+  transform: rotate(-45deg);
+}
+
+.search-icon-small {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 4px;
+}
+
+.search-icon-small::after {
+  content: '';
+  position: absolute;
+  width: 1.5px;
+  height: 4px;
+  background-color: currentColor;
+  bottom: -3px;
+  right: -1px;
+  transform: rotate(-45deg);
+}
+
+.nav-title {
+  font-size: 17px;
+  font-weight: 500;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 30px;
+}
+
+.search-input {
+  flex: 1;
+  height: 100%;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: inherit;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.search-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 16px;
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: #333333;
+}
+
+/* 白色样式 */
+.white {
+  color: #FFFFFF;
+}
+
+.white .back-icon, .white .home-icon, .white .search-icon, .white .search-icon-small {
+  border-color: #333333;
+}
+
+.placeholder-white {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 黑色样式 */
+.black {
+  color: #000000;
+}
+
+.black .back-icon, .black .home-icon, .black .search-icon, .black .search-icon-small {
+  border-color: #333333;
+}
+
+.placeholder-black {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* 图标在白色按钮上的颜色 */
+.circle-button .back-icon,
+.circle-button .home-icon,
+.circle-button .search-icon {
+  border-color: #333333;
+}
+
+.placeholder-dark {
+  color: rgba(0, 0, 0, 0.3);
+} 

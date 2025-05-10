@@ -5,6 +5,7 @@
 
 .header {
   margin-bottom: 40rpx;
+  width: 100%;
 }
 
 .title {
