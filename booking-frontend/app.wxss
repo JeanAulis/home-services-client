@@ -1,4 +1,8 @@
 /**app.wxss**/
+:root {
+  --nav-bar-height: 0px; /* 这个值会在组件里动态设置 */
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -8,4 +12,11 @@
   padding: 0;
   box-sizing: border-box;
   padding-top: 180rpx; /* 适应导航栏高度 */
+} 
+
+.page-scroll {
+  width: 100%;
+  height: calc(100vh - var(--nav-bar-height));
+  position: fixed;
+  top: var(--nav-bar-height);
 } 

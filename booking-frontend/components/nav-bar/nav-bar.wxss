@@ -5,6 +5,7 @@
   left: 0;
   z-index: 999;
   transition: background-color 0.3s ease-out;
+  background-color: transparent !important;
 }
 
 .nav-bar {
@@ -183,7 +184,11 @@
 .circle-button .back-icon,
 .circle-button .home-icon,
 .circle-button .search-icon {
-  border-color: #333333;
+  border-color: #333333 !important;
+}
+
+.circle-button .search-icon::after {
+  background-color: #333333 !important;
 }
 
 .placeholder-dark {

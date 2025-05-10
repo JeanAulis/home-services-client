@@ -1,5 +1,5 @@
 <view>
-  <view class="custom-nav" style="background-color: {{navBgColor}};">
+  <view class="custom-nav" style="background-color: {{navBgColor}} !important;">
     <!-- 状态栏 -->
     <view class="status-bar" style="height: {{statusBarHeight}}px"></view>
     

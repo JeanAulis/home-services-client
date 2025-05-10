@@ -5,6 +5,12 @@ page {
   flex-direction: column;
   background-color: #f5f5f5;
 }
+
+/* 自定义导航栏样式 */
+.nav-bar {
+  background-color: transparent;
+}
+
 .scrollarea {
   flex: 1;
   overflow-y: hidden;

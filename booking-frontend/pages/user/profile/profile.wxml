@@ -3,24 +3,28 @@
   title="个人资料" 
   textStyle="black" 
   leftButtonType="back"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
-  <view class="profile-card">
-    <text class="title">个人资料</text>
-    <view class="content">
-      <view class="info-item">
-        <text class="label">用户名</text>
-        <text class="value">{{userInfo.userName || '未设置'}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">邮箱</text>
-        <text class="value">{{userInfo.userEmail || '未设置'}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">用户ID</text>
-        <text class="value">{{userInfo.userId || '未设置'}}</text>
+  <scroll-view scroll-y="true" class="page-scroll">
+    <view class="profile-card">
+      <text class="title">个人资料</text>
+      <view class="content">
+        <view class="info-item">
+          <text class="label">用户名</text>
+          <text class="value">{{userInfo.userName || '未设置'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">邮箱</text>
+          <text class="value">{{userInfo.userEmail || '未设置'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">用户ID</text>
+          <text class="value">{{userInfo.userId || '未设置'}}</text>
+        </view>
       </view>
     </view>
-  </view>
+  </scroll-view>
 </view> 

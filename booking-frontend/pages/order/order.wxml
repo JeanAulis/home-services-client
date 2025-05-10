@@ -2,12 +2,14 @@
 <nav-bar 
   title="订单" 
   textStyle="black" 
-  leftButtonType="search" 
+  leftButtonType="none" 
   showSearch="{{false}}"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
-  <scroll-view scroll-y="true" style="height: 100vh;">
+  <scroll-view scroll-y="true" class="page-scroll">
     <view wx:if="{{isLogin}}">
       <view class="title">我的订单</view>
       
