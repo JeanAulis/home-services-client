@@ -13,11 +13,7 @@
           "pathName": "pages/user/user",
           "query": "",
           "launchMode": "default",
-          "scene": null,
-          "partialCompile": {
-            "enabled": true,
-            "pages": []
-          }
+          "scene": null
         },
         {
           "name": "pages/index/index",
