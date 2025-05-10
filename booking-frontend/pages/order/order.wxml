@@ -2,7 +2,7 @@
 <nav-bar 
   title="订单" 
   textStyle="black" 
-  leftButtonType="none" 
+  leftButtonType="home" 
   showSearch="{{false}}"
   enableGradient="{{false}}"
   useFixedBg="{{true}}"
