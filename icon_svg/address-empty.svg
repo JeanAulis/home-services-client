@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="80" cy="80" r="70" fill="#F2F7FD"/>
+  
+  <!-- 底部阴影 -->
+  <ellipse cx="80" cy="135" rx="50" ry="5" fill="#E0E8F2" opacity="0.5"/>
+  
+  <!-- 地址定位图标 -->
+  <path d="M80 38C65.0883 38 53 50.0883 53 65C53 70.5917 54.815 75.8483 57.9633 80.15C57.9633 80.15 58.335 80.6433 58.4567 80.7933L80 110L101.573 80.7467C101.682 80.6117 102.037 80.15 102.037 80.15C105.185 75.8483 107 70.5917 107 65C107 50.0883 94.9117 38 80 38ZM80 76.6667C73.5567 76.6667 68.3333 71.4433 68.3333 65C68.3333 58.5567 73.5567 53.3333 80 53.3333C86.4433 53.3333 91.6667 58.5567 91.6667 65C91.6667 71.4433 86.4433 76.6667 80 76.6667Z" fill="#A2C0DF"/>
+  
+  <!-- 地址本 -->
+  <rect x="65" y="90" width="30" height="40" rx="2" fill="#FFFFFF" stroke="#A2C0DF" stroke-width="2"/>
+  <rect x="70" y="100" width="20" height="2" rx="1" fill="#D1E0F0"/>
+  <rect x="70" y="110" width="20" height="2" rx="1" fill="#D1E0F0"/>
+  <rect x="70" y="120" width="10" height="2" rx="1" fill="#D1E0F0"/>
+  
+  <!-- 叉号 -->
+  <line x1="47" y1="113" x2="57" y2="123" stroke="#E86C6C" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="57" y1="113" x2="47" y2="123" stroke="#E86C6C" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="52" cy="118" r="12" stroke="#E86C6C" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+</svg> 
