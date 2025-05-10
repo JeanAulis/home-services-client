@@ -45,24 +45,36 @@
 }
 
 .home-icon {
-  width: 16px;
-  height: 16px;
-  border: 2px solid currentColor;
-  border-radius: 2px;
   position: relative;
+  width: 18px;
+  height: 16px;
+  background-color: transparent;
 }
 
 .home-icon::before {
   content: '';
   position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid currentColor;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 16px;
+  background-color: transparent;
+  border: 0;
+}
+
+/* 使用SVG路径绘制房子图标 */
+.home-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 16px;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M1 8L9 1L17 8'/%3E%3Cpath d='M3 7V15H15V7'/%3E%3Crect x='7' y='9' width='4' height='6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .search-icon {
@@ -182,13 +194,27 @@
 
 /* 图标在白色按钮上的颜色 */
 .circle-button .back-icon,
-.circle-button .home-icon,
 .circle-button .search-icon {
   border-color: #333333 !important;
 }
 
+/* 白色按钮上的房子图标 */
+.circle-button .home-icon::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16' fill='none' stroke='%23333333' stroke-width='1.5'%3E%3Cpath d='M1 8L9 1L17 8'/%3E%3Cpath d='M3 7V15H15V7'/%3E%3Crect x='7' y='9' width='4' height='6'/%3E%3C/svg%3E") !important;
+}
+
 .circle-button .search-icon::after {
   background-color: #333333 !important;
+}
+
+/* 黑色主题下的图标 */
+.black .home-icon::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16' fill='none' stroke='%23333333' stroke-width='1.5'%3E%3Cpath d='M1 8L9 1L17 8'/%3E%3Cpath d='M3 7V15H15V7'/%3E%3Crect x='7' y='9' width='4' height='6'/%3E%3C/svg%3E");
+}
+
+/* 白色主题下的图标 */
+.white .home-icon::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16' fill='none' stroke='white' stroke-width='1.5'%3E%3Cpath d='M1 8L9 1L17 8'/%3E%3Cpath d='M3 7V15H15V7'/%3E%3Crect x='7' y='9' width='4' height='6'/%3E%3C/svg%3E");
 }
 
 .placeholder-dark {
