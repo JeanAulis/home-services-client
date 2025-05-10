@@ -9,6 +9,17 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/user/user",
+          "pathName": "pages/user/user",
+          "query": "",
+          "launchMode": "default",
+          "scene": null,
+          "partialCompile": {
+            "enabled": true,
+            "pages": []
+          }
+        },
+        {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
           "query": "",

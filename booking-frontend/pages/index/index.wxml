@@ -6,9 +6,11 @@
   leftButtonType="search" 
   showSearch="{{false}}"
   scrollTrigger="{{80}}"
+  enableGradient="{{true}}"
+  useFixedBg="{{false}}"
 ></nav-bar>
 
-<scroll-view class="scrollarea" scroll-y type="list">
+<scroll-view class="scrollarea page-scroll" scroll-y type="list">
   <view class="container">
     <!-- 顶部轮播图 -->
     <view class="banner-section">

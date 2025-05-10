@@ -232,4 +232,9 @@ scroll-view {
   font-size: 34rpx;
   border-radius: 45rpx;
   font-weight: 500;
+}
+
+.page-scroll {
+  height: calc(100vh - var(--nav-bar-height, 90px));
+  width: 100%;
 } 

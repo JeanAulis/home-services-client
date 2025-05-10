@@ -3,6 +3,8 @@
   title="注册" 
   textStyle="black" 
   leftButtonType="back"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">

@@ -3,44 +3,48 @@
   title="隐私政策" 
   textStyle="black" 
   leftButtonType="back"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
-  <view class="privacy-content">
-    <view class="title">隐私政策</view>
-    <view class="section">
-      <view class="section-title">1. 信息收集</view>
-      <view class="section-content">
-        我们可能收集您的个人信息，包括但不限于姓名、联系方式、位置信息等，用于提供更好的家政服务体验。
+  <scroll-view scroll-y="true" class="page-scroll">
+    <view class="privacy-content">
+      <view class="title">隐私政策</view>
+      <view class="section">
+        <view class="section-title">1. 信息收集</view>
+        <view class="section-content">
+          我们可能收集您的个人信息，包括但不限于姓名、联系方式、位置信息等，用于提供更好的家政服务体验。
+        </view>
+      </view>
+      
+      <view class="section">
+        <view class="section-title">2. 信息使用</view>
+        <view class="section-content">
+          我们使用收集的信息来提供、维护和改进我们的服务，并开发新的服务。
+        </view>
+      </view>
+      
+      <view class="section">
+        <view class="section-title">3. 信息共享</view>
+        <view class="section-content">
+          除非得到您的明确同意，我们不会与第三方共享您的个人信息。
+        </view>
+      </view>
+      
+      <view class="section">
+        <view class="section-title">4. 信息安全</view>
+        <view class="section-content">
+          我们采取合理的安全措施来保护您的个人信息不被未经授权的访问、使用或披露。
+        </view>
+      </view>
+      
+      <view class="section">
+        <view class="section-title">5. 隐私政策更新</view>
+        <view class="section-content">
+          我们可能会不时更新本隐私政策，更新后的政策将在应用内公布。
+        </view>
       </view>
     </view>
-    
-    <view class="section">
-      <view class="section-title">2. 信息使用</view>
-      <view class="section-content">
-        我们使用收集的信息来提供、维护和改进我们的服务，并开发新的服务。
-      </view>
-    </view>
-    
-    <view class="section">
-      <view class="section-title">3. 信息共享</view>
-      <view class="section-content">
-        除非得到您的明确同意，我们不会与第三方共享您的个人信息。
-      </view>
-    </view>
-    
-    <view class="section">
-      <view class="section-title">4. 信息安全</view>
-      <view class="section-content">
-        我们采取合理的安全措施来保护您的个人信息不被未经授权的访问、使用或披露。
-      </view>
-    </view>
-    
-    <view class="section">
-      <view class="section-title">5. 隐私政策更新</view>
-      <view class="section-content">
-        我们可能会不时更新本隐私政策，更新后的政策将在应用内公布。
-      </view>
-    </view>
-  </view>
+  </scroll-view>
 </view> 

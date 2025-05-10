@@ -3,25 +3,29 @@
   title="权限管理" 
   textStyle="black" 
   leftButtonType="back"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
-  <view class="header">
-    <view class="title">权限管理</view>
-    <view class="desc">管理应用需要使用的权限，您可以随时开启或关闭</view>
-  </view>
-  
-  <view class="permission-list">
-    <view class="permission-item" wx:for="{{permissions}}" wx:key="id">
-      <view class="permission-info">
-        <view class="permission-name">{{item.name}}</view>
-        <view class="permission-desc">{{item.desc}}</view>
-      </view>
-      <switch checked="{{item.status}}" bindchange="togglePermission" data-index="{{index}}" color="#1296db" />
+  <scroll-view scroll-y="true" class="page-scroll">
+    <view class="header">
+      <view class="title">权限管理</view>
+      <view class="desc">管理应用需要使用的权限，您可以随时开启或关闭</view>
     </view>
-  </view>
-  
-  <view class="tips">
-    <text>提示：关闭某些权限可能会导致相关功能无法正常使用</text>
-  </view>
+    
+    <view class="permission-list">
+      <view class="permission-item" wx:for="{{permissions}}" wx:key="id">
+        <view class="permission-info">
+          <view class="permission-name">{{item.name}}</view>
+          <view class="permission-desc">{{item.desc}}</view>
+        </view>
+        <switch checked="{{item.status}}" bindchange="togglePermission" data-index="{{index}}" color="#1296db" />
+      </view>
+    </view>
+    
+    <view class="tips">
+      <text>提示：关闭某些权限可能会导致相关功能无法正常使用</text>
+    </view>
+  </scroll-view>
 </view> 

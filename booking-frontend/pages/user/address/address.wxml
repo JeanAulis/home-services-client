@@ -4,48 +4,52 @@
   textStyle="black" 
   leftButtonType="back" 
   showSearch="{{false}}"
+  enableGradient="{{false}}"
+  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
-  <!-- 加载中提示 -->
-  <view class="loading-container" wx:if="{{isLoading}}">
-    <view class="loading">加载中...</view>
-  </view>
-  
-  <view class="address-list" wx:else>
-    <block wx:if="{{addresses.length > 0}}">
-      <view class="address-item" wx:for="{{addresses}}" wx:key="addressId">
-        <view class="address-content" bindtap="editAddress" data-id="{{item.addressId || item.id}}">
-          <view class="address-header">
-            <view class="name-phone">
-              <text class="name">{{item.receiverName || item.name || '未设置'}}</text>
-              <text class="phone">{{item.phone || '未设置'}}</text>
-            </view>
-            <view class="default-tag" wx:if="{{item.isDefault}}">默认</view>
-          </view>
-          <view class="address-detail">
-            {{item.province || ''}}{{item.city || ''}}{{item.district || ''}}{{item.detail || ''}}
-          </view>
-        </view>
-        <view class="address-actions">
-          <view class="action-item" bindtap="setDefault" data-id="{{item.addressId || item.id}}" wx:if="{{!item.isDefault}}">
-            <text>设为默认</text>
-          </view>
-          <view class="action-item" bindtap="deleteAddress" data-id="{{item.addressId || item.id}}">
-            <text>删除</text>
-          </view>
-        </view>
-      </view>
-    </block>
-    
-    <view class="empty-address" wx:else>
-      <image class="empty-icon" src="/icon/address-empty.png"></image>
-      <text class="empty-text">暂无地址信息</text>
-      <text class="empty-tips">请添加新的收货地址</text>
+  <scroll-view scroll-y="true" class="page-scroll">
+    <!-- 加载中提示 -->
+    <view class="loading-container" wx:if="{{isLoading}}">
+      <view class="loading">加载中...</view>
     </view>
-  </view>
-  
-  <view class="add-btn-container">
-    <button class="add-address-btn" bindtap="addAddress">添加新地址</button>
-  </view>
+    
+    <view class="address-list" wx:else>
+      <block wx:if="{{addresses.length > 0}}">
+        <view class="address-item" wx:for="{{addresses}}" wx:key="addressId">
+          <view class="address-content" bindtap="editAddress" data-id="{{item.addressId || item.id}}">
+            <view class="address-header">
+              <view class="name-phone">
+                <text class="name">{{item.receiverName || item.name || '未设置'}}</text>
+                <text class="phone">{{item.phone || '未设置'}}</text>
+              </view>
+              <view class="default-tag" wx:if="{{item.isDefault}}">默认</view>
+            </view>
+            <view class="address-detail">
+              {{item.province || ''}}{{item.city || ''}}{{item.district || ''}}{{item.detail || ''}}
+            </view>
+          </view>
+          <view class="address-actions">
+            <view class="action-item" bindtap="setDefault" data-id="{{item.addressId || item.id}}" wx:if="{{!item.isDefault}}">
+              <text>设为默认</text>
+            </view>
+            <view class="action-item" bindtap="deleteAddress" data-id="{{item.addressId || item.id}}">
+              <text>删除</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      
+      <view class="empty-address" wx:else>
+        <image class="empty-icon" src="/icon/address-empty.png"></image>
+        <text class="empty-text">暂无地址信息</text>
+        <text class="empty-tips">请添加新的收货地址</text>
+      </view>
+    </view>
+    
+    <view class="add-btn-container">
+      <button class="add-address-btn" bindtap="addAddress">添加新地址</button>
+    </view>
+  </scroll-view>
 </view> 
