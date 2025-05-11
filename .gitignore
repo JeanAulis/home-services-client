@@ -6,3 +6,8 @@
 .vscode/settings.json
 /home-service-client/icon-svg/
 /home-service-client/images/
+/icon_svg/
+/images/
+/booking-frontend/project.config.json
+/booking-frontend/project.private.config.json
+/booking-frontend/sitemap.json
