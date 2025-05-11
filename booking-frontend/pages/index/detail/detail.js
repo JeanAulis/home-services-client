@@ -138,7 +138,8 @@ Page({
               ...comment,
               commentDate,
               commentImages,
-              ratingStars
+              ratingStars,
+              commentContent: comment.commentText || comment.commentContent || ''
             };
           });
           
@@ -249,6 +250,13 @@ Page({
     // 跳转到订单确认页面
     wx.navigateTo({
       url: `/pages/order/confirm/confirm?productNum=${this.data.productNum}&quantity=1`
+    });
+  },
+  
+  // 处理导航栏返回按钮点击
+  handleNavBack() {
+    wx.navigateBack({
+      delta: 1
     });
   }
 }) 

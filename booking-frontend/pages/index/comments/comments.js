@@ -156,7 +156,9 @@ Page({
               ...comment,
               commentDate,
               commentImages,
-              ratingStars
+              ratingStars,
+              // 确保前端模板中使用的字段名称与后端返回一致
+              commentContent: comment.commentText || comment.commentContent || ''
             };
           });
           
@@ -243,6 +245,13 @@ Page({
     wx.previewImage({
       urls,
       current
+    });
+  },
+  
+  // 处理导航栏返回按钮点击
+  handleNavBack() {
+    wx.navigateBack({
+      delta: 1
     });
   }
 }) 

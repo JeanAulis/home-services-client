@@ -5,6 +5,8 @@
     "pages/order/order",
     "pages/register/register",
     "pages/user/user",
+    "pages/index/detail/detail",
+    "pages/index/comments/comments",
     "pages/order/detail/detail",
     "pages/user/profile/profile",
     "pages/user/address/address",
@@ -15,9 +17,11 @@
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "家政服务",
     "navigationBarBackgroundColor": "#00000000",
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
     "color": "#999999",

@@ -213,18 +213,30 @@ Page({
   
   // 跳转到搜索页面
   navigateToSearch() {
-    wx.navigateTo({
-      url: '/pages/search/search'
+    // 搜索页面不存在，暂时用提示替代
+    wx.showToast({
+      title: '搜索功能开发中',
+      icon: 'none'
     });
+    // 等搜索页面开发完成后使用以下代码
+    // wx.navigateTo({
+    //   url: '/pages/search/search'
+    // });
   },
   
   // 搜索功能
   onSearch(e) {
     const searchValue = e.detail.value;
     if (searchValue && searchValue.trim()) {
-      wx.navigateTo({
-        url: `/pages/search/search?keyword=${encodeURIComponent(searchValue.trim())}`
+      // 搜索页面不存在，暂时用提示替代
+      wx.showToast({
+        title: `搜索: ${searchValue.trim()}`,
+        icon: 'none'
       });
+      // 等搜索页面开发完成后使用以下代码
+      // wx.navigateTo({
+      //   url: `/pages/search/search?keyword=${encodeURIComponent(searchValue.trim())}`
+      // });
     }
   },
   

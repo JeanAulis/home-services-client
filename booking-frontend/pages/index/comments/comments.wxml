@@ -6,6 +6,7 @@
   scrollTrigger="{{80}}"
   enableGradient="{{true}}"
   useFixedBg="{{false}}"
+  bind:back="handleNavBack"
 ></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list" bindscrolltolower="loadMoreComments">
