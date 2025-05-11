@@ -4,3 +4,5 @@
 /booking-api/src/main/resources/application.properties
 *.sql
 .vscode/settings.json
+/home-service-client/icon-svg/
+/home-service-client/images/
