@@ -111,7 +111,8 @@ Page({
               });
               wx.showModal({
                 title: '提示',
-                content: '需要您授权通讯录才能使用此功能',
+                // content: '需要您授权通讯录才能使用此功能',
+                content: '此功能暂未开放！',
                 showCancel: false
               });
             }
@@ -183,7 +184,8 @@ Page({
               });
               wx.showModal({
                 title: '提示',
-                content: '需要您授权通知才能使用此功能',
+                // content: '需要您授权通知才能使用此功能',
+                content: '此功能暂未开放！',
                 showCancel: false
               });
             }
