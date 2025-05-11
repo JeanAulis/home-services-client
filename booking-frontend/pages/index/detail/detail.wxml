@@ -1,0 +1,131 @@
+<!--detail.wxml 商品详情页-->
+<nav-bar
+  title="商品详情"
+  textStyle="black"
+  showBack="{{true}}"
+  scrollTrigger="{{80}}"
+  enableGradient="{{true}}"
+  useFixedBg="{{false}}"
+></nav-bar>
+
+<scroll-view class="scrollarea page-scroll" scroll-y type="list">
+  <view class="container" wx:if="{{!loading}}">
+    <!-- 商品图片轮播 -->
+    <view class="banner-section">
+      <swiper class="product-swiper" indicator-dots autoplay circular>
+        <swiper-item wx:for="{{productImages}}" wx:key="index">
+          <image src="{{item}}" mode="aspectFill" class="product-image"></image>
+        </swiper-item>
+      </swiper>
+    </view>
+    
+    <!-- 价格信息 -->
+    <view class="price-section">
+      <view class="price-info">
+        <text class="price">¥{{product.price}}</text>
+        <text class="product-name">{{product.productName}}</text>
+      </view>
+      <view class="sales-info">
+        <text class="sales-count">已售 {{product.salesCount || 0}}</text>
+      </view>
+    </view>
+    
+    <!-- 评分信息 -->
+    <view class="rating-section">
+      <view class="rating-left">
+        <text class="rating-score">{{statistics.averageRating || '0.0'}}</text>
+        <text class="rating-title">总体评分</text>
+      </view>
+      <view class="rating-right">
+        <text class="comment-count">{{statistics.totalComments || 0}} 条评论</text>
+        <view class="rating-stars">
+          <view class="star-list">
+            <view class="star filled" wx:for="{{fullStars}}" wx:key="index"></view>
+            <view class="star half" wx:if="{{hasHalfStar}}"></view>
+            <view class="star empty" wx:for="{{emptyStars}}" wx:key="index"></view>
+          </view>
+        </view>
+      </view>
+      <view class="arrow-right" bindtap="navigateToComments"></view>
+    </view>
+    
+    <!-- 商品详情区 -->
+    <view class="detail-section">
+      <view class="section-title">商品详情</view>
+      <view class="detail-content">
+        <rich-text nodes="{{product.productDesc}}"></rich-text>
+      </view>
+    </view>
+    
+    <!-- 相关视频 -->
+    <view class="video-section" wx:if="{{product.productVideo}}">
+      <view class="section-title">服务视频</view>
+      <video 
+        src="{{product.productVideo}}" 
+        controls
+        autoplay="{{false}}"
+        class="product-video"
+        play-btn-position="center"
+      ></video>
+    </view>
+    
+    <!-- 评论预览区 -->
+    <view class="comments-section">
+      <view class="section-header">
+        <view class="section-title">用户评价</view>
+        <view class="more-link" bindtap="navigateToComments">
+          <text>查看全部</text>
+          <view class="icon-arrow"></view>
+        </view>
+      </view>
+      
+      <view class="comment-list" wx:if="{{comments.length > 0}}">
+        <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+          <view class="comment-user">
+            <image class="user-avatar" src="{{item.userInfo.avatarUrl || defaultAvatarUrl}}"></image>
+            <text class="user-name">{{item.isAnonymous ? '匿名用户' : (item.userInfo.userName || '用户')}}</text>
+            <view class="comment-date">{{item.commentDate}}</view>
+          </view>
+          <view class="comment-rating">
+            <view class="star-list">
+              <view class="star filled" wx:for="{{item.ratingStars.full}}" wx:key="index"></view>
+              <view class="star half" wx:if="{{item.ratingStars.half}}"></view>
+              <view class="star empty" wx:for="{{item.ratingStars.empty}}" wx:key="index"></view>
+            </view>
+          </view>
+          <view class="comment-content">{{item.commentContent}}</view>
+          <view class="comment-images" wx:if="{{item.commentImages && item.commentImages.length > 0}}">
+            <image 
+              wx:for="{{item.commentImages}}" 
+              wx:for-item="img" 
+              wx:key="index" 
+              src="{{img}}" 
+              mode="aspectFill" 
+              class="comment-image" 
+              bindtap="previewImage" 
+              data-urls="{{item.commentImages}}" 
+              data-current="{{img}}"
+            ></image>
+          </view>
+        </view>
+      </view>
+      
+      <view class="empty-comments" wx:else>
+        <text>暂无评价</text>
+      </view>
+    </view>
+    
+  </view>
+  
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-icon"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <button class="add-to-cart" bindtap="addToCart">加入购物车</button>
+    <button class="buy-now" bindtap="buyNow">立即购买</button>
+  </view>
+</scroll-view> 

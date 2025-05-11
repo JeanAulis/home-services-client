@@ -1,5 +1,6 @@
 // index.js
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const baseUrl = 'http://localhost:8080'; // 后端API基础URL
 
 Page({
   data: {
@@ -19,29 +20,30 @@ Page({
     ],
     // 服务分类数据
     categories: [
-      { id: 1, name: '家居清洁', iconUrl: '/icon/clean.png' },
-      { id: 2, name: '家电维修', iconUrl: '/icon/repair.png' },
-      { id: 3, name: '管道疏通', iconUrl: '/icon/plumbing.png' },
-      { id: 4, name: '搬家服务', iconUrl: '/icon/moving.png' },
-      { id: 5, name: '家具安装', iconUrl: '/icon/furniture.png' }
+      { id: 1, name: '家居清洁', iconUrl: '/icon/clean.png', type: 'CLEANING' },
+      { id: 2, name: '家电维修', iconUrl: '/icon/repair.png', type: 'REPAIR' },
+      { id: 3, name: '管道疏通', iconUrl: '/icon/plumbing.png', type: 'PLUMBING' },
+      { id: 4, name: '搬家服务', iconUrl: '/icon/moving.png', type: 'MOVING' },
+      { id: 5, name: '家具安装', iconUrl: '/icon/furniture.png', type: 'FURNITURE' }
     ],
     // 热门服务数据
-    popularServices: [
-      { id: 1, name: '全屋深度清洁', price: 299, imageUrl: '/images/service1.jpg' },
-      { id: 2, name: '空调清洗', price: 129, imageUrl: '/images/service2.jpg' },
-      { id: 3, name: '油烟机清洗', price: 99, imageUrl: '/images/service3.jpg' }
-    ],
-    // 推荐服务商数据
-    providers: [
-      { id: 1, name: '专业清洁公司', avatarUrl: '/images/provider1.jpg', rating: 4.9, ratingCount: 258 },
-      { id: 2, name: '小明维修', avatarUrl: '/images/provider2.jpg', rating: 4.8, ratingCount: 186 },
-      { id: 3, name: '家电医生', avatarUrl: '/images/provider3.jpg', rating: 4.7, ratingCount: 152 }
-    ]
+    popularServices: [],
+    // 新品服务
+    newServices: [],
+    // 加载状态
+    loading: {
+      hot: true,
+      new: true
+    }
   },
   
   onLoad() {
     // 创建模拟图片
     this.createMockImages();
+    // 获取热门服务
+    this.getHotProducts();
+    // 获取新品服务
+    this.getNewProducts();
   },
   
   // 创建模拟图片（当实际图片不存在时使用）
@@ -59,10 +61,171 @@ Page({
     };
     
     this.setData({
-      banners: checkAndSetDefaultImage(this.data.banners, 'imageUrl'),
-      popularServices: checkAndSetDefaultImage(this.data.popularServices, 'imageUrl'),
-      providers: checkAndSetDefaultImage(this.data.providers, 'avatarUrl')
+      banners: checkAndSetDefaultImage(this.data.banners, 'imageUrl')
     });
+  },
+  
+  // 获取热门服务
+  getHotProducts(type = '') {
+    this.setData({
+      'loading.hot': true
+    });
+    
+    wx.request({
+      url: `${baseUrl}/api/product/hot`,
+      data: {
+        type: type,
+        limit: 6
+      },
+      success: (res) => {
+        if (res.statusCode === 200 && res.data.code === 200) {
+          // 处理服务数据
+          const products = res.data.data.map(product => {
+            // 处理图片路径，如果是多张图片（逗号分隔），取第一张
+            let imageUrl = defaultAvatarUrl;
+            if (product.productImages) {
+              const images = product.productImages.split(',');
+              if (images.length > 0 && images[0]) {
+                imageUrl = images[0];
+              }
+            }
+            
+            return {
+              id: product.productId,
+              productNum: product.productNum,
+              name: product.productName,
+              price: product.price,
+              imageUrl: imageUrl,
+              salesCount: product.salesCount,
+              productType: product.productType,
+              rating: 4.8 // 评分暂时使用默认值，实际应从评论统计中获取
+            };
+          });
+          
+          this.setData({
+            popularServices: products,
+            'loading.hot': false
+          });
+        } else {
+          wx.showToast({
+            title: '获取热门服务失败',
+            icon: 'none'
+          });
+          this.setData({
+            'loading.hot': false
+          });
+        }
+      },
+      fail: (err) => {
+        console.error('获取热门服务失败:', err);
+        wx.showToast({
+          title: '网络错误，请稍后重试',
+          icon: 'none'
+        });
+        this.setData({
+          'loading.hot': false
+        });
+      }
+    });
+  },
+  
+  // 获取新品服务
+  getNewProducts() {
+    this.setData({
+      'loading.new': true
+    });
+    
+    wx.request({
+      url: `${baseUrl}/api/product/new`,
+      data: {
+        limit: 3
+      },
+      success: (res) => {
+        if (res.statusCode === 200 && res.data.code === 200) {
+          // 处理服务数据
+          const products = res.data.data.map(product => {
+            // 处理图片路径，如果是多张图片（逗号分隔），取第一张
+            let imageUrl = defaultAvatarUrl;
+            if (product.productImages) {
+              const images = product.productImages.split(',');
+              if (images.length > 0 && images[0]) {
+                imageUrl = images[0];
+              }
+            }
+            
+            return {
+              id: product.productId,
+              productNum: product.productNum,
+              name: product.productName,
+              price: product.price,
+              imageUrl: imageUrl,
+              publishDate: product.publishDate,
+              productType: product.productType
+            };
+          });
+          
+          this.setData({
+            newServices: products,
+            'loading.new': false
+          });
+        } else {
+          wx.showToast({
+            title: '获取新品服务失败',
+            icon: 'none'
+          });
+          this.setData({
+            'loading.new': false
+          });
+        }
+      },
+      fail: (err) => {
+        console.error('获取新品服务失败:', err);
+        wx.showToast({
+          title: '网络错误，请稍后重试',
+          icon: 'none'
+        });
+        this.setData({
+          'loading.new': false
+        });
+      }
+    });
+  },
+  
+  // 按类型筛选服务
+  filterByCategory(e) {
+    const type = e.currentTarget.dataset.type;
+    if (type) {
+      this.getHotProducts(type);
+    } else {
+      this.getHotProducts();
+    }
+  },
+  
+  // 跳转到商品详情页
+  navigateToProduct(e) {
+    const productNum = e.currentTarget.dataset.productNum;
+    if (productNum) {
+      wx.navigateTo({
+        url: `/pages/index/detail/detail?productNum=${productNum}`
+      });
+    }
+  },
+  
+  // 跳转到搜索页面
+  navigateToSearch() {
+    wx.navigateTo({
+      url: '/pages/search/search'
+    });
+  },
+  
+  // 搜索功能
+  onSearch(e) {
+    const searchValue = e.detail.value;
+    if (searchValue && searchValue.trim()) {
+      wx.navigateTo({
+        url: `/pages/search/search?keyword=${encodeURIComponent(searchValue.trim())}`
+      });
+    }
   },
   
   bindViewTap() {
@@ -101,19 +264,6 @@ Page({
         })
       }
     })
-  },
-  
-  // 搜索功能
-  onSearch(e) {
-    const searchValue = e.detail.value;
-    console.log('搜索内容:', searchValue);
-    // 这里添加搜索逻辑
-    wx.showToast({
-      title: '搜索: ' + searchValue,
-      icon: 'none'
-    });
-    // 可以发起搜索请求
-    // this.searchServices(searchValue);
   },
   
   // 搜索服务

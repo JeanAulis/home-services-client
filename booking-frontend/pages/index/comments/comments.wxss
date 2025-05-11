@@ -1,0 +1,238 @@
+/**comments.wxss**/
+.page-scroll {
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.container {
+  padding: 0 0 30rpx 0;
+}
+
+/* 评分统计区域 */
+.statistics-section {
+  background-color: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.rating-overview {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.rating-score {
+  font-size: 48rpx;
+  color: #ff5500;
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+
+.rating-stars {
+  margin-right: 20rpx;
+}
+
+.star-list {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+  background-size: cover;
+}
+
+.star.filled {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5500'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+}
+
+.star.half {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5500'%3E%3Cpath d='M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27V2z'/%3E%3Cpath d='M12 2v15.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z' fill='%23e0e0e0'/%3E%3C/svg%3E");
+}
+
+.star.empty {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e0e0e0'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+}
+
+.rating-count {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.rating-distribution {
+  margin-top: 20rpx;
+}
+
+.rating-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.rating-label {
+  font-size: 24rpx;
+  color: #666;
+  width: 60rpx;
+}
+
+.rating-bar-container {
+  flex: 1;
+  height: 16rpx;
+  background-color: #f0f0f0;
+  border-radius: 8rpx;
+  margin: 0 20rpx;
+  overflow: hidden;
+}
+
+.rating-bar {
+  height: 100%;
+  background-color: #ff5500;
+  border-radius: 8rpx;
+}
+
+.rating-count-small {
+  font-size: 24rpx;
+  color: #999;
+  width: 60rpx;
+  text-align: right;
+}
+
+/* 筛选区域 */
+.filter-section {
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-item {
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
+  background-color: #f5f5f5;
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.filter-item.active {
+  background-color: #fff7f3;
+  color: #ff5500;
+  border: 1rpx solid #ff5500;
+}
+
+/* 评论列表 */
+.comments-section {
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+}
+
+.comment-list {
+  margin-bottom: 20rpx;
+}
+
+.comment-item {
+  padding: 30rpx 0;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.user-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+
+.user-name {
+  font-size: 28rpx;
+  color: #333;
+  margin-right: auto;
+}
+
+.comment-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.comment-rating {
+  margin-bottom: 15rpx;
+}
+
+.comment-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 15rpx;
+}
+
+.comment-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment-image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+}
+
+.empty-comments {
+  padding: 60rpx 0;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.loading-more {
+  text-align: center;
+  padding: 20rpx 0;
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+}
+
+.loading-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+} 

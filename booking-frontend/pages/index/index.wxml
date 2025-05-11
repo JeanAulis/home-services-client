@@ -8,6 +8,7 @@
   scrollTrigger="{{80}}"
   enableGradient="{{true}}"
   useFixedBg="{{false}}"
+  bindtap="navigateToSearch"
 ></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list">
@@ -25,9 +26,14 @@
     <view class="category-section">
       <view class="section-title">服务分类</view>
       <view class="category-list">
-        <view class="category-item" wx:for="{{categories}}" wx:key="id">
+        <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="filterByCategory" data-type="{{item.type}}">
           <image class="category-icon" src="{{item.iconUrl}}"></image>
           <text class="category-name">{{item.name}}</text>
+        </view>
+        <!-- 全部分类按钮 -->
+        <view class="category-item" bindtap="filterByCategory" data-type="">
+          <image class="category-icon" src="/icon/all.png"></image>
+          <text class="category-name">全部</text>
         </view>
       </view>
     </view>
@@ -35,32 +41,54 @@
     <!-- 热门服务 -->
     <view class="popular-section">
       <view class="section-title">热门服务</view>
-      <view class="service-list">
-        <view class="service-item" wx:for="{{popularServices}}" wx:key="id">
+      <view wx:if="{{loading.hot}}" class="loading-container">
+        <view class="loading-icon"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+      <view wx:else class="service-list">
+        <view class="service-item" wx:for="{{popularServices}}" wx:key="id" bindtap="navigateToProduct" data-product-num="{{item.productNum}}">
           <image class="service-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
           <view class="service-info">
             <text class="service-name">{{item.name}}</text>
-            <text class="service-price">¥{{item.price}}</text>
-          </view>
-        </view>
-      </view>
-    </view>
-    
-    <!-- 推荐服务商 -->
-    <view class="provider-section">
-      <view class="section-title">推荐服务商</view>
-      <view class="provider-list">
-        <view class="provider-item" wx:for="{{providers}}" wx:key="id">
-          <image class="provider-avatar" src="{{item.avatarUrl}}" mode="aspectFill"></image>
-          <view class="provider-info">
-            <text class="provider-name">{{item.name}}</text>
-            <view class="provider-rating">
-              <text class="rating-score">{{item.rating}}</text>
-              <text class="rating-count">{{item.ratingCount}}条评价</text>
+            <view class="service-details">
+              <text class="service-price">¥{{item.price}}</text>
+              <text class="service-sales">已售{{item.salesCount || 0}}</text>
             </view>
           </view>
         </view>
       </view>
+      <view wx:if="{{popularServices.length === 0 && !loading.hot}}" class="empty-tip">
+        <text>暂无热门服务</text>
+      </view>
+    </view>
+    
+    <!-- 新品服务 -->
+    <view class="new-section">
+      <view class="section-title">新品上线</view>
+      <view wx:if="{{loading.new}}" class="loading-container">
+        <view class="loading-icon"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+      <view wx:else class="service-list new-service-list">
+        <view class="service-item new-service-item" wx:for="{{newServices}}" wx:key="id" bindtap="navigateToProduct" data-product-num="{{item.productNum}}">
+          <image class="service-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+          <view class="service-info">
+            <text class="service-name">{{item.name}}</text>
+            <view class="service-details">
+              <text class="service-price">¥{{item.price}}</text>
+              <text class="new-tag">新品</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{newServices.length === 0 && !loading.new}}" class="empty-tip">
+        <text>暂无新品服务</text>
+      </view>
+    </view>
+    
+    <!-- 底部提示 -->
+    <view class="footer-tip">
+      <text>更多服务陆续上线中</text>
     </view>
   </view>
 </scroll-view>

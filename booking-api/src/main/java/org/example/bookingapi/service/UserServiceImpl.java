@@ -6,6 +6,8 @@ import org.example.bookingapi.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -47,16 +49,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo login(String userNameOrEmailOrNum, String password) {
         UserInfo user = null;
+        
         // 先按用户名查
-        user = userRepository.findByUserName(userNameOrEmailOrNum).orElse(null);
-        if (user == null) {
+        Optional<UserInfo> userOpt = userRepository.findByUserName(userNameOrEmailOrNum);
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        } else {
             // 再按邮箱查
-            user = userRepository.findByUserEmail(userNameOrEmailOrNum).orElse(null);
+            userOpt = userRepository.findByUserEmail(userNameOrEmailOrNum);
+            if (userOpt.isPresent()) {
+                user = userOpt.get();
+            } else {
+                // 再按账号查
+                userOpt = userRepository.findByUserNum(userNameOrEmailOrNum);
+                if (userOpt.isPresent()) {
+                    user = userOpt.get();
+                }
+            }
         }
-        if (user == null) {
-            // 再按账号查
-            user = userRepository.findByUserNum(userNameOrEmailOrNum).orElse(null);
-        }
+        
         if (user != null && user.getUserPasswd().equals(MD5Util.md5(password))) {
             return user;
         }
@@ -75,6 +86,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public UserInfo getUserByUserNum(String userNum) {
-        return userRepository.findByUserNum(userNum).orElse(null);
+        Optional<UserInfo> userOpt = userRepository.findByUserNum(userNum);
+        return userOpt.orElse(null);
     }
 }
