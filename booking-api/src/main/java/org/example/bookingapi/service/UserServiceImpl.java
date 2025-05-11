@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo register(UserInfo userInfo) {
         // 检查用户名是否已存在
-        if (userRepository.findByUserName(userInfo.getUserName()) != null) {
+        if (userRepository.findByUserName(userInfo.getUserName()).isPresent()) {
             return null; // 用户名已存在
         }
         // 校验邮箱格式
@@ -48,14 +48,14 @@ public class UserServiceImpl implements UserService {
     public UserInfo login(String userNameOrEmailOrNum, String password) {
         UserInfo user = null;
         // 先按用户名查
-        user = userRepository.findByUserName(userNameOrEmailOrNum);
+        user = userRepository.findByUserName(userNameOrEmailOrNum).orElse(null);
         if (user == null) {
             // 再按邮箱查
-            user = userRepository.findByUserEmail(userNameOrEmailOrNum);
+            user = userRepository.findByUserEmail(userNameOrEmailOrNum).orElse(null);
         }
         if (user == null) {
             // 再按账号查
-            user = userRepository.findByUserNum(userNameOrEmailOrNum);
+            user = userRepository.findByUserNum(userNameOrEmailOrNum).orElse(null);
         }
         if (user != null && user.getUserPasswd().equals(MD5Util.md5(password))) {
             return user;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserNameExist(String userName) {
-        return userRepository.findByUserName(userName) != null;
+        return userRepository.findByUserName(userName).isPresent();
     }
     
     @Override
@@ -75,6 +75,6 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public UserInfo getUserByUserNum(String userNum) {
-        return userRepository.findByUserNum(userNum);
+        return userRepository.findByUserNum(userNum).orElse(null);
     }
 }
