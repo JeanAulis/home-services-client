@@ -63,9 +63,9 @@
       </view>
     </view>
     
-    <!-- 退出登录按钮 -->
+    <!-- 退出登录按钮
     <view wx:if="{{isLogin}}" class="logout-container">
       <button class="logout-btn" bindtap="onLogout">退出登录</button>
-    </view>
+    </view> -->
   </scroll-view>
 </view> 

@@ -126,7 +126,7 @@
 }
 
 .add-address-btn {
-  background-color: #1296db;
+  background-color: #Fb9968;
   color: #fff;
   font-size: 30rpx;
   border-radius: 8rpx;

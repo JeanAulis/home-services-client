@@ -51,9 +51,6 @@ Page({
         title: '请先登录',
         icon: 'none'
       })
-      setTimeout(() => {
-        this.goLogin()
-      }, 1000)
       return
     }
     
@@ -85,9 +82,6 @@ Page({
         title: '请先登录',
         icon: 'none'
       })
-      setTimeout(() => {
-        this.goLogin()
-      }, 1000)
       return
     }
     wx.navigateTo({
@@ -102,9 +96,6 @@ Page({
         title: '请先登录',
         icon: 'none'
       })
-      setTimeout(() => {
-        this.goLogin()
-      }, 1000)
       return
     }
     wx.navigateTo({
@@ -119,9 +110,6 @@ Page({
         title: '请先登录',
         icon: 'none'
       })
-      setTimeout(() => {
-        this.goLogin()
-      }, 1000)
       return
     }
     wx.navigateTo({
@@ -136,9 +124,6 @@ Page({
         title: '请先登录',
         icon: 'none'
       })
-      setTimeout(() => {
-        this.goLogin()
-      }, 1000)
       return
     }
     wx.navigateTo({

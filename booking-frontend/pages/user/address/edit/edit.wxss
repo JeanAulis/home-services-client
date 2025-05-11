@@ -81,11 +81,11 @@
 
 .btn-container {
   padding: 40rpx 20rpx;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .save-btn {
-  background-color: #1296db;
+  background-color: #20a162;
   color: #fff;
   font-size: 30rpx;
   border-radius: 8rpx;
