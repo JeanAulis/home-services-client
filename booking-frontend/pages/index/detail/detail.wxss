@@ -6,6 +6,7 @@
 }
 
 .container {
+  height: auto;
   padding: 0 0 30rpx 0;
 }
 
@@ -28,6 +29,7 @@
 /* 价格信息区域 */
 .price-section {
   margin: 0;
+  width: 100%;
   padding: 20rpx 30rpx;
   background-color: #ffffff;
   display: flex;
@@ -68,6 +70,8 @@
 /* 评分信息 */
 .rating-section {
   margin: 0;
+  margin-top: 10rpx;
+  width: 100%;
   padding: 20rpx 30rpx;
   background-color: #ffffff;
   display: flex;
@@ -174,6 +178,7 @@
   padding: 20rpx 30rpx;
   background-color: #ffffff;
   border-bottom: 20rpx solid #f5f5f5;
+  width: 100%;
 }
 
 .product-video {
