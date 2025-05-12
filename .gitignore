@@ -8,5 +8,6 @@
 /home-service-client/images/
 /icon_svg/
 /images/
-booking-frontend/dist/
+booking-frontend/miniprogram_npm
+booking-frontend/node_modules
 

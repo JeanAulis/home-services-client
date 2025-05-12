@@ -2,6 +2,18 @@
 
 微信家政服务小程序
 
+
+
+> [!IMPORTANT]
+>
+> 本项目使用了其他开源组件库
+> 你需要下载组件库：[vant-weapp](https://github.com/youzan/vant-weapp)
+> [vant-weapp快速上手](https://vant-ui.github.io/vant-weapp/#/quickstart)
+>
+> 
+
+
+
 > [!NOTE]
 >
 > 目前只是一个本地端的项目
