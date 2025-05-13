@@ -1,9 +1,6 @@
 {
   "usingComponents": {
-    "nav-bar": "/components/nav-bar/nav-bar",
-		"van-goods-action": "@vant/weapp/goods-action/index",
-  	"van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
-		"van-goods-action-button": "@vant/weapp/goods-action-button/index"
+    "nav-bar": "/components/nav-bar/nav-bar"
   },
   "enablePullDownRefresh": true
 } 
