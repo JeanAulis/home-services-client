@@ -18,6 +18,16 @@ Page({
     }
   },
 
+  // 处理导航栏搜索点击事件
+  handleNavSearch(e) {
+    console.log('搜索按钮被点击:', e);
+    wx.showToast({
+      title: '搜索功能开发中',
+      icon: 'none',
+      duration: 2000
+    });
+  },
+
   // 检查登录状态
   checkLoginStatus() {
     const userInfo = wx.getStorageSync('userInfo')

@@ -6,6 +6,7 @@
   showSearch="{{false}}"
   enableGradient="{{false}}"
   useFixedBg="{{true}}"
+  bind:search="handleNavSearch"
 ></nav-bar>
 
 <view class="container">

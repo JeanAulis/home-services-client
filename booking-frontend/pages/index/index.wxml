@@ -8,7 +8,7 @@
   scrollTrigger="{{80}}"
   enableGradient="{{true}}"
   useFixedBg="{{false}}"
-  bindtap="navigateToSearch"
+  bind:search="navigateToSearch"
 ></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list">
