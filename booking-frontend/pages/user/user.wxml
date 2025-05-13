@@ -17,7 +17,7 @@
         </view>
         <view class="user-detail">
           <view wx:if="{{isLogin}}" class="username">{{userInfo.userName || '用户昵称'}}</view>
-          <view wx:else class="login-btn" bindtap="goLogin">点击登录</view>
+          <view wx:else class="login-btn" bindtap="showLoginTip">点击登录</view>
         </view>
       </view>
       <view class="more-section" bindtap="goProfile">
@@ -30,15 +30,15 @@
   
     <!-- 用户资产 -->
     <view class="asset-card">
-      <view class="asset-item" bindtap="goPoints">
+      <view class="asset-item" bindtap="{{isLogin ? 'goPoints' : 'showLoginTip'}}">
         <view class="asset-num">{{isLogin ? (userInfo.points || '0') : '--'}}</view>
         <view class="asset-name">积分</view>
       </view>
-      <view class="asset-item" bindtap="goCoupons">
+      <view class="asset-item" bindtap="{{isLogin ? 'goCoupons' : 'showLoginTip'}}">
         <view class="asset-num">{{isLogin ? (userInfo.coupons || '0') : '--'}}</view>
         <view class="asset-name">优惠券</view>
       </view>
-      <view class="asset-item" bindtap="goCollection">
+      <view class="asset-item" bindtap="{{isLogin ? 'goCollection' : 'showLoginTip'}}">
         <view class="asset-num">{{isLogin ? (userInfo.collections || '0') : '--'}}</view>
         <view class="asset-name">收藏</view>
       </view>
@@ -46,7 +46,7 @@
   
     <!-- 功能列表 -->
     <view class="function-list">
-      <view class="function-item" bindtap="goAddress">
+      <view class="function-item" bindtap="{{isLogin ? 'goAddress' : 'showLoginTip'}}">
         <view class="function-left">
           <van-icon name="location-o" size="45rpx" />
           <text class="function-text">地址管理</text>
@@ -69,4 +69,18 @@
       <button class="logout-btn" bindtap="onLogout">退出登录</button>
     </view> -->
   </scroll-view>
-</view> 
+</view>
+
+<!-- 登录提示弹窗 -->
+<van-transition show="{{showLoginDialog}}" name="fade" custom-class="login-dialog-container">
+  <view class="login-dialog-mask" bindtap="hideLoginTip">
+    <view class="login-dialog" catchtap="preventBubble">
+      <view class="login-dialog-title">温馨提示</view>
+      <view class="login-dialog-content">请先登录后查看详情</view>
+      <view class="login-dialog-btns">
+        <button class="login-dialog-cancel" bindtap="hideLoginTip">取消</button>
+        <button class="login-dialog-confirm" bindtap="goLogin">去登录</button>
+      </view>
+    </view>
+  </view>
+</van-transition>

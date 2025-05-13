@@ -142,6 +142,7 @@
 .function-text {
   font-size: 35rpx;
   color: #333;
+  margin-left: 20rpx;
 }
 
 .info-list {
@@ -199,4 +200,80 @@
   font-size: 32rpx;
   border-radius: 8rpx;
   width: 100%;
+}
+
+/* 登录提示弹窗样式 */
+.login-dialog-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.login-dialog-mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-dialog {
+  width: 600rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.login-dialog-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding: 15rpx 0;
+}
+
+.login-dialog-content {
+  font-size: 32rpx;
+  color: #666;
+  text-align: center;
+  padding: 20rpx 30rpx 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-dialog-btns {
+  display: flex;
+  width: 100%;
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+
+.login-dialog-cancel, .login-dialog-confirm {
+  flex: 1;
+  height: 80rpx;
+  line-height: 50rpx;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+  margin: 0 15rpx;
+}
+
+.login-dialog-cancel {
+  color: #666;
+  background-color: #f7f7f7;
+  border: none;
+}
+
+.login-dialog-confirm {
+  color: #fff;
+  background-color: #1296db;
+  border: none;
 } 

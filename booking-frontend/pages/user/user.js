@@ -1,7 +1,8 @@
 Page({
   data: {
     userInfo: {},
-    isLogin: false
+    isLogin: false,
+    showLoginDialog: false
   },
 
   onLoad() {
@@ -37,8 +38,30 @@ Page({
     }
   },
 
+  // 显示登录提示弹窗
+  showLoginTip() {
+    // 显示登录弹窗
+    this.setData({
+      showLoginDialog: true
+    })
+  },
+
+  // 隐藏登录提示弹窗
+  hideLoginTip() {
+    this.setData({
+      showLoginDialog: false
+    })
+  },
+
+  // 防止事件冒泡
+  preventBubble() {
+    // 防止点击弹窗内容时触发关闭弹窗
+    return;
+  },
+
   // 跳转到登录页
   goLogin() {
+    this.hideLoginTip();
     wx.navigateTo({
       url: '/pages/login/login'
     })
@@ -47,11 +70,8 @@ Page({
   // 跳转到个人资料页面，处理 "更多" 按钮的点击
   goProfile() {
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-      return
+      this.showLoginTip();
+      return;
     }
     
     // 检查profile页面是否存在并完善
@@ -78,11 +98,8 @@ Page({
   // 跳转到积分页面
   goPoints() {
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-      return
+      this.showLoginTip();
+      return;
     }
     wx.navigateTo({
       url: '/pages/user/points/points'
@@ -92,11 +109,8 @@ Page({
   // 跳转到优惠券页面
   goCoupons() {
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-      return
+      this.showLoginTip();
+      return;
     }
     wx.navigateTo({
       url: '/pages/user/coupons/coupons'
@@ -106,11 +120,8 @@ Page({
   // 跳转到收藏页面
   goCollection() {
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-      return
+      this.showLoginTip();
+      return;
     }
     wx.navigateTo({
       url: '/pages/user/collection/collection'
@@ -120,11 +131,8 @@ Page({
   // 跳转到地址管理
   goAddress() {
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-      return
+      this.showLoginTip();
+      return;
     }
     wx.navigateTo({
       url: '/pages/user/address/address'
