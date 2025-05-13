@@ -56,5 +56,21 @@
 
 
 
-
 将来的将来，也许会把这个这个项目转为云开发。再说吧。
+
+
+
+
+
+## 使用的第三方开源库说明
+
+本项目基于 MIT 协议开源，部分组件使用了 Vant Weapp（MIT 协议），详见 LICENSE 文件。
+
+---
+
+### Vant Weapp
+
+- 仓库地址：[https://github.com/youzan/vant-weapp](https://github.com/youzan/vant-weapp)
+- 版权归属：© 2016-present Youzan
+- 授权协议：MIT License
+
