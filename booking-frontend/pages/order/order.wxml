@@ -53,7 +53,8 @@
     </view>
     
     <view wx:else class="not-login-container">
-      <image class="not-login-bg" src="/icon/not-login-bg.png" mode="aspectFit"></image>
+      <!-- <image class="not-login-bg" src="/icon/not-login-bg.png" mode="aspectFit"></image> -->
+      <van-icon name="orders-o" size="150rpx" style="margin-bottom: 100rpx;"/>
       <text class="not-login-text">请先登录后查看订单</text>
       <button class="login-btn" bindtap="goLogin">去登录</button>
     </view>

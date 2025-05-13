@@ -48,7 +48,7 @@
     <view class="function-list">
       <view class="function-item" bindtap="goAddress">
         <view class="function-left">
-          <image class="function-icon" src="/icon/address.png"></image>
+          <van-icon name="location-o" size="45rpx" />
           <text class="function-text">地址管理</text>
         </view>
         <image class="arrow-icon" src="/icon/arrow-right.png"></image>
@@ -56,13 +56,14 @@
       
       <view class="function-item" bindtap="goSetting">
         <view class="function-left">
-          <image class="function-icon" src="/icon/setting.png"></image>
+          <van-icon name="setting-o" size="45rpx" />
           <text class="function-text">设置</text>
         </view>
         <image class="arrow-icon" src="/icon/arrow-right.png"></image>
       </view>
     </view>
     
+    <!-- 测试用 -->
     <!-- 退出登录按钮
     <view wx:if="{{isLogin}}" class="logout-container">
       <button class="logout-btn" bindtap="onLogout">退出登录</button>

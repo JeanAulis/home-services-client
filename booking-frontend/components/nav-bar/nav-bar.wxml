@@ -9,17 +9,17 @@
       <view wx:if="{{leftButtonType !== 'none'}}" class="nav-left {{textStyle}}" bindtap="handleLeftButtonTap">
         <!-- 返回按钮 -->
         <view wx:if="{{leftButtonType === 'back'}}" class="circle-button">
-          <view class="back-icon"></view>
+          <van-icon name="arrow-left" size="50rpx" color="{{textStyle === 'white' ? '#ffffff' : '#333333'}}"/>
         </view>
         
         <!-- 首页按钮 -->
         <view wx:elif="{{leftButtonType === 'home'}}" class="circle-button">
-          <view class="home-icon"></view>
+          <van-icon name="wap-home-o" size="50rpx" color="{{textStyle === 'white' ? '#ffffff' : '#333333'}}"/>
         </view>
         
         <!-- 搜索按钮 -->
         <view wx:elif="{{leftButtonType === 'search'}}" class="circle-button">
-          <view class="search-icon"></view>
+          <van-icon name="search" size="50rpx" color="{{textStyle === 'white' ? '#ffffff' : '#333333'}}"/>
         </view>
       </view>
       
