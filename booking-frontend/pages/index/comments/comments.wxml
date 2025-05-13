@@ -29,7 +29,7 @@
         <view class="rating-item" wx:for="{{ratingDistribution}}" wx:key="index">
           <text class="rating-label">{{index + 1}}星</text>
           <view class="rating-bar-container">
-            <view class="rating-bar" style="width: {{item.percentage}}%"></view>
+            <view class="rating-bar" style="width: {{item.percentage}};"></view>
           </view>
           <text class="rating-count-small">{{item.count}}</text>
         </view>

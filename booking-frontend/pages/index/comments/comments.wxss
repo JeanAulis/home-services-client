@@ -10,7 +10,8 @@
 
 /* 评分统计区域 */
 .statistics-section {
-  background-color: #fff;
+	background-color: #fff;
+	width: 90%;
   padding: 30rpx;
   margin-bottom: 20rpx;
 }
@@ -101,6 +102,7 @@
 
 /* 筛选区域 */
 .filter-section {
+	width: 90%;
   background-color: #fff;
   padding: 20rpx 30rpx;
   margin-bottom: 20rpx;
@@ -129,6 +131,7 @@
 
 /* 评论列表 */
 .comments-section {
+	width: 90%;
   background-color: #fff;
   padding: 20rpx 30rpx;
 }
