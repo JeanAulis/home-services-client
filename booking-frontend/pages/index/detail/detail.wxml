@@ -125,10 +125,21 @@
   </view>
   
   <!-- 底部操作栏 -->
-  <view class="bottom-bar">
+  <!-- <view class="bottom-bar">
     <button class="add-to-cart" bindtap="addToCart">
       <van-icon name="shopping-cart-o" size="40rpx" />加入购物车
     </button>
     <button class="buy-now" bindtap="buyNow">立即购买</button>
-  </view>
+  </view> -->
 </scroll-view> 
+
+<van-goods-action class="bottom-bar">
+  <van-goods-action-icon icon="chat-o" text="客服" bind:click="onClickIcon" />
+  <van-goods-action-icon icon="cart-o" text="购物车" bind:click="onClickIcon" />
+  <van-goods-action-button
+    text="加入购物车"
+    type="warning"
+    bind:click="onClickButton"
+  />
+  <van-goods-action-button text="立即购买" bind:click="onClickButton" />
+</van-goods-action>
