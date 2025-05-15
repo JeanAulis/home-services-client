@@ -36,7 +36,7 @@
 		<view class="service-section">
 			<view class="section-title">服务项目</view>
 			<view class="service-card">
-				<van-image width="160rpx" height="160rpx" radius="8rpx" src="{{serviceDetail.image}}" lazy-load>
+				<van-image width="160rpx" height="160rpx" radius="8rpx" src="{{serviceDetail.image || 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'}}" lazy-load>
 					<van-icon slot="loading" name="photo-o" size="36px" />
 					<van-icon slot="error" name="photo-fail" size="36px" />
 				</van-image>

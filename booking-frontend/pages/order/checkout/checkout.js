@@ -1,5 +1,6 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
+const apiBaseUrl = 'http://localhost:8080'; // 设置API基础URL，根据实际情况修改
 
 Page({
   data: {
@@ -53,11 +54,31 @@ Page({
       this.loadServiceDetail(options.serviceId);
     }
     
-    // 获取用户地址
-    this.loadUserAddresses();
-    
-    // 获取用户优惠券
-    this.loadUserCoupons();
+    // 检查用户是否登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (userInfo && userInfo.userNum) {
+      // 获取用户地址
+      this.loadUserAddresses();
+      
+      // 获取用户优惠券
+      this.loadUserCoupons();
+    } else {
+      // 如果没有登录，提示用户需要登录
+      wx.showModal({
+        title: '提示',
+        content: '请先登录以继续操作',
+        confirmText: '去登录',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            });
+          } else {
+            wx.navigateBack();
+          }
+        }
+      });
+    }
   },
   
   onShow: function() {
@@ -74,15 +95,28 @@ Page({
     });
     
     wx.request({
-      url: `${app.globalData.apiBaseUrl}/api/products/${serviceId}`,
+      url: `${apiBaseUrl}/api/product/detail`,
       method: 'GET',
+      data: {
+        productNum: serviceId
+      },
       success: (res) => {
-        if (res.statusCode === 200) {
-          const serviceDetail = res.data;
+        if (res.statusCode === 200 && res.data.code === 200) {
+          const serviceDetail = res.data.data.product;
+          const statistics = res.data.data.statistics;
+          
+          // 处理服务数据，确保字段一致性
+          const processedDetail = {
+            ...serviceDetail,
+            name: serviceDetail.productName || serviceDetail.name || '未知服务',
+            image: serviceDetail.productImages ? serviceDetail.productImages.split(',')[0] : null,
+            price: serviceDetail.price || 0
+          };
+          
           this.setData({
-            serviceDetail: serviceDetail,
+            serviceDetail: processedDetail,
             loading: false,
-            totalAmount: serviceDetail.price
+            totalAmount: processedDetail.price
           });
           this.calculateTotal();
         } else {
@@ -107,14 +141,21 @@ Page({
   
   // 加载用户地址
   loadUserAddresses: function() {
+    // 确保用户已登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo || !userInfo.userNum) return;
+  
     wx.request({
-      url: `${app.globalData.apiBaseUrl}/api/user/addresses`,
+      url: `${apiBaseUrl}/api/user/address/list`,
       method: 'GET',
+      data: {
+        userNum: userInfo.userNum
+      },
       header: {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`
       },
       success: (res) => {
-        if (res.statusCode === 200 && res.data.length > 0) {
+        if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length > 0) {
           // 设置默认地址
           this.loadDefaultAddress();
         }
@@ -127,16 +168,23 @@ Page({
   
   // 加载默认地址
   loadDefaultAddress: function() {
+    // 确保用户已登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo || !userInfo.userNum) return;
+    
     wx.request({
-      url: `${app.globalData.apiBaseUrl}/api/user/addresses/default`,
+      url: `${apiBaseUrl}/api/user/address/default`,
       method: 'GET',
+      data: {
+        userNum: userInfo.userNum
+      },
       header: {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`
       },
       success: (res) => {
-        if (res.statusCode === 200 && res.data) {
+        if (res.statusCode === 200 && res.data.code === 200 && res.data.data) {
           this.setData({
-            selectedAddress: res.data
+            selectedAddress: res.data.data
           });
         }
       }
@@ -145,16 +193,23 @@ Page({
   
   // 加载用户优惠券
   loadUserCoupons: function() {
+    // 确保用户已登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo || !userInfo.userNum) return;
+    
     wx.request({
-      url: `${app.globalData.apiBaseUrl}/api/user/coupons/available`,
+      url: `${apiBaseUrl}/api/user/coupon/available`,
       method: 'GET',
+      data: {
+        userNum: userInfo.userNum
+      },
       header: {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`
       },
       success: (res) => {
-        if (res.statusCode === 200) {
+        if (res.statusCode === 200 && res.data.code === 200) {
           this.setData({
-            coupons: res.data
+            coupons: res.data.data
           });
         }
       },
@@ -363,6 +418,24 @@ Page({
   
   // 提交订单
   submitOrder: function() {
+    // 检查用户是否登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo || !userInfo.userNum) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录以继续操作',
+        confirmText: '去登录',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            });
+          }
+        }
+      });
+      return;
+    }
+    
     // 检查必填项
     if (!this.data.selectedAddress) {
       wx.showToast({
@@ -388,8 +461,9 @@ Page({
     
     // 构建订单对象
     const order = {
-      userNum: wx.getStorageSync('userInfo').userNum,
-      serviceName: this.data.serviceDetail.productName,
+      userNum: userInfo.userNum,
+      productNum: this.data.serviceId,
+      serviceName: this.data.serviceDetail.name,
       orderAmount: this.data.totalAmount,
       serviceTime: serviceTime.toISOString(),
       addressId: this.data.selectedAddress.id,
@@ -401,7 +475,7 @@ Page({
     
     // 调用创建订单API
     wx.request({
-      url: `${app.globalData.apiBaseUrl}/api/orders/create`,
+      url: `${apiBaseUrl}/api/order/create`,
       method: 'POST',
       header: {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`,
@@ -409,8 +483,8 @@ Page({
       },
       data: order,
       success: (res) => {
-        if (res.statusCode === 200 || res.statusCode === 201) {
-          const orderId = res.data.orderId;
+        if (res.statusCode === 200 && res.data.code === 200) {
+          const orderId = res.data.data.orderId;
           
           // 跳转到支付页面
           wx.navigateTo({
@@ -418,7 +492,7 @@ Page({
           });
         } else {
           wx.showToast({
-            title: res.data.message || '创建订单失败',
+            title: res.data.msg || '创建订单失败',
             icon: 'none'
           });
         }

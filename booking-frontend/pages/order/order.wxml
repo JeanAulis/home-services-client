@@ -47,15 +47,17 @@
       </view>
       
       <view wx:else class="empty-container">
-        <image class="empty-icon" src="/icon/empty-order.png" mode="aspectFit"></image>
-        <text class="empty-text">暂无订单</text>
+        <!-- <image class="empty-icon" src="/icon/empty-order.png" mode="aspectFit"></image> -->
+				<van-icon name="shopping-cart-o" size="150rpx" style="margin: 100rpx;margin-bottom: 50rpx;"/>
+        <text class="empty-text">
+				暂无订单</text>
         <button class="go-order" bindtap="goOrder">去下单</button>
       </view>
     </view>
     
     <view wx:else class="not-login-container">
       <!-- <image class="not-login-bg" src="/icon/not-login-bg.png" mode="aspectFit"></image> -->
-      <van-icon name="orders-o" size="150rpx" style="margin-bottom: 100rpx;"/>
+      <van-icon name="orders-o" size="150rpx" style="margin: 100rpx;margin-bottom: 50rpx;"/>
       <text class="not-login-text">请先登录后查看订单</text>
       <button class="login-btn" bindtap="goLogin">去登录</button>
     </view>

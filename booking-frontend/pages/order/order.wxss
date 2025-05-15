@@ -199,7 +199,7 @@ scroll-view {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 600rpx;
+  height: 800rpx;
   padding: 0 30rpx;
 }
 

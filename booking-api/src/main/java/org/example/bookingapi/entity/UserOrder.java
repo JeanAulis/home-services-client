@@ -14,6 +14,9 @@ public class UserOrder {
     @Column(name = "user_num", nullable = false)
     private String userNum;
 
+    @Column(name = "product_num")
+    private String productNum;
+
     @Column(name = "service_name", nullable = false)
     private String serviceName;
 
@@ -91,6 +94,14 @@ public class UserOrder {
 
     public void setUserNum(String userNum) {
         this.userNum = userNum;
+    }
+
+    public String getProductNum() {
+        return productNum;
+    }
+
+    public void setProductNum(String productNum) {
+        this.productNum = productNum;
     }
 
     public String getServiceName() {
