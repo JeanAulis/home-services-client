@@ -15,7 +15,21 @@
     <view class="banner-section">
       <swiper class="product-swiper" indicator-dots autoplay circular>
         <swiper-item wx:for="{{productImages}}" wx:key="index">
-          <image src="{{item}}" mode="aspectFill" class="product-image"></image>
+          <!-- 使用vant的Image组件替代原生image -->
+          <van-image
+            width="100%" 
+            height="100%" 
+            fit="cover"
+            src="{{item}}"
+            use-loading-slot
+            show-error
+            show-loading
+            radius="0"
+            lazy-load
+          >
+            <van-icon slot="loading" name="photo-o" size="36px" />
+            <van-icon slot="error" name="photo-fail" size="36px" />
+          </van-image>
         </swiper-item>
       </swiper>
     </view>
@@ -58,15 +72,19 @@
       </view>
     </view>
     
-    <!-- 相关视频 -->
-    <view class="video-section" wx:if="{{product.productVideo}}">
+    <!-- 相关视频 - 直接使用代码中设置的视频URL -->
+    <view class="video-section" wx:if="{{hasVideo}}">
       <view class="section-title">服务视频</view>
       <video 
-        src="{{product.productVideo}}" 
+        src="{{videoUrl}}" 
         controls
         autoplay="{{false}}"
         class="product-video"
         play-btn-position="center"
+        poster="{{productImages[0]}}"
+        object-fit="cover"
+        show-center-play-btn="{{true}}"
+        initial-time="0"
       ></video>
     </view>
     
@@ -116,6 +134,9 @@
       </view>
     </view>
     
+    <!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
+    <view style="height: 120rpx;"></view>
+    
   </view>
   
   <!-- 加载状态 -->
@@ -123,21 +144,13 @@
     <view class="loading-icon"></view>
     <text class="loading-text">加载中...</text>
   </view>
-  
-  <!-- 底部操作栏 -->
-  <!-- <view class="bottom-bar">
-    <button class="add-to-cart" bindtap="addToCart">
-      <van-icon name="shopping-cart-o" size="40rpx" />加入购物车
-    </button>
-    <button class="buy-now" bindtap="buyNow">立即购买</button>
-  </view> -->
-
-	<van-goods-action>
-		<van-goods-action-icon icon="chat-o" text="客服" dot />
-		<van-goods-action-icon icon="cart-o" text="购物车" info="5" />
-		<van-goods-action-icon icon="shop-o" text="店铺" />
-		<van-goods-action-button text="加入购物车" type="warning" />
-		<van-goods-action-button text="立即购买" />
-	</van-goods-action>
-
 </scroll-view>
+
+<!-- 底部操作栏 - 放到scroll-view外部 -->
+<van-goods-action safe-area-inset-bottom="{{true}}">
+  <van-goods-action-icon icon="chat-o" text="客服" dot />
+  <van-goods-action-icon icon="cart-o" text="购物车" info="6" />
+  <van-goods-action-icon icon="shop-o" text="店铺" info="new"/>
+  <van-goods-action-button color="#be99ff" text="加入购物车" type="warning" bind:click="addToCart" />
+  <van-goods-action-button color="#7232dd" text="立即购买" bind:click="buyNow" />
+</van-goods-action>

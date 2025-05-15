@@ -1,6 +1,9 @@
 // detail.js
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 const baseUrl = 'http://localhost:8080'; // 后端API基础URL
+const vantImageUrl = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'; // Vant组件库提供的默认图片
+const defaultVideoUrl = 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+
 
 Page({
   data: {
@@ -13,7 +16,9 @@ Page({
     fullStars: [],
     hasHalfStar: false,
     emptyStars: [],
-    defaultAvatarUrl: defaultAvatarUrl
+    defaultAvatarUrl: defaultAvatarUrl,
+    hasVideo: true, // 始终显示视频
+    videoUrl: defaultVideoUrl // 直接设置默认视频URL
   },
   
   onLoad(options) {
@@ -68,10 +73,24 @@ Page({
             productImages = product.productImages.split(',').filter(img => img && img.trim() !== '');
           }
           
-          // 如果没有图片，使用默认图片
+          // 如果没有图片，使用vant组件库提供的默认图片
           if (productImages.length === 0) {
-            productImages = [defaultAvatarUrl];
+            productImages = [vantImageUrl];
           }
+          
+          /* 
+          // 注释掉从数据库获取视频的部分
+          let videoUrl = '';
+          let hasVideo = false;
+          
+          if (product.productVideo && product.productVideo.trim() !== '') {
+            videoUrl = product.productVideo;
+            hasVideo = true;
+          } else {
+            videoUrl = defaultVideoUrl;
+            hasVideo = true;
+          }
+          */
           
           // 处理评分星星
           this.processRatingStars(statistics.averageRating || 0);
@@ -80,6 +99,9 @@ Page({
             product: product,
             statistics: statistics,
             productImages: productImages,
+            // 直接设置视频相关属性，不从数据库获取
+            // videoUrl: videoUrl,
+            // hasVideo: hasVideo,
             loading: false
           });
         } else {
@@ -247,9 +269,9 @@ Page({
       return;
     }
     
-    // 跳转到订单确认页面
+    // 跳转到订单结算页面
     wx.navigateTo({
-      url: `/pages/order/confirm/confirm?productNum=${this.data.productNum}&quantity=1`
+      url: `/pages/order/checkout/checkout?serviceId=${this.data.productNum}`
     });
   },
   

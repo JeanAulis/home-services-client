@@ -1,80 +1,86 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/login/login",
-    "pages/order/order",
-    "pages/register/register",
-    "pages/user/user",
-    "pages/index/detail/detail",
-    "pages/index/comments/comments",
-    "pages/order/detail/detail",
-    "pages/user/profile/profile",
-    "pages/user/address/address",
-    "pages/user/address/edit/edit",
-    "pages/user/setting/setting",
-    "pages/user/setting/privacy/privacy",
-    "pages/user/setting/permission/permission"
-  ],
-  "window": {
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "家政服务",
-    "navigationBarBackgroundColor": "#00000000",
-    "navigationStyle": "custom",
-    "backgroundTextStyle": "light",
-    "backgroundColor": "#f5f5f5"
-  },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#1296db",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "icon/home.png",
-        "selectedIconPath": "icon/home-active.png"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "订单",
-        "iconPath": "icon/order.png",
-        "selectedIconPath": "icon/order-active.png"
-      },
-      {
-        "pagePath": "pages/user/user",
-        "text": "我的",
-        "iconPath": "icon/user.png",
-        "selectedIconPath": "icon/user-active.png"
-      }
-    ]
-  },
-  "usingComponents": {
-    "van-icon": "@vant/weapp/icon/index",
-    "van-image": "@vant/weapp/image/index",
-    "van-transition": "@vant/weapp/transition/index",
-    "van-goods-action": "@vant/weapp/goods-action/index",
-    "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
-    "van-goods-action-button": "@vant/weapp/goods-action-button/index"
-  },
-  "componentFramework": "glass-easel",
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于定位服务"
-    },
-    "scope.addressBook": {
-      "desc": "你的通讯录信息将用于快速添加联系人"
-    },
-    "scope.notifications": {
-      "desc": "用于接收订单状态和活动消息"
-    },
-    "scope.camera": {
-      "desc": "拍摄照片用于上传"
-    },
-    "scope.writePhotosAlbum": {
-      "desc": "保存图片到相册"
-    }
-  }
+	"pages": [
+		"pages/index/index",
+		"pages/login/login",
+		"pages/order/order",
+		"pages/order/checkout/checkout",
+		"pages/register/register",
+		"pages/user/user",
+		"pages/index/detail/detail",
+		"pages/index/comments/comments",
+		"pages/order/detail/detail",
+		"pages/user/profile/profile",
+		"pages/user/address/address",
+		"pages/user/address/edit/edit",
+		"pages/user/setting/setting",
+		"pages/user/setting/privacy/privacy",
+		"pages/user/setting/permission/permission"
+	],
+	"window": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "家政服务",
+		"navigationBarBackgroundColor": "#00000000",
+		"navigationStyle": "custom",
+		"backgroundTextStyle": "light",
+		"backgroundColor": "#f5f5f5"
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#1296db",
+		"backgroundColor": "#ffffff",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "icon/home.png",
+				"selectedIconPath": "icon/home-active.png"
+			},
+			{
+				"pagePath": "pages/order/order",
+				"text": "订单",
+				"iconPath": "icon/order.png",
+				"selectedIconPath": "icon/order-active.png"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "我的",
+				"iconPath": "icon/user.png",
+				"selectedIconPath": "icon/user-active.png"
+			}
+		]
+	},
+	"usingComponents": {
+		"van-icon": "@vant/weapp/icon/index",
+		"van-image": "@vant/weapp/image/index",
+		"van-transition": "@vant/weapp/transition/index",
+		"van-goods-action": "@vant/weapp/goods-action/index",
+		"van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
+		"van-goods-action-button": "@vant/weapp/goods-action-button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-submit-bar": "@vant/weapp/submit-bar/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-cell-group": "@vant/weapp/cell-group/index"
+	},
+	"componentFramework": "glass-easel",
+	"sitemapLocation": "sitemap.json",
+	"lazyCodeLoading": "requiredComponents",
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于定位服务"
+		},
+		"scope.addressBook": {
+			"desc": "你的通讯录信息将用于快速添加联系人"
+		},
+		"scope.notifications": {
+			"desc": "用于接收订单状态和活动消息"
+		},
+		"scope.camera": {
+			"desc": "拍摄照片用于上传"
+		},
+		"scope.writePhotosAlbum": {
+			"desc": "保存图片到相册"
+		}
+	}
 }

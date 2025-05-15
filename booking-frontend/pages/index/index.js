@@ -57,8 +57,8 @@ Page({
     const categoriesWithIcons = this.data.categories.map(item => {
       // 为每个分类设置对应的vant图标
       item.vantIcon = iconMap[item.type] || 'miniprogram-o';
-      return item;
-    });
+        return item;
+      });
     
     this.setData({
       categories: categoriesWithIcons

@@ -1,0 +1,141 @@
+<!--checkout.wxml 订单结算页面-->
+<nav-bar title="订单结算" textStyle="black" showBack="{{true}}" scrollTrigger="{{80}}" enableGradient="{{true}}" useFixedBg="{{false}}" bind:back="handleNavBack"></nav-bar>
+
+<scroll-view class="scrollarea page-scroll" scroll-y type="list">
+	<view class="container">
+		<!-- 地址选择部分 -->
+		<view class="address-section" bindtap="selectAddress">
+			<view class="address-icon">
+				<van-icon name="location-o" size="48rpx" color="#7232dd" />
+			</view>
+			<view class="address-content" wx:if="{{selectedAddress}}">
+				<view class="address-user">
+					<text class="address-name">{{selectedAddress.name}}</text>
+					<text class="address-phone">{{selectedAddress.phone}}</text>
+				</view>
+				<view class="address-detail">{{selectedAddress.province}}{{selectedAddress.city}}{{selectedAddress.district}}{{selectedAddress.detailAddress}}</view>
+			</view>
+			<view class="address-content" wx:else>
+				<view class="address-empty">请选择服务地址</view>
+			</view>
+			<view class="address-arrow">
+				<van-icon name="arrow" />
+			</view>
+		</view>
+
+		<!-- 服务时间选择 -->
+		<view class="time-section" bindtap="showTimePicker">
+			<view class="section-title">预约时间</view>
+			<view class="time-picker">
+				<text class="time-text">{{formattedTime || '请选择服务时间'}}</text>
+				<van-icon name="arrow" />
+			</view>
+		</view>
+
+		<!-- 服务项目部分 -->
+		<view class="service-section">
+			<view class="section-title">服务项目</view>
+			<view class="service-card">
+				<van-image width="160rpx" height="160rpx" radius="8rpx" src="{{serviceDetail.image}}" lazy-load>
+					<van-icon slot="loading" name="photo-o" size="36px" />
+					<van-icon slot="error" name="photo-fail" size="36px" />
+				</van-image>
+				<view class="service-info">
+					<view class="service-name">{{serviceDetail.name}}</view>
+					<view class="service-price">¥{{serviceDetail.price}}</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 优惠券部分 -->
+		<view class="coupon-section" bindtap="selectCoupon">
+			<view class="section-title">优惠券</view>
+			<view class="coupon-picker">
+				<text class="coupon-text">{{selectedCoupon ? '¥'+selectedCoupon.amount+'元优惠券' : '暂无可用优惠券'}}</text>
+				<van-icon name="arrow" />
+			</view>
+		</view>
+
+		<!-- 备注输入 -->
+		<view class="remark-section">
+			<view class="section-title">备注</view>
+			<view class="remark-input">
+				<van-cell-group>
+					<van-field value="{{ remarks }}" type="textarea" placeholder="请输入备注信息" autosize bind:change="onRemarkChange" border="{{ false }}" maxlength="100" show-word-limit />
+				</van-cell-group>
+			</view>
+		</view>
+
+		<!-- 价格明细 -->
+		<view class="price-detail">
+			<view class="price-item">
+				<text>服务价格</text>
+				<text>¥{{serviceDetail.price}}</text>
+			</view>
+			<view class="price-item" wx:if="{{selectedCoupon}}">
+				<text>优惠券</text>
+				<text class="discount">-¥{{selectedCoupon.amount}}</text>
+			</view>
+			<view class="price-item total">
+				<text>实付金额</text>
+				<text class="total-price">¥{{totalAmount}}</text>
+			</view>
+		</view>
+
+		<!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
+		<view style="height: 110rpx;"></view>
+	</view>
+</scroll-view>
+
+<!-- 底部结算栏 -->
+<van-submit-bar price="{{ totalAmount * 100 }}" button-text="提交订单" bind:submit="submitOrder" tip="{{ true }}" safe-area-inset-bottom>
+	<view slot="tip">
+		<van-icon slot="top" name="info-o" size="14px" />
+		请确认服务地址和预约时间
+	</view>
+</van-submit-bar>
+
+<!-- 时间选择弹出层 -->
+<van-popup show="{{ showTimePopup }}" position="bottom" round custom-style="padding-bottom: env(safe-area-inset-bottom);" bind:close="onTimePopupClose">
+	<view class="time-picker-header">
+		<view class="cancel-btn" bindtap="cancelTimePicker">取消</view>
+		<view class="title">选择预约时间</view>
+		<view class="confirm-btn" bindtap="confirmTimePicker">确定</view>
+	</view>
+  
+  <!-- 切换日期和时间选择器的选项卡 -->
+  <view class="time-picker-tabs">
+    <view class="time-tab {{currentTab === 'date' ? 'active' : ''}}" bindtap="switchToDateTab">选择日期</view>
+    <view class="time-tab {{currentTab === 'time' ? 'active' : ''}}" bindtap="switchToTimeTab">选择时间</view>
+  </view>
+  
+  <!-- 日期选择器 -->
+	<van-datetime-picker
+    wx:if="{{currentTab === 'date'}}"
+		type="date"
+		value="{{ currentDate }}"
+		min-date="{{ minDate }}"
+		max-date="{{ maxDate }}"
+		bind:input="onDateInput"
+		formatter="{{ formatter }}"
+		item-height="44"
+		visible-item-count="5"
+		show-toolbar="{{ false }}"
+	/>
+  
+  <!-- 时间选择 -->
+  <view wx:if="{{currentTab === 'time'}}" class="time-slots-container">
+    <view class="time-slots-title">可预约时间段</view>
+    <view class="time-slots-grid">
+      <view 
+        wx:for="{{timeSlots}}" 
+        wx:key="index" 
+        class="time-slot-item {{item.disabled ? 'disabled' : ''}} {{selectedTimeSlot === index ? 'selected' : ''}}" 
+        bindtap="{{item.disabled ? '' : 'selectTimeSlot'}}" 
+        data-index="{{index}}"
+      >
+        {{item.text}}
+      </view>
+    </view>
+  </view>
+</van-popup>

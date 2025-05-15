@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单结算",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  }
+} 

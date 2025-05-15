@@ -1,0 +1,308 @@
+/* checkout.wxss */
+.page-scroll {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 30rpx;
+}
+
+/* 地址选择部分 */
+.address-section {
+	display: flex;
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.address-icon {
+  margin-right: 20rpx;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 6rpx;
+}
+
+.address-content {
+  flex: 1;
+}
+
+.address-user {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+
+.address-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  margin-right: 20rpx;
+}
+
+.address-phone {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.address-detail {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.4;
+}
+
+.address-empty {
+  color: #999;
+  font-size: 28rpx;
+  padding: 10rpx 0;
+}
+
+.address-arrow {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+/* 时间选择部分 */
+.time-section {
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.time-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+/* 服务项目部分 */
+.service-section {
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.service-card {
+  display: flex;
+  align-items: center;
+}
+
+.service-info {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.service-name {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.service-price {
+  font-size: 32rpx;
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+/* 优惠券部分 */
+.coupon-section {
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.coupon-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupon-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+/* 备注部分 */
+.remark-section {
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.remark-input {
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+}
+
+/* 价格明细 */
+.price-detail {
+	width: 95%;
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.price-item.total {
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+  margin-top: 10rpx;
+}
+
+.total-price {
+  font-size: 36rpx;
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+.discount {
+  color: #ff4d4f;
+}
+
+/* 时间选择弹出层相关样式 */
+.time-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.time-picker-header .title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.time-picker-header .cancel-btn {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.time-picker-header .confirm-btn {
+  font-size: 28rpx;
+  color: #7232dd;
+  font-weight: 500;
+}
+
+/* 选项卡样式 */
+.time-picker-tabs {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx 0;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.time-tab {
+  padding: 10rpx 40rpx;
+  margin: 0 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.time-tab.active {
+  color: #7232dd;
+  font-weight: 500;
+}
+
+.time-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background-color: #7232dd;
+  border-radius: 2rpx;
+}
+
+/* 时间段选择样式 */
+.time-slots-container {
+  padding: 30rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.time-slots-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.time-slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.time-slot-item {
+  width: calc(33.33% - 20rpx);
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+  margin: 0 10rpx 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.time-slot-item.selected {
+  background-color: #7232dd;
+  color: #fff;
+}
+
+.time-slot-item.disabled {
+  background-color: #f5f5f5;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 自定义van-submit-bar样式 */
+:host {
+  --submit-bar-button-background-color: #7232dd;
+  --submit-bar-button-danger-color: #7232dd;
+} 

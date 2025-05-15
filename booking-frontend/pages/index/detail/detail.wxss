@@ -26,6 +26,27 @@
   height: 100%;
 }
 
+/* vant image样式调整 */
+.product-swiper .van-image {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.product-swiper .van-image__img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.product-swiper .van-image__loading,
+.product-swiper .van-image__error {
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 价格信息区域 */
 .price-section {
   margin: 0;
