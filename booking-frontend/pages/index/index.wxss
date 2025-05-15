@@ -8,22 +8,6 @@
   padding: 0 0 30rpx 0;
 }
 
-/* 轮播图样式 */
-.banner-section {
-  width: 100%;
-  height: 360rpx;
-}
-
-.banner {
-  width: 100%;
-  height: 100%;
-}
-
-.banner-image {
-  width: 100%;
-  height: 100%;
-}
-
 /* 分类样式 */
 .category-section {
   margin: 20rpx;
@@ -43,27 +27,29 @@
 
 .category-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  overflow-x: auto;
 }
 
 .category-item {
-  width: 20%;
+  min-width: 16%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.category-icon {
-  width: 80rpx;
-  height: 80rpx;
   margin-bottom: 10rpx;
 }
 
+.category-icon {
+  font-size: 60rpx !important;
+  margin-bottom: 10rpx;
+  color: #1296db;
+}
+
 .category-name {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #333;
+  white-space: nowrap;
 }
 
 /* 服务列表样式 */
@@ -95,6 +81,27 @@
   width: 100%;
   height: 180rpx;
   display: block;
+}
+
+/* 修复vant image在服务列表中的样式 */
+.service-item .van-image {
+  width: 100% !important;
+  height: 180rpx !important;
+}
+
+.service-item .van-image__img {
+  width: 100% !important;
+  height: 180rpx !important;
+  object-fit: cover !important;
+}
+
+.service-item .van-image__loading,
+.service-item .van-image__error {
+  width: 100% !important;
+  height: 180rpx !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .service-info {
@@ -146,6 +153,27 @@
 
 .new-service-item:last-child {
   margin-right: 0;
+}
+
+/* 修复vant image在新品列表中的样式 */
+.new-service-item .van-image {
+  width: 100% !important;
+  height: 180rpx !important;
+}
+
+.new-service-item .van-image__img {
+  width: 100% !important;
+  height: 180rpx !important;
+  object-fit: cover !important;
+}
+
+.new-service-item .van-image__loading,
+.new-service-item .van-image__error {
+  width: 100% !important;
+  height: 180rpx !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .new-tag {

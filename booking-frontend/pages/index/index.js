@@ -12,12 +12,6 @@ Page({
     hasUserInfo: false,
     canIUseGetUserProfile: wx.canIUse('getUserProfile'),
     canIUseNicknameComp: wx.canIUse('input.type.nickname'),
-    // 轮播图数据
-    banners: [
-      { imageUrl: '/images/banner1.jpg' },
-      { imageUrl: '/images/banner2.jpg' },
-      { imageUrl: '/images/banner3.jpg' }
-    ],
     // 服务分类数据
     categories: [
       { id: 1, name: '家居清洁', iconUrl: '/icon/clean.png', type: 'CLEANING' },
@@ -37,31 +31,37 @@ Page({
     }
   },
   
+  onShow() {
+    // 页面显示时的处理
+  },
+  
   onLoad() {
-    // 创建模拟图片
-    this.createMockImages();
     // 获取热门服务
     this.getHotProducts();
     // 获取新品服务
     this.getNewProducts();
+    // 设置每个分类的Vant图标
+    this.setVantIcons();
   },
   
-  // 创建模拟图片（当实际图片不存在时使用）
-  createMockImages() {
-    // 检查图片是否存在，不存在则使用默认图标
-    const checkAndSetDefaultImage = (array, urlProperty) => {
-      return array.map(item => {
-        const tempImageUrl = item[urlProperty];
-        // 使用默认图片代替
-        if (tempImageUrl.startsWith('/images/')) {
-          item[urlProperty] = defaultAvatarUrl;
-        }
-        return item;
-      });
+  // 设置每个分类的Vant图标
+  setVantIcons() {
+    const iconMap = {
+      'CLEANING': 'brush-o',
+      'REPAIR': 'flag-o',
+      'PLUMBING': 'flag-o',
+      'MOVING': 'flag-o',
+      'FURNITURE': 'home-o'
     };
     
+    const categoriesWithIcons = this.data.categories.map(item => {
+      // 为每个分类设置对应的vant图标
+      item.vantIcon = iconMap[item.type] || 'miniprogram-o';
+      return item;
+    });
+    
     this.setData({
-      banners: checkAndSetDefaultImage(this.data.banners, 'imageUrl')
+      categories: categoriesWithIcons
     });
   },
   
@@ -82,7 +82,7 @@ Page({
           // 处理服务数据
           const products = res.data.data.map(product => {
             // 处理图片路径，如果是多张图片（逗号分隔），取第一张
-            let imageUrl = defaultAvatarUrl;
+            let imageUrl = 'https://img01.yzcdn.cn/vant/ipad.jpeg';
             if (product.productImages) {
               const images = product.productImages.split(',');
               if (images.length > 0 && images[0]) {
@@ -145,7 +145,7 @@ Page({
           // 处理服务数据
           const products = res.data.data.map(product => {
             // 处理图片路径，如果是多张图片（逗号分隔），取第一张
-            let imageUrl = defaultAvatarUrl;
+            let imageUrl = 'https://img01.yzcdn.cn/vant/ipad.jpeg';
             if (product.productImages) {
               const images = product.productImages.split(',');
               if (images.length > 0 && images[0]) {
@@ -194,6 +194,7 @@ Page({
   // 按类型筛选服务
   filterByCategory(e) {
     const type = e.currentTarget.dataset.type;
+    
     if (type) {
       this.getHotProducts(type);
     } else {

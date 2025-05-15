@@ -51,6 +51,7 @@
   },
   "usingComponents": {
     "van-icon": "@vant/weapp/icon/index",
+    "van-image": "@vant/weapp/image/index",
     "van-transition": "@vant/weapp/transition/index",
     "van-goods-action": "@vant/weapp/goods-action/index",
     "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
