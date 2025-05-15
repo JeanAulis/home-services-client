@@ -60,8 +60,10 @@ Component({
   
   lifetimes: {
     attached() {
-      // 获取系统信息
-      const systemInfo = wx.getSystemInfoSync();
+      // 获取系统信息 - 使用新的推荐API
+      try {
+        // 使用新API获取状态栏高度
+        const systemInfo = wx.getWindowInfo();
       const navBarHeight = 44; // 导航条的高度
       const totalHeight = systemInfo.statusBarHeight + navBarHeight;
       
@@ -87,6 +89,36 @@ Component({
       // 仅当启用渐变效果时才设置滚动监听
       if (this.properties.enableGradient) {
         this.setupScrollListener();
+        }
+      } catch (error) {
+        console.error('获取系统信息失败:', error);
+        // 使用兜底方案
+        wx.getSystemInfo({
+          success: (res) => {
+            const navBarHeight = 44;
+            const totalHeight = res.statusBarHeight + navBarHeight;
+            
+            let initialBgColor = 'transparent';
+            if (this.properties.useFixedBg) {
+              initialBgColor = this.properties.fixedBgColor;
+            }
+            
+            this.setData({
+              statusBarHeight: res.statusBarHeight,
+              navBarHeight: navBarHeight,
+              totalHeight: totalHeight,
+              navBgColor: initialBgColor
+            });
+            
+            wx.nextTick(() => {
+              this.setCssVariable('--nav-bar-height', totalHeight + 'px');
+            });
+            
+            if (this.properties.enableGradient) {
+              this.setupScrollListener();
+            }
+          }
+        });
       }
     },
     

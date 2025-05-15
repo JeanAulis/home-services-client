@@ -92,7 +92,7 @@
 .rating-section {
   margin: 0;
   margin-top: 10rpx;
-  width: 100%;
+  width: 95%;
   padding: 20rpx 30rpx;
   background-color: #ffffff;
   display: flex;

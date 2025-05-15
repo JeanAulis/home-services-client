@@ -1,6 +1,22 @@
 // index.js
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 const baseUrl = 'http://localhost:8080'; // 后端API基础URL
+const defaultImageUrls = [
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-001.png',
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-002.png',
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-003.png'
+];
+
+// 获取随机默认图片URL
+function getRandomDefaultImage() {
+  const randomIndex = Math.floor(Math.random() * defaultImageUrls.length);
+  return defaultImageUrls[randomIndex];
+}
+
+// 按索引获取固定图片（循环使用三张图片）
+function getImageByIndex(index) {
+  return defaultImageUrls[index % defaultImageUrls.length];
+}
 
 Page({
   data: {
@@ -57,8 +73,8 @@ Page({
     const categoriesWithIcons = this.data.categories.map(item => {
       // 为每个分类设置对应的vant图标
       item.vantIcon = iconMap[item.type] || 'miniprogram-o';
-        return item;
-      });
+      return item;
+    });
     
     this.setData({
       categories: categoriesWithIcons
@@ -80,25 +96,18 @@ Page({
       success: (res) => {
         if (res.statusCode === 200 && res.data.code === 200) {
           // 处理服务数据
-          const products = res.data.data.map(product => {
-            // 处理图片路径，如果是多张图片（逗号分隔），取第一张
-            let imageUrl = 'https://img01.yzcdn.cn/vant/ipad.jpeg';
-            if (product.productImages) {
-              const images = product.productImages.split(',');
-              if (images.length > 0 && images[0]) {
-                imageUrl = images[0];
-              }
-            }
+          const products = res.data.data.map((product, index) => {
+            // 使用三个固定图片URL循环显示
+            const imageUrl = getImageByIndex(index);
             
             return {
               id: product.productId,
               productNum: product.productNum,
               name: product.productName,
               price: product.price,
-              imageUrl: imageUrl,
+              imageUrl: imageUrl, // 强制使用默认图片URL
               salesCount: product.salesCount,
-              productType: product.productType,
-              rating: 4.8 // 评分暂时使用默认值，实际应从评论统计中获取
+              productType: product.productType
             };
           });
           
@@ -143,22 +152,16 @@ Page({
       success: (res) => {
         if (res.statusCode === 200 && res.data.code === 200) {
           // 处理服务数据
-          const products = res.data.data.map(product => {
-            // 处理图片路径，如果是多张图片（逗号分隔），取第一张
-            let imageUrl = 'https://img01.yzcdn.cn/vant/ipad.jpeg';
-            if (product.productImages) {
-              const images = product.productImages.split(',');
-              if (images.length > 0 && images[0]) {
-                imageUrl = images[0];
-              }
-            }
+          const products = res.data.data.map((product, index) => {
+            // 使用三个固定图片URL循环显示
+            const imageUrl = getImageByIndex(index);
             
             return {
               id: product.productId,
               productNum: product.productNum,
               name: product.productName,
               price: product.price,
-              imageUrl: imageUrl,
+              imageUrl: imageUrl, // 强制使用默认图片URL
               publishDate: product.publishDate,
               productType: product.productType
             };
@@ -214,15 +217,10 @@ Page({
   
   // 跳转到搜索页面
   navigateToSearch() {
-    // 搜索页面不存在，暂时用提示替代
     wx.showToast({
       title: '搜索功能开发中',
       icon: 'none'
     });
-    // 等搜索页面开发完成后使用以下代码
-    // wx.navigateTo({
-    //   url: '/pages/search/search'
-    // });
   },
   
   // 搜索功能
@@ -234,10 +232,6 @@ Page({
         title: `搜索: ${searchValue.trim()}`,
         icon: 'none'
       });
-      // 等搜索页面开发完成后使用以下代码
-      // wx.navigateTo({
-      //   url: `/pages/search/search?keyword=${encodeURIComponent(searchValue.trim())}`
-      // });
     }
   },
   

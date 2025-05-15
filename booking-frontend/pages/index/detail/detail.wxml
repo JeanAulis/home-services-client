@@ -1,156 +1,118 @@
 <!--detail.wxml 商品详情页-->
-<nav-bar
-  title="商品详情"
-  textStyle="black"
-  showBack="{{true}}"
-  scrollTrigger="{{80}}"
-  enableGradient="{{true}}"
-  useFixedBg="{{false}}"
-  bind:back="handleNavBack"
-></nav-bar>
+<nav-bar title="商品详情" textStyle="black" showBack="{{true}}" scrollTrigger="{{80}}" enableGradient="{{true}}" useFixedBg="{{false}}" bind:back="handleNavBack"></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list">
-  <view class="container" wx:if="{{!loading}}">
-    <!-- 商品图片轮播 -->
-    <view class="banner-section">
-      <swiper class="product-swiper" indicator-dots autoplay circular>
-        <swiper-item wx:for="{{productImages}}" wx:key="index">
-          <!-- 使用vant的Image组件替代原生image -->
-          <van-image
-            width="100%" 
-            height="100%" 
-            fit="cover"
-            src="{{item}}"
-            use-loading-slot
-            show-error
-            show-loading
-            radius="0"
-            lazy-load
-          >
-            <van-icon slot="loading" name="photo-o" size="36px" />
-            <van-icon slot="error" name="photo-fail" size="36px" />
-          </van-image>
-        </swiper-item>
-      </swiper>
-    </view>
-    
-    <!-- 价格信息 -->
-    <view class="price-section">
-      <view class="price-info">
-        <text class="price">¥{{product.price}}</text>
-        <text class="product-name">{{product.productName}}</text>
-      </view>
-      <view class="sales-info">
-        <text class="sales-count">已售 {{product.salesCount || 0}}</text>
-      </view>
-    </view>
-    
-    <!-- 评分信息 -->
-    <view class="rating-section">
-      <view class="rating-left">
-        <text class="rating-score">{{statistics.averageRating || '0.0'}}</text>
-        <text class="rating-title">总体评分</text>
-      </view>
-      <view class="rating-right">
-        <text class="comment-count">{{statistics.totalComments || 0}} 条评论</text>
-        <view class="rating-stars">
-          <view class="star-list">
-            <view class="star filled" wx:for="{{fullStars}}" wx:key="index"></view>
-            <view class="star half" wx:if="{{hasHalfStar}}"></view>
-            <view class="star empty" wx:for="{{emptyStars}}" wx:key="index"></view>
-          </view>
-        </view>
-      </view>
-      <view class="arrow-right" bindtap="navigateToComments"></view>
-    </view>
-    
-    <!-- 商品详情区 -->
-    <view class="detail-section">
-      <view class="section-title">商品详情</view>
-      <view class="detail-content">
-        <rich-text nodes="{{product.productDesc}}"></rich-text>
-      </view>
-    </view>
-    
-    <!-- 相关视频 - 直接使用代码中设置的视频URL -->
-    <view class="video-section" wx:if="{{hasVideo}}">
-      <view class="section-title">服务视频</view>
-      <video 
-        src="{{videoUrl}}" 
-        controls
-        autoplay="{{false}}"
-        class="product-video"
-        play-btn-position="center"
-        poster="{{productImages[0]}}"
-        object-fit="cover"
-        show-center-play-btn="{{true}}"
-        initial-time="0"
-      ></video>
-    </view>
-    
-    <!-- 评论预览区 -->
-    <view class="comments-section">
-      <view class="section-header">
-        <view class="section-title">用户评价</view>
-        <view class="more-link" bindtap="navigateToComments">
-          <text>查看全部</text>
-          <view class="icon-arrow"></view>
-        </view>
-      </view>
-      
-      <view class="comment-list" wx:if="{{comments.length > 0}}">
-        <view class="comment-item" wx:for="{{comments}}" wx:key="id">
-          <view class="comment-user">
-            <image class="user-avatar" src="{{item.userInfo.avatarUrl || defaultAvatarUrl}}"></image>
-            <text class="user-name">{{item.isAnonymous ? '匿名用户' : (item.userInfo.userName || '用户')}}</text>
-            <view class="comment-date">{{item.commentDate}}</view>
-          </view>
-          <view class="comment-rating">
-            <view class="star-list">
-              <view class="star filled" wx:for="{{item.ratingStars.full}}" wx:key="index"></view>
-              <view class="star half" wx:if="{{item.ratingStars.half}}"></view>
-              <view class="star empty" wx:for="{{item.ratingStars.empty}}" wx:key="index"></view>
-            </view>
-          </view>
-          <view class="comment-content">{{item.commentContent}}</view>
-          <view class="comment-images" wx:if="{{item.commentImages && item.commentImages.length > 0}}">
-            <image 
-              wx:for="{{item.commentImages}}" 
-              wx:for-item="img" 
-              wx:key="index" 
-              src="{{img}}" 
-              mode="aspectFill" 
-              class="comment-image" 
-              bindtap="previewImage" 
-              data-urls="{{item.commentImages}}" 
-              data-current="{{img}}"
-            ></image>
-          </view>
-        </view>
-      </view>
-      
-      <view class="empty-comments" wx:else>
-        <text>暂无评价</text>
-      </view>
-    </view>
-    
-    <!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
-    <view style="height: 120rpx;"></view>
-    
-  </view>
-  
-  <!-- 加载状态 -->
-  <view class="loading-container" wx:if="{{loading}}">
-    <view class="loading-icon"></view>
-    <text class="loading-text">加载中...</text>
-  </view>
+	<view class="container" wx:if="{{!loading}}">
+		<!-- 商品图片轮播 -->
+		<view class="banner-section">
+			<swiper class="product-swiper" indicator-dots autoplay circular>
+				<swiper-item wx:for="{{productImages}}" wx:key="index">
+					<!-- 使用vant的Image组件替代原生image -->
+					<van-image width="100%" height="100%" fit="cover" src="{{item}}" use-loading-slot show-error show-loading radius="0" lazy-load>
+						<van-icon slot="loading" name="photo-o" size="36px" />
+						<van-icon slot="error" name="photo-fail" size="36px" />
+					</van-image>
+				</swiper-item>
+			</swiper>
+		</view>
+
+		<!-- 价格信息 -->
+		<view class="price-section">
+			<view class="price-info">
+				<text class="price">¥{{product.price}}</text>
+				<text class="product-name">{{product.productName}}</text>
+			</view>
+			<view class="sales-info">
+				<text class="sales-count">已售 {{product.salesCount || 0}}</text>
+			</view>
+		</view>
+
+		<!-- 评分信息 -->
+		<view class="rating-section">
+			<view class="rating-left">
+				<text class="rating-score">{{statistics.averageRating || '0.0'}}</text>
+				<text class="rating-title">总体评分</text>
+			</view>
+			<view class="rating-right">
+				<text class="comment-count">{{statistics.totalComments || 0}} 条评论</text>
+				<view class="rating-stars">
+					<view class="star-list">
+						<view class="star filled" wx:for="{{fullStars}}" wx:key="index"></view>
+						<view class="star half" wx:if="{{hasHalfStar}}"></view>
+						<view class="star empty" wx:for="{{emptyStars}}" wx:key="index"></view>
+					</view>
+				</view>
+			</view>
+			<view class="arrow-right" bindtap="navigateToComments"></view>
+		</view>
+
+		<!-- 商品详情区 -->
+		<view class="detail-section">
+			<view class="section-title">商品详情</view>
+			<view class="detail-content">
+				<rich-text nodes="{{product.productDesc}}"></rich-text>
+			</view>
+		</view>
+
+		<!-- 相关视频 - 直接使用代码中设置的视频URL -->
+		<view class="video-section" wx:if="{{hasVideo}}">
+			<view class="section-title">服务视频</view>
+			<video src="{{videoUrl}}" controls autoplay="{{false}}" class="product-video" play-btn-position="center" poster="{{productImages[0]}}" object-fit="cover" show-center-play-btn="{{true}}" initial-time="0"></video>
+		</view>
+
+		<!-- 评论预览区 -->
+		<view class="comments-section">
+			<view class="section-header">
+				<view class="section-title">用户评价</view>
+				<view class="more-link" bindtap="navigateToComments">
+					<text>查看全部</text>
+					<view class="icon-arrow"></view>
+				</view>
+			</view>
+
+			<view class="comment-list" wx:if="{{comments.length > 0}}">
+				<view class="comment-item" wx:for="{{comments}}" wx:key="id">
+					<view class="comment-user">
+						<image class="user-avatar" src="{{item.userInfo.avatarUrl || defaultAvatarUrl}}"></image>
+						<text class="user-name">{{item.isAnonymous ? '匿名用户' : (item.userInfo.userName || '用户')}}</text>
+						<view class="comment-date">{{item.commentDate}}</view>
+					</view>
+					<view class="comment-rating">
+						<view class="star-list">
+							<view class="star filled" wx:for="{{item.ratingStars.full}}" wx:key="index"></view>
+							<view class="star half" wx:if="{{item.ratingStars.half}}"></view>
+							<view class="star empty" wx:for="{{item.ratingStars.empty}}" wx:key="index"></view>
+						</view>
+					</view>
+					<view class="comment-content">{{item.commentContent}}</view>
+					<view class="comment-images" wx:if="{{item.commentImages && item.commentImages.length > 0}}">
+						<image wx:for="{{item.commentImages}}" wx:for-item="img" wx:key="index" src="{{img}}" mode="aspectFill" class="comment-image" bindtap="previewImage" data-urls="{{item.commentImages}}" data-current="{{img}}"></image>
+					</view>
+				</view>
+			</view>
+
+			<view class="empty-comments" wx:else>
+				<text>暂无评价</text>
+			</view>
+		</view>
+
+		<!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
+		<view style="height: 500rpx;"></view>
+
+	</view>
+
+	<!-- 加载状态 -->
+	<view class="loading-container" wx:if="{{loading}}">
+		<view class="loading-icon"></view>
+		<text class="loading-text">加载中...</text>
+	</view>
 </scroll-view>
 
 <!-- 底部操作栏 - 放到scroll-view外部 -->
 <van-goods-action safe-area-inset-bottom="{{true}}">
-  <van-goods-action-icon icon="chat-o" text="客服" dot />
-  <van-goods-action-icon icon="cart-o" text="购物车" info="6" />
-  <van-goods-action-icon icon="shop-o" text="店铺" info="new"/>
-  <van-goods-action-button color="#be99ff" text="加入购物车" type="warning" bind:click="addToCart" />
-  <van-goods-action-button color="#7232dd" text="立即购买" bind:click="buyNow" />
+	<van-goods-action-icon icon="chat-o" text="客服" dot />
+	<van-goods-action-icon icon="cart-o" text="购物车" info="6" />
+	<van-goods-action-icon icon="shop-o" text="店铺" info="new" />
+	<van-goods-action-button color="#be99ff" text="加入购物车" type="warning" bind:click="addToCart" />
+	<van-goods-action-button color="#7232dd" text="立即购买" bind:click="buyNow" />
 </van-goods-action>

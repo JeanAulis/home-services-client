@@ -107,4 +107,5 @@
       <text>更多服务陆续上线中</text>
     </view>
   </view>
+	<view style="height: 800rpx;"></view>
 </scroll-view>

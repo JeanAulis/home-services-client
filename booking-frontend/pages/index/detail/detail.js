@@ -4,6 +4,22 @@ const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia0
 const apiBaseUrl = 'http://localhost:8080'; // 设置API基础URL，根据实际情况修改
 const vantImageUrl = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'; // Vant组件库提供的默认图片
 const defaultVideoUrl = 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+const defaultDetailImageUrls = [
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-001.png',
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-002.png',
+  'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-003.png'
+];
+
+// 获取随机默认详情图片URL
+function getRandomDetailImage() {
+  const randomIndex = Math.floor(Math.random() * defaultDetailImageUrls.length);
+  return defaultDetailImageUrls[randomIndex];
+}
+
+// 按索引获取固定图片（循环使用三张图片）
+function getImageByIndex(index) {
+  return defaultDetailImageUrls[index % defaultDetailImageUrls.length];
+}
 
 Page({
   data: {
@@ -67,30 +83,12 @@ Page({
           const product = responseData.product;
           const statistics = responseData.statistics;
           
-          // 处理商品图片
-          let productImages = [];
-          if (product.productImages) {
-            productImages = product.productImages.split(',').filter(img => img && img.trim() !== '');
-          }
-          
-          // 如果没有图片，使用vant组件库提供的默认图片
-          if (productImages.length === 0) {
-            productImages = [vantImageUrl];
-          }
-          
-          /* 
-          // 注释掉从数据库获取视频的部分
-          let videoUrl = '';
-          let hasVideo = false;
-          
-          if (product.productVideo && product.productVideo.trim() !== '') {
-            videoUrl = product.productVideo;
-            hasVideo = true;
-          } else {
-            videoUrl = defaultVideoUrl;
-            hasVideo = true;
-          }
-          */
+          // 强制使用我们的三张默认图片
+          const productImages = [
+            defaultDetailImageUrls[0],
+            defaultDetailImageUrls[1],
+            defaultDetailImageUrls[2]
+          ];
           
           // 处理评分星星
           this.processRatingStars(statistics.averageRating || 0);
