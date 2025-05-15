@@ -123,23 +123,13 @@
     <view class="loading-icon"></view>
     <text class="loading-text">加载中...</text>
   </view>
-  
-  <!-- 底部操作栏 -->
-  <!-- <view class="bottom-bar">
-    <button class="add-to-cart" bindtap="addToCart">
-      <van-icon name="shopping-cart-o" size="40rpx" />加入购物车
-    </button>
-    <button class="buy-now" bindtap="buyNow">立即购买</button>
-  </view> -->
 </scroll-view> 
 
-<van-goods-action class="bottom-bar">
-  <van-goods-action-icon icon="chat-o" text="客服" bind:click="onClickIcon" />
-  <van-goods-action-icon icon="cart-o" text="购物车" bind:click="onClickIcon" />
-  <van-goods-action-button
-    text="加入购物车"
-    type="warning"
-    bind:click="onClickButton"
-  />
-  <van-goods-action-button text="立即购买" bind:click="onClickButton" />
+<van-goods-action>
+  <van-goods-action-icon icon="chat-o" text="客服" dot />
+  <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
+  <van-goods-action-icon icon="shop-o" text="店铺" />
+  <van-goods-action-button text="加入购物车" type="warning" />
+  <van-goods-action-button text="立即购买" />
 </van-goods-action>
+
