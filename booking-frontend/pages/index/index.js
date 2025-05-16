@@ -64,9 +64,9 @@ Page({
   setVantIcons() {
     const iconMap = {
       'CLEANING': 'brush-o',
-      'REPAIR': 'flag-o',
-      'PLUMBING': 'flag-o',
-      'MOVING': 'flag-o',
+      'REPAIR': 'smile-comment-o',
+      'PLUMBING': 'bag-o',
+      'MOVING': 'cart-o',
       'FURNITURE': 'home-o'
     };
     
