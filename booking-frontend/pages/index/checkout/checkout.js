@@ -11,8 +11,9 @@ Page({
     // 时间选择弹出层相关数据
     showTimePopup: false,
     currentDate: new Date().getTime(),
-    minDate: new Date().getTime(),
-    maxDate: new Date(new Date().setDate(new Date().getDate() + 14)).getTime(), // 最多可预约14天后
+		minDate: new Date().getTime(),
+		// maxDate: new Date(new Date().setDate(new Date().getDate() + 14)).getTime(), // 最多可预约14天后
+    maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3)).getTime(), // 最多可预约3个月后
     selectedTime: null,
     formattedTime: '',
     formatter(type, value) {
