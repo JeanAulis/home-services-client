@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public UserOrder createOrder(UserOrder order) {
-        // 验证服务时间是否至少在当前时间4小时后
-        LocalDateTime now = LocalDateTime.now();
+        // 使用正确的时区获取当前时间
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
         // 考虑前后端时区差异，将最小时间限制设为3.5小时
         LocalDateTime minServiceTime = now.plusHours(3).plusMinutes(30);
         
@@ -33,7 +34,6 @@ public class OrderServiceImpl implements OrderService {
         System.out.println("用户预约时间: " + order.getServiceTime());
         
         // 尝试从额外时间信息中解析
-        boolean useFormattedTime = false;
         if (order.getExtraData() != null && order.getExtraData().containsKey("serviceTimeDesc")) {
             try {
                 @SuppressWarnings("unchecked")
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
                 System.out.println("用户格式化时间: " + formattedTime);
                 
                 // 直接使用格式化的时间字符串创建时间对象，避免时区问题
-                useFormattedTime = true;
+                // 此处可以添加时间处理代码
             } catch (Exception e) {
                 System.out.println("解析额外时间信息出错: " + e.getMessage());
             }
@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
         
         // 临时禁用时间验证
         /* 
-        if (order.getServiceTime() != null && order.getServiceTime().isBefore(minServiceTime) && !useFormattedTime) {
+        if (order.getServiceTime() != null && order.getServiceTime().isBefore(minServiceTime)) {
             // 计算时间差
             long minutesDiff = java.time.Duration.between(now, order.getServiceTime()).toMinutes();
             double hoursDiff = minutesDiff / 60.0;
@@ -163,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
         
         order.setOrderStatus(OrderStatus.PAID);
         order.setPaymentMethod(paymentMethod);
-        order.setPaymentTime(LocalDateTime.now());
+        order.setPaymentTime(LocalDateTime.now(ZoneId.of("Asia/Shanghai")));
         
         return userOrderRepository.save(order);
     }

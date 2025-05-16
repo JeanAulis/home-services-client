@@ -3,6 +3,7 @@ package org.example.bookingapi.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,8 +66,9 @@ public class UserOrder {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        // 使用Asia/Shanghai时区创建时间
+        createdAt = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
+        updatedAt = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
         
         // 生成订单号：时间戳+4位随机数
         if (orderId == null || orderId.isEmpty()) {
@@ -78,7 +80,7 @@ public class UserOrder {
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
     }
 
     public enum OrderStatus {

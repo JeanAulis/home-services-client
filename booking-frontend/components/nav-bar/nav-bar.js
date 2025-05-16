@@ -62,21 +62,21 @@ Component({
       try {
         // 使用新API获取状态栏高度
         const systemInfo = wx.getWindowInfo();
-        const navBarHeight = 44; // 导航条的高度
-        const totalHeight = systemInfo.statusBarHeight + navBarHeight;
-        
-        this.setData({
-          statusBarHeight: systemInfo.statusBarHeight,
-          navBarHeight: navBarHeight,
-          totalHeight: totalHeight,
+      const navBarHeight = 44; // 导航条的高度
+      const totalHeight = systemInfo.statusBarHeight + navBarHeight;
+      
+      this.setData({
+        statusBarHeight: systemInfo.statusBarHeight,
+        navBarHeight: navBarHeight,
+        totalHeight: totalHeight,
           navBgColor: '#f7e8aa' // 统一设置为#f7e8aa
-        });
-        
-        // 设置CSS变量，以便其他组件可以使用
-        wx.nextTick(() => {
-          // 通过设置CSS变量到页面的根元素
-          this.setCssVariable('--nav-bar-height', totalHeight + 'px');
-        });
+      });
+      
+      // 设置CSS变量，以便其他组件可以使用
+      wx.nextTick(() => {
+        // 通过设置CSS变量到页面的根元素
+        this.setCssVariable('--nav-bar-height', totalHeight + 'px');
+      });
       } catch (error) {
         console.error('获取系统信息失败:', error);
         // 使用兜底方案
@@ -152,11 +152,11 @@ Component({
     // 处理左侧按钮点击
     handleLeftButtonTap() {
       if (this.properties.leftButtonType === 'back') {
-        this.navBack();
+          this.navBack();
       } else if (this.properties.leftButtonType === 'home') {
-        this.navHome();
+          this.navHome();
       } else if (this.properties.leftButtonType === 'search') {
-        this.toggleSearchInput();
+          this.toggleSearchInput();
       }
       
       this.triggerEvent('back');

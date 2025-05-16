@@ -1,31 +1,41 @@
+// pages/order/order.js
+// 导入工具类
+const app = getApp()
+
 Page({
   data: {
-    userInfo: {},
-    isLogin: false,
+    statusTabs: [
+      {id: '', name: '全部订单'},
+      {id: 'PENDING', name: '待支付'},
+      {id: 'PAID', name: '已支付'},
+      {id: 'PROCESSING', name: '进行中'},
+      {id: 'COMPLETED', name: '已完成'}
+    ],
+    currentTab: '', // 默认显示全部订单
     orderList: [],
-    originalOrderList: [], // 存储原始订单列表
-    loading: true
+    originalOrderList: [], // 保存原始订单数据，用于搜索和筛选
+    loading: true,
+    isLogin: false,
+    userInfo: null
   },
 
   onLoad() {
-    this.checkLoginStatus()
+    // 检查登录状态
+    this.checkLoginStatus();
   },
-
+  
   onShow() {
-    this.checkLoginStatus()
+    // 每次页面显示时重新获取订单列表
     if (this.data.isLogin) {
-      this.getOrderList()
+      this.getOrderList();
     }
   },
-
-  // 处理导航栏搜索点击事件
+  
+  // 处理导航栏搜索
   handleNavSearch(e) {
-    console.log('搜索按钮被点击:', e);
-    wx.showToast({
-      title: '搜索功能开发中',
-      icon: 'none',
-      duration: 2000
-    });
+    console.log("导航栏搜索输入:", e.detail.value);
+    // 在这里处理搜索逻辑
+    this.onSearchOrder(e);
   },
 
   // 检查登录状态
@@ -123,7 +133,7 @@ Page({
           const formattedOrders = orders.map(order => {
             return {
               orderId: order.orderId,
-              orderTime: order.created_at ? new Date(order.created_at).toLocaleString() : '未知时间',
+              orderTime: order.createdAt ? new Date(order.createdAt).toLocaleString() : '未知时间',
               orderStatus: this.formatOrderStatus(order.orderStatus),
               orderAmount: order.orderAmount,
               serviceName: order.serviceName
