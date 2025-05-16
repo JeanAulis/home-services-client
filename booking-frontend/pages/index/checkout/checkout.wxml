@@ -83,10 +83,9 @@
 				<text class="total-price">¥{{totalAmount}}</text>
 			</view>
 		</view>
-
-		<!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
-		<view style="height: 110rpx;"></view>
 	</view>
+	<!-- 添加底部空白区域，防止内容被底部操作栏遮挡 -->
+	<view style="height: 200rpx;"></view>
 </scroll-view>
 
 <!-- 底部结算栏 -->

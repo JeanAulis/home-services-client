@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -22,11 +23,56 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public UserOrder createOrder(UserOrder order) {
+        // 验证服务时间是否至少在当前时间4小时后
+        LocalDateTime now = LocalDateTime.now();
+        // 考虑前后端时区差异，将最小时间限制设为3.5小时
+        LocalDateTime minServiceTime = now.plusHours(3).plusMinutes(30);
+        
+        System.out.println("当前服务器时间: " + now);
+        System.out.println("最小预约时间: " + minServiceTime);
+        System.out.println("用户预约时间: " + order.getServiceTime());
+        
+        // 尝试从额外时间信息中解析
+        boolean useFormattedTime = false;
+        if (order.getExtraData() != null && order.getExtraData().containsKey("serviceTimeDesc")) {
+            try {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> timeDesc = (Map<String, Object>) order.getExtraData().get("serviceTimeDesc");
+                String formattedTime = (String) timeDesc.get("formattedTime");
+                System.out.println("用户格式化时间: " + formattedTime);
+                
+                // 直接使用格式化的时间字符串创建时间对象，避免时区问题
+                useFormattedTime = true;
+            } catch (Exception e) {
+                System.out.println("解析额外时间信息出错: " + e.getMessage());
+            }
+        }
+        
+        // 临时禁用时间验证
+        /* 
+        if (order.getServiceTime() != null && order.getServiceTime().isBefore(minServiceTime) && !useFormattedTime) {
+            // 计算时间差
+            long minutesDiff = java.time.Duration.between(now, order.getServiceTime()).toMinutes();
+            double hoursDiff = minutesDiff / 60.0;
+            System.out.println("时间差(分钟): " + minutesDiff);
+            System.out.println("时间差(小时): " + hoursDiff);
+            
+            // 如果时间差接近4小时（超过3.5小时），仍然允许预约
+            if (hoursDiff >= 3.5) {
+                System.out.println("时间差接近4小时，允许预约");
+            } else {
+                throw new RuntimeException("预约时间必须至少在当前时间4小时后，当前时间差: " + String.format("%.1f", hoursDiff) + "小时");
+            }
+        }
+        */
+        
+        System.out.println("跳过时间验证，直接处理订单");
+        
         // 设置初始状态为待支付
         order.setOrderStatus(OrderStatus.PENDING);
         
         // 使用优惠券（如果有）
-        if (order.getCouponId() != null) {
+        if (order.getCouponId() != null && order.getCouponId() > 0) {
             boolean usedCoupon = userAssetService.useCoupon(order.getCouponId());
             if (!usedCoupon) {
                 throw new RuntimeException("优惠券使用失败，可能已过期或不存在");

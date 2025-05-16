@@ -3,6 +3,8 @@ package org.example.bookingapi.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "user_order")
@@ -56,6 +58,10 @@ public class UserOrder {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    // 用于存储额外数据，不持久化到数据库
+    @Transient
+    private Map<String, Object> extraData = new HashMap<>();
 
     @PrePersist
     protected void onCreate() {
@@ -206,5 +212,13 @@ public class UserOrder {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    public Map<String, Object> getExtraData() {
+        return extraData;
+    }
+    
+    public void setExtraData(Map<String, Object> extraData) {
+        this.extraData = extraData;
     }
 } 

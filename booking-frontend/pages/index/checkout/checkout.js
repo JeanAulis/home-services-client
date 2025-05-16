@@ -42,7 +42,8 @@ Page({
     selectedCoupon: null,
     coupons: [],
     remarks: '',
-    totalAmount: 0
+    totalAmount: 0,
+    hasAvailableTimeSlots: false
   },
 
   onLoad: function(options) {
@@ -263,6 +264,11 @@ Page({
   
   // 显示时间选择弹出层
   showTimePicker: function() {
+    // 如果已经选择了日期，则检查是否有可用时间段
+    if (this.data.selectedDate) {
+      this.generateTimeSlots();
+    }
+    
     // 初始化为日期选择选项卡
     this.setData({
       showTimePopup: true,
@@ -295,8 +301,18 @@ Page({
       return;
     }
     
-    // 生成时间段选项
-    this.generateTimeSlots();
+    // 生成时间段选项并获取是否有可用时间段
+    const hasAvailableSlots = this.generateTimeSlots();
+    
+    // 如果没有可用时间段，提示用户
+    if (!hasAvailableSlots) {
+      wx.showToast({
+        title: '当前日期没有可预约时间段，请选择其他日期',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
     
     this.setData({
       currentTab: 'time'
@@ -310,8 +326,23 @@ Page({
     // 保存选择的日期
     this.setData({
       currentDate: e.detail,
-      selectedDate: date
+      selectedDate: date,
+      // 重置时间段选择
+      selectedTimeSlot: -1
     });
+    
+    // 检查是否有可用时间段
+    // 预先生成时间段，但不切换到时间选项卡
+    const hasAvailableSlots = this.generateTimeSlots();
+    
+    // 如果没有可用时间段，提示用户
+    if (!hasAvailableSlots) {
+      wx.showToast({
+        title: '当前日期没有可预约时间段，请选择其他日期',
+        icon: 'none',
+        duration: 2000
+      });
+    }
   },
   
   // 生成时间段选项
@@ -321,33 +352,54 @@ Page({
     const selectedDate = this.data.selectedDate;
     const isToday = selectedDate.toDateString() === now.toDateString();
     
+    // 最早预约时间为当前时间+4小时
+    const minBookingTime = new Date(now.getTime());
+    // console.log("当前时间（+4）为",minBookingTime.getHours() +4);
+    minBookingTime.setHours(minBookingTime.getHours() + 4);
+    
+    // 是否有可用时间段的标志
+    let hasAvailableSlots = false;
+    
     // 生成8:00-20:00的时间段，每半小时一个时间段
     for (let hour = 8; hour <= 20; hour++) {
       for (let minute of [0, 30]) {
-        // 如果是今天，需要禁用已过去的时间
+        // 创建时间对象用于比较
+        const slotTime = new Date(selectedDate);
+        slotTime.setHours(hour, minute, 0, 0);
+        
+        // 判断该时间段是否可选
         let disabled = false;
-        if (isToday) {
-          if (hour < now.getHours() || (hour === now.getHours() && minute < now.getMinutes())) {
-            disabled = true;
-          }
+        
+        // 如果时间段早于最早预约时间，则禁用
+        if (slotTime < minBookingTime) {
+          disabled = true;
         }
         
         // 将小时和分钟格式化为两位数
         const formattedHour = hour.toString().padStart(2, '0');
         const formattedMinute = minute.toString().padStart(2, '0');
         
+        // 如果有可用时间段，更新标志
+        if (!disabled) {
+          hasAvailableSlots = true;
+        }
+        
         slots.push({
           text: `${formattedHour}:${formattedMinute}`,
           hour: hour,
           minute: minute,
-          disabled: disabled
+          disabled: disabled,
+          time: slotTime
         });
       }
     }
     
     this.setData({
-      timeSlots: slots
+      timeSlots: slots,
+      hasAvailableTimeSlots: hasAvailableSlots
     });
+    
+    return hasAvailableSlots;
   },
   
   // 选择时间段
@@ -367,18 +419,10 @@ Page({
   
   // 确认时间选择
   confirmTimePicker: function() {
-    // 检查是否选择了日期和时间
+    // 检查是否选择了日期
     if (!this.data.selectedDate) {
       wx.showToast({
         title: '请选择日期',
-        icon: 'none'
-      });
-      return;
-    }
-    
-    if (this.data.currentTab === 'time' && this.data.selectedTimeSlot === -1) {
-      wx.showToast({
-        title: '请选择时间段',
         icon: 'none'
       });
       return;
@@ -389,19 +433,67 @@ Page({
     let formattedTime;
     
     if (this.data.currentTab === 'date') {
-      // 如果只选择了日期，默认时间为当天8:00
-      selectedTime = new Date(this.data.selectedDate);
-      selectedTime.setHours(8, 0, 0, 0);
+      // 如果只选择了日期，获取当天第一个可用时间段
+      if (!this.data.hasAvailableTimeSlots) {
+        wx.showToast({
+          title: '当前日期没有可预约时间段，请选择其他日期',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      
+      // 找到第一个未禁用的时间段
+      const availableSlot = this.data.timeSlots.find(slot => !slot.disabled);
+      if (!availableSlot) {
+        wx.showToast({
+          title: '当前日期没有可预约时间段，请选择其他日期',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      
+      selectedTime = new Date(availableSlot.time);
       
       const month = selectedTime.getMonth() + 1;
       const day = selectedTime.getDate();
       const weekday = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][selectedTime.getDay()];
-      formattedTime = `${month}月${day}日 ${weekday} 08:00`;
+      formattedTime = `${month}月${day}日 ${weekday} ${availableSlot.text}`;
     } else {
-      // 如果选择了具体时间段
+      // 如果选择了具体时间段，但未选择具体时间
+      if (this.data.selectedTimeSlot === -1) {
+        // 找到第一个未禁用的时间段
+        const firstAvailableIndex = this.data.timeSlots.findIndex(slot => !slot.disabled);
+        if (firstAvailableIndex === -1) {
+          wx.showToast({
+            title: '当前日期没有可预约时间段，请选择其他日期',
+            icon: 'none',
+            duration: 2000
+          });
+          return;
+        }
+        
+        // 自动选择第一个可用时间段
+        this.setData({
+          selectedTimeSlot: firstAvailableIndex
+        });
+      }
+      
+      // 获取选择的时间段
       const timeSlot = this.data.timeSlots[this.data.selectedTimeSlot];
-      selectedTime = new Date(this.data.selectedDate);
-      selectedTime.setHours(timeSlot.hour, timeSlot.minute, 0, 0);
+      
+      // 检查选择的时间段是否可用
+      if (timeSlot.disabled) {
+        wx.showToast({
+          title: '所选时间段不可用，请重新选择',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      
+      selectedTime = new Date(timeSlot.time);
       
       const month = selectedTime.getMonth() + 1;
       const day = selectedTime.getDate();
@@ -488,12 +580,78 @@ Page({
       return;
     }
     
+    // 再次核验时间是否符合要求（当前时间+4小时之后）
+    const now = new Date();
+    const minBookingTime = new Date(now.getTime());
+    console.log("当前时间为", now.toLocaleString());
+    console.log("当前小时为", minBookingTime.getHours());
+    minBookingTime.setHours(minBookingTime.getHours() + 4);
+    console.log("最小预约时间为", minBookingTime.toLocaleString());
+    const selectedTime = new Date(this.data.selectedTime);
+    console.log("选择的时间为", selectedTime.toLocaleString());
+    
+    // 前端不做最小时间验证，全部放到后端处理，避免时区问题
+    
+    // 检查地址信息完整性
+    const address = this.data.selectedAddress;
+    if (!address.receiverName && !address.name) {
+      wx.showToast({
+        title: '地址联系人信息不完整',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    if (!address.phone) {
+      wx.showToast({
+        title: '地址联系电话不完整',
+        icon: 'none'
+      });
+      return;
+    }
+    
     wx.showLoading({
       title: '提交中',
     });
     
     const serviceTime = this.data.selectedTime;
-    const address = this.data.selectedAddress;
+    const addressObj = this.data.selectedAddress;
+    
+    // 获取当前选择的年月日时分
+    const selectYear = serviceTime.getFullYear();
+    const selectMonth = serviceTime.getMonth();
+    const selectDate = serviceTime.getDate();
+    const selectHours = serviceTime.getHours();
+    const selectMinutes = serviceTime.getMinutes();
+    
+    // 获取本地时区偏移量（分钟）
+    const timezoneOffset = new Date().getTimezoneOffset();
+    console.log('本地时区偏移量(分钟):', timezoneOffset);
+    
+    // 创建新的日期对象，确保使用系统当前时间的时区设置
+    const formattedServiceTime = new Date();
+    formattedServiceTime.setFullYear(selectYear);
+    formattedServiceTime.setMonth(selectMonth);
+    formattedServiceTime.setDate(selectDate);
+    formattedServiceTime.setHours(selectHours);
+    formattedServiceTime.setMinutes(selectMinutes);
+    formattedServiceTime.setSeconds(0);
+    formattedServiceTime.setMilliseconds(0);
+    
+    // 转换为ISO字符串
+    const serviceTimeStr = formattedServiceTime.toISOString();
+    console.log('提交服务时间:', serviceTimeStr);
+    
+    // 构建预约时间描述，更方便后端解析
+    const serviceTimeDesc = {
+      year: selectYear,
+      month: selectMonth + 1, // 月份从0开始，需要+1
+      date: selectDate,
+      hours: selectHours,
+      minutes: selectMinutes,
+      timezoneOffset: timezoneOffset,
+      formattedTime: `${selectYear}-${(selectMonth + 1).toString().padStart(2, '0')}-${selectDate.toString().padStart(2, '0')} ${selectHours.toString().padStart(2, '0')}:${selectMinutes.toString().padStart(2, '0')}:00`
+    };
     
     // 构建订单对象
     const order = {
@@ -501,13 +659,16 @@ Page({
       productNum: this.data.serviceId,
       serviceName: this.data.serviceDetail.name,
       orderAmount: this.data.totalAmount,
-      serviceTime: serviceTime.toISOString(),
-      addressId: address.id,
-      contactName: address.receiverName || address.name,
-      contactPhone: address.phone,
+      serviceTime: serviceTimeStr,
+      serviceTimeDesc: serviceTimeDesc, // 添加额外的时间描述
+      addressId: addressObj.id,
+      contactName: addressObj.receiverName || addressObj.name,
+      contactPhone: addressObj.phone,
       couponId: this.data.selectedCoupon ? this.data.selectedCoupon.id : null,
       remarks: this.data.remarks
     };
+    
+    console.log('提交订单数据:', order);
     
     // 调用创建订单API
     wx.request({
@@ -519,6 +680,7 @@ Page({
       },
       data: order,
       success: (res) => {
+        console.log('订单创建响应:', res.data);
         if (res.statusCode === 200 && res.data.code === 200) {
           const orderId = res.data.data.orderId;
           
@@ -526,10 +688,28 @@ Page({
           wx.navigateTo({
             url: `/pages/order/payment/payment?orderId=${orderId}&amount=${this.data.totalAmount}`,
           });
+          
+          // 以下是跳转到订单列表页面的代码，目前先注释
+          
+          wx.showToast({
+            title: '订单创建成功',
+            icon: 'success',
+            duration: 2000,
+            success: () => {
+              // 延迟跳转到订单列表页面
+              setTimeout(() => {
+                wx.switchTab({
+									url: '/pages/order/order'
+								});
+              }, 100);
+            }
+          });
+          
         } else {
           wx.showToast({
             title: res.data.msg || '创建订单失败',
-            icon: 'none'
+            icon: 'none',
+            duration: 3000
           });
         }
       },

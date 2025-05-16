@@ -50,9 +50,18 @@ public class OrderController {
     @PostMapping("/create")
     public Object createOrder(@RequestBody UserOrder order) {
         try {
+            // 打印收到的订单信息，帮助调试
+            System.out.println("收到创建订单请求: " + order.getUserNum() + ", 预约时间: " + order.getServiceTime());
+            
+            // 检查是否有额外的时间描述信息
+            if (order.getExtraData() != null && order.getExtraData().containsKey("serviceTimeDesc")) {
+                System.out.println("额外时间描述信息: " + order.getExtraData().get("serviceTimeDesc"));
+            }
+            
             UserOrder newOrder = orderService.createOrder(order);
             return new Result(200, "创建订单成功", newOrder);
         } catch (Exception e) {
+            e.printStackTrace();
             return new Result(500, "创建订单失败: " + e.getMessage(), null);
         }
     }

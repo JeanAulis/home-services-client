@@ -3,7 +3,7 @@
 		"pages/index/index",
 		"pages/login/login",
 		"pages/order/order",
-		"pages/order/checkout/checkout",
+		"pages/index/checkout/checkout",
 		"pages/register/register",
 		"pages/user/user",
 		"pages/index/detail/detail",
