@@ -3,8 +3,6 @@
   title="订单详情" 
   textStyle="black" 
   leftButtonType="back"
-  enableGradient="{{false}}"
-  useFixedBg="{{true}}"
 ></nav-bar>
 
 <view class="container">
@@ -14,9 +12,9 @@
   </view>
   
   <view wx:elif="{{orderDetail}}" class="order-detail">
-    <view class="status-card">
+    <view class="status-card" style="background-color: {{orderDetail.statusColor}}">
       <view class="status-header">
-        <text class="status-text">{{orderDetail.orderStatus}}</text>
+        <text class="status-text">{{orderDetail.statusText}}</text>
       </view>
       <view class="service-name">{{orderDetail.serviceName}}</view>
     </view>
@@ -33,7 +31,7 @@
       </view>
       <view class="info-item">
         <text class="info-label">服务时间</text>
-        <text class="info-value">{{orderDetail.serviceTime}}</text>
+        <text class="info-value">{{orderDetail.formattedServiceTime || orderDetail.serviceTime}}</text>
       </view>
       <view class="info-item">
         <text class="info-label">服务金额</text>
@@ -57,21 +55,27 @@
       </view>
     </view>
     
-    <view class="info-card">
+    <view class="info-card" wx:if="{{orderDetail.orderStatus != 'PENDING'}}">
       <view class="card-title">支付信息</view>
       <view class="info-item">
         <text class="info-label">支付方式</text>
-        <text class="info-value">{{orderDetail.paymentMethod}}</text>
+        <text class="info-value">{{orderDetail.paymentMethod || '未支付'}}</text>
       </view>
-      <view class="info-item">
+      <view class="info-item" wx:if="{{orderDetail.paymentTime || orderDetail.formattedPaymentTime}}">
         <text class="info-label">支付时间</text>
-        <text class="info-value">{{orderDetail.paymentTime}}</text>
+        <text class="info-value">{{orderDetail.formattedPaymentTime || orderDetail.paymentTime}}</text>
       </view>
     </view>
     
     <view wx:if="{{orderDetail.remarks}}" class="info-card">
       <view class="card-title">备注信息</view>
       <view class="remark-content">{{orderDetail.remarks}}</view>
+    </view>
+    
+    <!-- 底部按钮区域 -->
+    <view class="action-area" wx:if="{{orderDetail.orderStatus === 'PENDING'}}">
+      <button class="cancel-btn">取消订单</button>
+      <button class="pay-btn">去支付</button>
     </view>
   </view>
   
