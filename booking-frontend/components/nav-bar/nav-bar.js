@@ -24,25 +24,25 @@ Component({
       type: String,
       value: '搜索'
     },
-    // 滚动渐变的触发距离
+    // 滚动渐变的触发距离 - 已不再使用，保留属性兼容性
     scrollTrigger: {
       type: Number,
       value: 100
     },
-    // 是否启用渐变效果（只在首页开启）
+    // 是否启用渐变效果 - 已不再使用，统一禁用渐变
     enableGradient: {
       type: Boolean,
       value: false
     },
-    // 是否使用固定背景色
+    // 是否使用固定背景色 - 已不再使用，统一使用固定背景
     useFixedBg: {
       type: Boolean,
       value: true
     },
-    // 固定背景色值
+    // 固定背景色值 - 已统一设置为#f7e8aa
     fixedBgColor: {
       type: String,
-      value: '#F7E8AA'
+      value: '#f7e8aa'
     }
   },
   
@@ -52,10 +52,8 @@ Component({
     totalHeight: 0,
     searchValue: '',
     showSearchInput: false,
-    opacity: 0, // 导航栏背景透明度，初始为0（完全透明）
-    navBgColor: 'transparent', // 导航栏背景颜色
-    lastScrollTime: 0, // 上次滚动时间，用于节流
-    scrollThrottleDelay: 100 // 节流间隔，毫秒
+    opacity: 1, // 导航栏背景透明度，固定为1（完全不透明）
+    navBgColor: '#f7e8aa', // 导航栏背景颜色，统一为#f7e8aa
   },
   
   lifetimes: {
@@ -64,32 +62,21 @@ Component({
       try {
         // 使用新API获取状态栏高度
         const systemInfo = wx.getWindowInfo();
-      const navBarHeight = 44; // 导航条的高度
-      const totalHeight = systemInfo.statusBarHeight + navBarHeight;
-      
-      // 设置初始背景色
-      let initialBgColor = 'transparent';
-      if (this.properties.useFixedBg) {
-        initialBgColor = this.properties.fixedBgColor;
-      }
-      
-      this.setData({
-        statusBarHeight: systemInfo.statusBarHeight,
-        navBarHeight: navBarHeight,
-        totalHeight: totalHeight,
-        navBgColor: initialBgColor // 根据属性设置初始化背景色
-      });
-      
-      // 设置CSS变量，以便其他组件可以使用
-      wx.nextTick(() => {
-        // 通过设置CSS变量到页面的根元素
-        this.setCssVariable('--nav-bar-height', totalHeight + 'px');
-      });
-      
-      // 仅当启用渐变效果时才设置滚动监听
-      if (this.properties.enableGradient) {
-        this.setupScrollListener();
-        }
+        const navBarHeight = 44; // 导航条的高度
+        const totalHeight = systemInfo.statusBarHeight + navBarHeight;
+        
+        this.setData({
+          statusBarHeight: systemInfo.statusBarHeight,
+          navBarHeight: navBarHeight,
+          totalHeight: totalHeight,
+          navBgColor: '#f7e8aa' // 统一设置为#f7e8aa
+        });
+        
+        // 设置CSS变量，以便其他组件可以使用
+        wx.nextTick(() => {
+          // 通过设置CSS变量到页面的根元素
+          this.setCssVariable('--nav-bar-height', totalHeight + 'px');
+        });
       } catch (error) {
         console.error('获取系统信息失败:', error);
         // 使用兜底方案
@@ -98,43 +85,19 @@ Component({
             const navBarHeight = 44;
             const totalHeight = res.statusBarHeight + navBarHeight;
             
-            let initialBgColor = 'transparent';
-            if (this.properties.useFixedBg) {
-              initialBgColor = this.properties.fixedBgColor;
-            }
-            
             this.setData({
               statusBarHeight: res.statusBarHeight,
               navBarHeight: navBarHeight,
               totalHeight: totalHeight,
-              navBgColor: initialBgColor
+              navBgColor: '#f7e8aa'
             });
             
             wx.nextTick(() => {
               this.setCssVariable('--nav-bar-height', totalHeight + 'px');
             });
-            
-            if (this.properties.enableGradient) {
-              this.setupScrollListener();
-            }
           }
         });
       }
-    },
-    
-    detached() {
-      // 移除页面滚动监听
-      wx.nextTick(() => {
-        const pages = getCurrentPages();
-        const currentPage = pages[pages.length - 1];
-        if (currentPage) {
-          // 移除滚动监听
-          wx.pageScrollTo({
-            scrollTop: 0,
-            duration: 0
-          });
-        }
-      });
     }
   },
   
@@ -167,68 +130,6 @@ Component({
       }
     },
     
-    // 设置页面滚动监听
-    setupScrollListener() {
-      // 获取当前页面
-      const pages = getCurrentPages();
-      const currentPage = pages[pages.length - 1];
-      if (currentPage) {
-        // 为当前页面的onPageScroll方法添加监听
-        const originalOnPageScroll = currentPage.onPageScroll || function() {};
-        
-        currentPage.onPageScroll = (e) => {
-          // 执行原有的onPageScroll
-          originalOnPageScroll.call(currentPage, e);
-          
-          // 节流处理
-          this.throttlePageScroll(e);
-        };
-      }
-    },
-    
-    // 节流处理页面滚动
-    throttlePageScroll(e) {
-      const now = Date.now();
-      const { lastScrollTime, scrollThrottleDelay } = this.data;
-      
-      // 如果距离上次处理的时间小于节流间隔，则不处理
-      if (now - lastScrollTime < scrollThrottleDelay) {
-        return;
-      }
-      
-      // 更新最后处理时间
-      this.setData({
-        lastScrollTime: now
-      });
-      
-      // 处理滚动事件
-      this.handlePageScroll(e);
-    },
-    
-    // 处理页面滚动
-    handlePageScroll(e) {
-      // 如果不启用渐变效果，则不执行后续逻辑
-      if (!this.properties.enableGradient) {
-        return;
-      }
-      
-      const { scrollTop } = e;
-      const { scrollTrigger } = this.properties;
-      
-      // 计算导航栏透明度，随着滚动逐渐增加
-      let opacity = scrollTop / scrollTrigger;
-      if (opacity > 1) opacity = 1;
-      if (opacity < 0) opacity = 0;
-      
-      // 使用统一的米白色背景 #F7E8AA
-      const bgColor = opacity > 0 ? `rgba(247, 232, 170, ${opacity})` : 'transparent';
-      
-      this.setData({
-        opacity,
-        navBgColor: bgColor
-      });
-    },
-    
     // 返回上一页
     navBack() {
       wx.navigateBack({
@@ -250,28 +151,21 @@ Component({
     
     // 处理左侧按钮点击
     handleLeftButtonTap() {
-      const { leftButtonType } = this.properties;
-      
-      switch (leftButtonType) {
-        case 'back':
-          this.navBack();
-          break;
-        case 'home':
-          this.navHome();
-          break;
-        case 'search':
-          this.toggleSearchInput();
-          break;
-        default:
-          break;
+      if (this.properties.leftButtonType === 'back') {
+        this.navBack();
+      } else if (this.properties.leftButtonType === 'home') {
+        this.navHome();
+      } else if (this.properties.leftButtonType === 'search') {
+        this.toggleSearchInput();
       }
+      
+      this.triggerEvent('back');
     },
     
-    // 切换搜索输入框显示状态
+    // 切换搜索输入框
     toggleSearchInput() {
-      const { showSearchInput } = this.data;
       this.setData({
-        showSearchInput: !showSearchInput
+        showSearchInput: !this.data.showSearchInput
       });
     },
     
@@ -284,8 +178,7 @@ Component({
     
     // 执行搜索
     doSearch() {
-      const { searchValue } = this.data;
-      this.triggerEvent('search', { value: searchValue });
+      this.triggerEvent('search', { value: this.data.searchValue });
     },
     
     // 搜索确认

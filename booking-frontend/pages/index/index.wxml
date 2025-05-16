@@ -5,9 +5,6 @@
   textStyle="black" 
   leftButtonType="search" 
   showSearch="{{false}}"
-  scrollTrigger="{{80}}"
-  enableGradient="{{true}}"
-  useFixedBg="{{false}}"
   bind:search="navigateToSearch"
 ></nav-bar>
 

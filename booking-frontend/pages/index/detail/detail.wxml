@@ -1,5 +1,5 @@
 <!--detail.wxml 商品详情页-->
-<nav-bar title="商品详情" textStyle="black" showBack="{{true}}" scrollTrigger="{{80}}" enableGradient="{{true}}" useFixedBg="{{false}}" bind:back="handleNavBack"></nav-bar>
+<nav-bar title="商品详情" textStyle="black" showBack="{{true}}" bind:back="handleNavBack"></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list">
 	<view class="container" wx:if="{{!loading}}">

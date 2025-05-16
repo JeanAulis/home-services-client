@@ -3,9 +3,7 @@
   title="用户评价"
   textStyle="black"
   showBack="{{true}}"
-  scrollTrigger="{{80}}"
-  enableGradient="{{true}}"
-  useFixedBg="{{false}}"
+  
   bind:back="handleNavBack"
 ></nav-bar>
 

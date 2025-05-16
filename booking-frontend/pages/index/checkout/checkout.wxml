@@ -1,5 +1,5 @@
 <!--checkout.wxml 订单结算页面-->
-<nav-bar title="订单结算" textStyle="black" showBack="{{true}}" scrollTrigger="{{80}}" enableGradient="{{true}}" useFixedBg="{{false}}" bind:back="handleNavBack"></nav-bar>
+<nav-bar title="订单结算" textStyle="black" showBack="{{true}}" bind:back="handleNavBack"></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list">
 	<view class="container">
