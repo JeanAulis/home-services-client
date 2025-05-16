@@ -57,8 +57,8 @@ Page({
     // 检查用户是否登录
     const userInfo = wx.getStorageSync('userInfo');
     if (userInfo && userInfo.userNum) {
-      // 获取用户地址
-      this.loadUserAddresses();
+      // 直接加载默认地址
+      this.loadDefaultAddress();
       
       // 获取用户优惠券
       this.loadUserCoupons();
@@ -82,7 +82,8 @@ Page({
   },
   
   onShow: function() {
-    // 页面显示时可能需要刷新地址或者优惠券信息
+    // 如果页面从地址选择页面返回，可能不需要重新获取默认地址
+    // 但如果没有选择任何地址，则尝试加载默认地址
     if (this.data.selectedAddress === null) {
       this.loadDefaultAddress();
     }
@@ -146,7 +147,7 @@ Page({
     if (!userInfo || !userInfo.userNum) return;
   
     wx.request({
-      url: `${apiBaseUrl}/api/user/address/list`,
+      url: `${apiBaseUrl}/api/address/list`,
       method: 'GET',
       data: {
         userNum: userInfo.userNum
@@ -173,7 +174,7 @@ Page({
     if (!userInfo || !userInfo.userNum) return;
     
     wx.request({
-      url: `${apiBaseUrl}/api/user/address/default`,
+      url: `${apiBaseUrl}/api/address/default`,
       method: 'GET',
       data: {
         userNum: userInfo.userNum
@@ -186,7 +187,41 @@ Page({
           this.setData({
             selectedAddress: res.data.data
           });
+        } else if (res.data.code === 404) {
+          // 未设置默认地址，可以尝试获取地址列表中的第一个地址
+          this.loadFirstAddress();
         }
+      },
+      fail: (err) => {
+        console.error('获取默认地址失败', err);
+      }
+    });
+  },
+  
+  // 如果没有默认地址，尝试加载地址列表中的第一个地址
+  loadFirstAddress: function() {
+    // 确保用户已登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (!userInfo || !userInfo.userNum) return;
+    
+    wx.request({
+      url: `${apiBaseUrl}/api/address/list`,
+      method: 'GET',
+      data: {
+        userNum: userInfo.userNum
+      },
+      header: {
+        'Authorization': `Bearer ${wx.getStorageSync('token')}`
+      },
+      success: (res) => {
+        if (res.statusCode === 200 && res.data.code === 200 && res.data.data && res.data.data.length > 0) {
+          this.setData({
+            selectedAddress: res.data.data[0]
+          });
+        }
+      },
+      fail: (err) => {
+        console.error('获取地址列表失败', err);
       }
     });
   },
@@ -458,6 +493,7 @@ Page({
     });
     
     const serviceTime = this.data.selectedTime;
+    const address = this.data.selectedAddress;
     
     // 构建订单对象
     const order = {
@@ -466,9 +502,9 @@ Page({
       serviceName: this.data.serviceDetail.name,
       orderAmount: this.data.totalAmount,
       serviceTime: serviceTime.toISOString(),
-      addressId: this.data.selectedAddress.id,
-      contactName: this.data.selectedAddress.name,
-      contactPhone: this.data.selectedAddress.phone,
+      addressId: address.id,
+      contactName: address.receiverName || address.name,
+      contactPhone: address.phone,
       couponId: this.data.selectedCoupon ? this.data.selectedCoupon.id : null,
       remarks: this.data.remarks
     };

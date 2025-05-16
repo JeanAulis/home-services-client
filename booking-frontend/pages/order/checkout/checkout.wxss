@@ -66,6 +66,13 @@
   display: flex;
   align-items: center;
   color: #999;
+  margin-left: 10rpx;
+}
+
+.change-text {
+  font-size: 24rpx;
+  margin-left: 6rpx;
+  color: #999;
 }
 
 /* 时间选择部分 */

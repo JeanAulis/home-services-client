@@ -10,16 +10,17 @@
 			</view>
 			<view class="address-content" wx:if="{{selectedAddress}}">
 				<view class="address-user">
-					<text class="address-name">{{selectedAddress.name}}</text>
+					<text class="address-name">{{selectedAddress.receiverName || selectedAddress.name}}</text>
 					<text class="address-phone">{{selectedAddress.phone}}</text>
 				</view>
-				<view class="address-detail">{{selectedAddress.province}}{{selectedAddress.city}}{{selectedAddress.district}}{{selectedAddress.detailAddress}}</view>
+				<view class="address-detail">{{selectedAddress.province}}{{selectedAddress.city}}{{selectedAddress.district}}{{selectedAddress.detail}}</view>
 			</view>
 			<view class="address-content" wx:else>
 				<view class="address-empty">请选择服务地址</view>
 			</view>
 			<view class="address-arrow">
 				<van-icon name="arrow" />
+				<text class="change-text">更换</text>
 			</view>
 		</view>
 
@@ -36,7 +37,8 @@
 		<view class="service-section">
 			<view class="section-title">服务项目</view>
 			<view class="service-card">
-				<van-image width="160rpx" height="160rpx" radius="8rpx" src="{{serviceDetail.image || 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'}}" lazy-load>
+				<!-- <van-image width="160rpx" height="160rpx" radius="8rpx" src="{{serviceDetail.image || 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'}}" lazy-load> -->
+				<van-image width="160rpx" height="160rpx" radius="8rpx" src="https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-001.png" fill lazy-load>
 					<van-icon slot="loading" name="photo-o" size="36px" />
 					<van-icon slot="error" name="photo-fail" size="36px" />
 				</van-image>
