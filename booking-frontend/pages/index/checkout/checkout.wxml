@@ -110,19 +110,7 @@
     <view class="time-tab {{currentTab === 'time' ? 'active' : ''}}" bindtap="switchToTimeTab">选择时间</view>
   </view>
   
-  <!-- 日期选择器 -->
-	<van-datetime-picker
-    wx:if="{{currentTab === 'date'}}"
-		type="date"
-		value="{{ currentDate }}"
-		min-date="{{ minDate }}"
-		max-date="{{ maxDate }}"
-		bind:input="onDateInput"
-		formatter="{{ formatter }}"
-		item-height="44"
-		visible-item-count="5"
-		show-toolbar="{{ false }}"
-	/>
+  <!-- 日期选择器 -->  <van-datetime-picker    wx:if="{{currentTab === 'date'}}"    type="date"    value="{{ currentDate }}"    min-date="{{ minDate }}"    max-date="{{ maxDate }}"    bind:input="onDateInput"    formatter="{{ formatter }}"    item-height="44"    visible-item-count="5"    show-toolbar="{{ false }}"    filter="{{ disabledDate }}"  />
   
   <!-- 时间选择 -->
   <view wx:if="{{currentTab === 'time'}}" class="time-slots-container">

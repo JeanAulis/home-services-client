@@ -234,7 +234,7 @@ Page({
     if (!userInfo || !userInfo.userNum) return;
     
     wx.request({
-      url: `${apiBaseUrl}/api/user/coupon/available`,
+      url: `${apiBaseUrl}/api/asset/coupons`,
       method: 'GET',
       data: {
         userNum: userInfo.userNum

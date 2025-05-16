@@ -269,8 +269,7 @@ Page({
     
     // 跳转到订单结算页面
     wx.navigateTo({
-      // url: `/pages/index/checkout/checkout?serviceId=${this.data.productNum}`
-      url: `/pages/index/checkout/checkout`
+      url: `/pages/index/checkout/checkout?serviceId=${this.data.productNum}`
     });
   },
   
