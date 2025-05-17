@@ -662,8 +662,6 @@ Page({
 						url: `/pages/order/payment/payment?orderId=${orderId}&amount=${this.data.totalAmount}`,
 					});
 
-					// 以下是跳转到订单列表页面的代码，目前先注释
-
 					wx.showToast({
 						title: '订单创建成功',
 						icon: 'success',
