@@ -108,7 +108,7 @@
 	</view>
 </scroll-view>
 
-<!-- 底部操作栏 - 放到scroll-view外部 -->
+<!-- 底部操作栏 -->
 <van-goods-action safe-area-inset-bottom="{{true}}">
 	<van-goods-action-icon icon="chat-o" text="客服" dot />
 	<van-goods-action-icon icon="cart-o" text="购物车" info="6" />

@@ -1,110 +1,94 @@
 <!--comments.wxml 商品评论列表页-->
-<nav-bar
-  title="用户评价"
-  textStyle="black"
-  showBack="{{true}}"
-  
-  bind:back="handleNavBack"
-></nav-bar>
+<nav-bar title="用户评价" textStyle="black" showBack="{{true}}" bind:back="handleNavBack"></nav-bar>
 
 <scroll-view class="scrollarea page-scroll" scroll-y type="list" bindscrolltolower="loadMoreComments">
-  <view class="container">
-    <!-- 评分统计区域 -->
-    <view class="statistics-section">
-      <view class="rating-overview">
-        <view class="rating-score">{{statistics.averageRating || '0.0'}}</view>
-        <view class="rating-stars">
-          <view class="star-list">
-            <view class="star filled" wx:for="{{fullStars}}" wx:key="index"></view>
-            <view class="star half" wx:if="{{hasHalfStar}}"></view>
-            <view class="star empty" wx:for="{{emptyStars}}" wx:key="index"></view>
-          </view>
-        </view>
-        <view class="rating-count">{{statistics.totalComments || 0}}条评价</view>
-      </view>
-      
-      <view class="rating-distribution">
-        <view class="rating-item" wx:for="{{ratingDistribution}}" wx:key="index">
-          <text class="rating-label">{{index + 1}}星</text>
-          <view class="rating-bar-container">
-            <view class="rating-bar" style="width: {{item.percentage}};"></view>
-          </view>
-          <text class="rating-count-small">{{item.count}}</text>
-        </view>
-      </view>
-    </view>
-    
-    <!-- 评论筛选区域 -->
-    <view class="filter-section">
-      <view class="filter-list">
-        <view class="filter-item {{currentFilter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">
-          全部
-        </view>
-        <view class="filter-item {{currentFilter === 'withImages' ? 'active' : ''}}" bindtap="setFilter" data-filter="withImages">
-          有图
-        </view>
-        <view class="filter-item {{currentFilter === 'highScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="highScore">
-          好评
-        </view>
-        <view class="filter-item {{currentFilter === 'mediumScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="mediumScore">
-          中评
-        </view>
-        <view class="filter-item {{currentFilter === 'lowScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="lowScore">
-          差评
-        </view>
-      </view>
-    </view>
-    
-    <!-- 评论列表 -->
-    <view class="comments-section">
-      <view class="comment-list" wx:if="{{comments.length > 0}}">
-        <view class="comment-item" wx:for="{{comments}}" wx:key="id">
-          <view class="comment-user">
-            <image class="user-avatar" src="{{item.userInfo.avatarUrl || defaultAvatarUrl}}"></image>
-            <text class="user-name">{{item.isAnonymous ? '匿名用户' : (item.userInfo.userName || '用户')}}</text>
-            <view class="comment-date">{{item.commentDate}}</view>
-          </view>
-          <view class="comment-rating">
-            <view class="star-list">
-              <view class="star filled" wx:for="{{item.ratingStars.full}}" wx:key="index"></view>
-              <view class="star half" wx:if="{{item.ratingStars.half}}"></view>
-              <view class="star empty" wx:for="{{item.ratingStars.empty}}" wx:key="index"></view>
-            </view>
-          </view>
-          <view class="comment-content">{{item.commentContent}}</view>
-          <view class="comment-images" wx:if="{{item.commentImages && item.commentImages.length > 0}}">
-            <image 
-              wx:for="{{item.commentImages}}" 
-              wx:for-item="img" 
-              wx:key="index" 
-              src="{{img}}" 
-              mode="aspectFill" 
-              class="comment-image" 
-              bindtap="previewImage" 
-              data-urls="{{item.commentImages}}" 
-              data-current="{{img}}"
-            ></image>
-          </view>
-        </view>
-      </view>
-      
-      <view class="empty-comments" wx:if="{{comments.length === 0 && !loading}}">
-        <text>暂无评价</text>
-      </view>
-      
-      <!-- 加载更多 -->
-      <view class="loading-more" wx:if="{{hasMore && !loading && comments.length > 0}}">
-        <text>上拉加载更多</text>
-      </view>
-      <view class="loading-more" wx:if="{{!hasMore && comments.length > 0}}">
-        <text>没有更多数据了</text>
-      </view>
-    </view>
-  </view>
-  
-  <!-- 加载状态 -->
-  <view class="loading-container" wx:if="{{loading}}">
-    <view class="loading-icon"></view>
-    <text class="loading-text">加载中...</text>
-  </view>
-</scroll-view> 
+	<view class="container">
+		<!-- 评分统计区域 -->
+		<view class="statistics-section">
+			<view class="rating-overview">
+				<view class="rating-score">{{statistics.averageRating || '0.0'}}</view>
+				<view class="rating-stars">
+					<view class="star-list">
+						<view class="star filled" wx:for="{{fullStars}}" wx:key="index"></view>
+						<view class="star half" wx:if="{{hasHalfStar}}"></view>
+						<view class="star empty" wx:for="{{emptyStars}}" wx:key="index"></view>
+					</view>
+				</view>
+				<view class="rating-count">{{statistics.totalComments || 0}}条评价</view>
+			</view>
+
+			<view class="rating-distribution">
+				<view class="rating-item" wx:for="{{ratingDistribution}}" wx:key="index">
+					<text class="rating-label">{{index + 1}}星</text>
+					<view class="rating-bar-container">
+						<view class="rating-bar" style="width: {{item.percentage}};"></view>
+					</view>
+					<text class="rating-count-small">{{item.count}}</text>
+				</view>
+			</view>
+		</view>
+
+		<!-- 评论筛选区域 -->
+		<view class="filter-section">
+			<view class="filter-list">
+				<view class="filter-item {{currentFilter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">
+					全部
+				</view>
+				<view class="filter-item {{currentFilter === 'withImages' ? 'active' : ''}}" bindtap="setFilter" data-filter="withImages">
+					有图
+				</view>
+				<view class="filter-item {{currentFilter === 'highScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="highScore">
+					好评
+				</view>
+				<view class="filter-item {{currentFilter === 'mediumScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="mediumScore">
+					中评
+				</view>
+				<view class="filter-item {{currentFilter === 'lowScore' ? 'active' : ''}}" bindtap="setFilter" data-filter="lowScore">
+					差评
+				</view>
+			</view>
+		</view>
+
+		<!-- 评论列表 -->
+		<view class="comments-section">
+			<view class="comment-list" wx:if="{{comments.length > 0}}">
+				<view class="comment-item" wx:for="{{comments}}" wx:key="id">
+					<view class="comment-user">
+						<image class="user-avatar" src="{{item.userInfo.avatarUrl || defaultAvatarUrl}}"></image>
+						<text class="user-name">{{item.isAnonymous ? '匿名用户' : (item.userInfo.userName || '用户')}}</text>
+						<view class="comment-date">{{item.commentDate}}</view>
+					</view>
+					<view class="comment-rating">
+						<view class="star-list">
+							<view class="star filled" wx:for="{{item.ratingStars.full}}" wx:key="index"></view>
+							<view class="star half" wx:if="{{item.ratingStars.half}}"></view>
+							<view class="star empty" wx:for="{{item.ratingStars.empty}}" wx:key="index"></view>
+						</view>
+					</view>
+					<view class="comment-content">{{item.commentContent}}</view>
+					<view class="comment-images" wx:if="{{item.commentImages && item.commentImages.length > 0}}">
+						<image wx:for="{{item.commentImages}}" wx:for-item="img" wx:key="index" src="{{img}}" mode="aspectFill" class="comment-image" bindtap="previewImage" data-urls="{{item.commentImages}}" data-current="{{img}}"></image>
+					</view>
+				</view>
+			</view>
+
+			<view class="empty-comments" wx:if="{{comments.length === 0 && !loading}}">
+				<text>暂无评价</text>
+			</view>
+
+			<!-- 加载更多 -->
+			<view class="loading-more" wx:if="{{hasMore && !loading && comments.length > 0}}">
+				<text>上拉加载更多</text>
+			</view>
+			<view class="loading-more" wx:if="{{!hasMore && comments.length > 0}}">
+				<text>没有更多数据了</text>
+			</view>
+		</view>
+	</view>
+
+	<!-- 加载状态 -->
+	<view class="loading-container" wx:if="{{loading}}">
+		<view class="loading-icon"></view>
+		<text class="loading-text">加载中...</text>
+	</view>
+</scroll-view>

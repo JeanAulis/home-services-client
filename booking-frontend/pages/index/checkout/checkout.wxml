@@ -103,28 +103,23 @@
 		<view class="title">选择预约时间</view>
 		<view class="confirm-btn" bindtap="confirmTimePicker">确定</view>
 	</view>
-  
-  <!-- 切换日期和时间选择器的选项卡 -->
-  <view class="time-picker-tabs">
-    <view class="time-tab {{currentTab === 'date' ? 'active' : ''}}" bindtap="switchToDateTab">选择日期</view>
-    <view class="time-tab {{currentTab === 'time' ? 'active' : ''}}" bindtap="switchToTimeTab">选择时间</view>
-  </view>
-  
-  <!-- 日期选择器 -->  <van-datetime-picker    wx:if="{{currentTab === 'date'}}"    type="date"    value="{{ currentDate }}"    min-date="{{ minDate }}"    max-date="{{ maxDate }}"    bind:input="onDateInput"    formatter="{{ formatter }}"    item-height="44"    visible-item-count="5"    show-toolbar="{{ false }}"    filter="{{ disabledDate }}"  />
-  
-  <!-- 时间选择 -->
-  <view wx:if="{{currentTab === 'time'}}" class="time-slots-container">
-    <view class="time-slots-title">可预约时间段</view>
-    <view class="time-slots-grid">
-      <view 
-        wx:for="{{timeSlots}}" 
-        wx:key="index" 
-        class="time-slot-item {{item.disabled ? 'disabled' : ''}} {{selectedTimeSlot === index ? 'selected' : ''}}" 
-        bindtap="{{item.disabled ? '' : 'selectTimeSlot'}}" 
-        data-index="{{index}}"
-      >
-        {{item.text}}
-      </view>
-    </view>
-  </view>
+
+	<!-- 切换日期和时间选择器的选项卡 -->
+	<view class="time-picker-tabs">
+		<view class="time-tab {{currentTab === 'date' ? 'active' : ''}}" bindtap="switchToDateTab">选择日期</view>
+		<view class="time-tab {{currentTab === 'time' ? 'active' : ''}}" bindtap="switchToTimeTab">选择时间</view>
+	</view>
+
+	<!-- 日期选择器 -->
+	<van-datetime-picker wx:if="{{currentTab === 'date'}}" type="date" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" bind:input="onDateInput" formatter="{{ formatter }}" item-height="44" visible-item-count="5" show-toolbar="{{ false }}" filter="{{ disabledDate }}" />
+
+	<!-- 时间选择 -->
+	<view wx:if="{{currentTab === 'time'}}" class="time-slots-container">
+		<view class="time-slots-title">可预约时间段</view>
+		<view class="time-slots-grid">
+			<view wx:for="{{timeSlots}}" wx:key="index" class="time-slot-item {{item.disabled ? 'disabled' : ''}} {{selectedTimeSlot === index ? 'selected' : ''}}" bindtap="{{item.disabled ? '' : 'selectTimeSlot'}}" data-index="{{index}}">
+				{{item.text}}
+			</view>
+		</view>
+	</view>
 </van-popup>
