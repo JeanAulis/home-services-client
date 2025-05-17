@@ -17,3 +17,6 @@ App({
     userInfo: null
   }
 })
+wx.setEnableDebug({
+  enableDebug: false
+})
