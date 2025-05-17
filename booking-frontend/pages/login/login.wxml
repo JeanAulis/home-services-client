@@ -15,6 +15,6 @@
   <view class="form-group">
     <input placeholder="请输入密码" required="required" password="true" model:value="{{user_passwd}}" bindinput="onInputUserPasswd" bindconfirm="onLogin"/>
   </view>
-  <button type="primary" bindtap="onLogin">登录</button>
-  <button type="default" bindtap="goRegister">去注册</button>
+  <van-button type="primary" bind:tap="onLogin" round type="info" color="#7232dd">登录</van-button>
+  <van-button type="default" bind:tap="goRegister" plain round type="info" color="#7232dd">去注册</van-button>
 </view>

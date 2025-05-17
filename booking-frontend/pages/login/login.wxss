@@ -12,9 +12,11 @@ input {
   font-size: 32rpx;
   background: #fafafa;
 }
-button {
-  margin-top: 24rpx;
+.van-button{
+	width: 450rpx;
+	margin-top: 24rpx;
 }
+
 .title {
   display: block;
   text-align: center;

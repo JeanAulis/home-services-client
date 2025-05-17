@@ -57,7 +57,7 @@
 		<!-- 相关视频 - 直接使用代码中设置的视频URL -->
 		<view class="video-section" wx:if="{{hasVideo}}">
 			<view class="section-title">服务视频</view>
-			<video src="{{videoUrl}}" controls autoplay="{{false}}" class="product-video" play-btn-position="center" poster="{{productImages[0]}}" object-fit="cover" show-center-play-btn="{{true}}" initial-time="0"></video>
+			<video src="{{videoUrl}}" controls autoplay="{{false}}" class="product-video" play-btn-position="center" object-fit="cover" show-center-play-btn="{{true}}" initial-time="0"></video>
 		</view>
 
 		<!-- 评论预览区 -->

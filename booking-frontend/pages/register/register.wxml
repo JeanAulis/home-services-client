@@ -20,6 +20,6 @@
   <view class="form-group">
     <input placeholder="请输入邮箱(可选)" type="text" model:value="{{user_email}}" bindinput="onInputUserEmail" bindconfirm="onRegister"/>
   </view>
-  <button type="primary" bindtap="onRegister">注册</button>
-  <button type="default" bindtap="goLogin">返回登录</button>
+  <van-button type="primary" bind:tap="onRegister"  round type="info" color="#7232dd">注册</van-button>
+  <van-button type="default" bind:tap="goLogin" plain round type="info" color="#7232dd">返回登录</van-button>
 </view>

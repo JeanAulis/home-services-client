@@ -8,7 +8,7 @@
 ></nav-bar>
 
 <view class="container">
-  <scroll-view scroll-y="true" class="page-scroll">
+  <scroll-view scroll-y="true" class="page-scroll" enable-flex style="display:flex; flex-direction:column; align-items:center;">
     <view class="setting-list">
       <view class="setting-item" bindtap="goPrivacy">
         <view class="setting-left">
@@ -44,7 +44,7 @@
     </view>
     
     <view class="logout-btn-wrap" wx:if="{{isLogin}}">
-      <button class="logout-btn" bindtap="onLogout">退出登录</button>
+      <van-button type="danger" block round color="#ff4d4f" bind:tap="onLogout">退出登录</van-button>
     </view>
   </scroll-view>
 </view> 
