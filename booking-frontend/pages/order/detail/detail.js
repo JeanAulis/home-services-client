@@ -1,3 +1,5 @@
+const { getApiUrl, config } = require('../../../utils/config')
+
 Page({
   data: {
     orderId: '',
@@ -33,7 +35,7 @@ Page({
     this.setData({ loading: true })
     
     wx.request({
-      url: `http://localhost:8080/api/order/detail`,
+      url: getApiUrl(config.api.order.detail),
       method: 'GET',
       data: {
         orderId: orderId
@@ -120,4 +122,4 @@ Page({
     
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   }
-}) 
+})

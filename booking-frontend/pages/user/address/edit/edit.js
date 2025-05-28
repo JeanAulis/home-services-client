@@ -1,3 +1,5 @@
+const { getApiUrl, config } = require('../../../../utils/config')
+
 Page({
   data: {
     addressId: null,
@@ -68,7 +70,7 @@ Page({
     wx.showLoading({ title: '加载中...' })
     
     wx.request({
-      url: 'http://localhost:8080/api/address/get',
+      url: getApiUrl(config.api.address.get),
       method: 'GET',
       data: {
         id: parseInt(addressId),
@@ -225,8 +227,8 @@ Page({
       // 发送请求
       wx.request({
         url: this.data.isEdit ? 
-          'http://localhost:8080/api/address/update' : 
-          'http://localhost:8080/api/address/add',
+          getApiUrl(config.api.address.update) :
+        getApiUrl(config.api.address.add),
         method: 'POST',
         data: addressData,
         header: {
@@ -283,4 +285,4 @@ Page({
       })
     }
   }
-}) 
+})

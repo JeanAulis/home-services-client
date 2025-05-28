@@ -2,6 +2,8 @@
 // 导入工具类
 const app = getApp()
 
+const { getApiUrl, config } = require('../../utils/config')
+
 Page({
   data: {
     statusTabs: [
@@ -119,7 +121,7 @@ Page({
     }
     
     wx.request({
-      url: 'http://localhost:8080/api/order/list',
+      url: getApiUrl(config.api.order.list),
       method: 'GET',
       data: {
         userNum: userNum
@@ -238,4 +240,4 @@ Page({
       icon: 'none'
     });
   }
-}) 
+})

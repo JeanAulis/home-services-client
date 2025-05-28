@@ -1,3 +1,5 @@
+const { getApiUrl, config } = require('../../utils/config')
+
 Page({
   data: {
     user_num: '',
@@ -28,7 +30,7 @@ Page({
     }
     
     wx.request({
-      url: 'http://localhost:8080/api/user/login',
+      url: getApiUrl(config.api.user.login),
       method: 'POST',
       data: {
         userNum: this.data.user_num,

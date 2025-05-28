@@ -1,7 +1,7 @@
 // detail.js
 const app = getApp();
+const { getApiUrl, config } = require('../../../utils/config')
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-const apiBaseUrl = 'http://localhost:8080'; // 设置API基础URL，根据实际情况修改
 const vantImageUrl = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'; // Vant组件库提供的默认图片
 const defaultVideoUrl = 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 const defaultDetailImageUrls = [
@@ -73,7 +73,7 @@ Page({
     this.setData({ loading: true });
     
     wx.request({
-      url: `${apiBaseUrl}/api/product/detail`,
+      url: `${config.baseUrl}/api/product/detail`,
       data: {
         productNum: productNum
       },
@@ -124,7 +124,7 @@ Page({
   // 获取商品评论
   getProductComments(productNum) {
     wx.request({
-      url: `${apiBaseUrl}/api/comment/product`,
+      url: `${config.baseUrl}/api/comment/product`,
       data: {
         productNum: productNum,
         page: 1,
@@ -279,4 +279,4 @@ Page({
       delta: 1
     });
   }
-}) 
+})

@@ -1,6 +1,6 @@
-// index.js
+// app.js
+const { getApiUrl, config } = require('../../utils/config')
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-const baseUrl = 'http://localhost:8080'; // 后端API基础URL
 const defaultImageUrls = [
   'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-001.png',
   'https://raw.githubusercontent.com/JeanAulis/ImageHostingService/main/cover-002.png',
@@ -88,7 +88,7 @@ Page({
     });
     
     wx.request({
-      url: `${baseUrl}/api/product/hot`,
+      url: `${config.baseUrl}/api/product/hot`,
       data: {
         type: type,
         limit: 6
@@ -145,7 +145,7 @@ Page({
     });
     
     wx.request({
-      url: `${baseUrl}/api/product/new`,
+      url: `${config.baseUrl}/api/product/new`,
       data: {
         limit: 3
       },

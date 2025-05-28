@@ -1,6 +1,6 @@
 // comments.js
+const { getApiUrl, config } = require('../../../utils/config')
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-const baseUrl = 'http://localhost:8080'; // 后端API基础URL
 
 Page({
   data: {
@@ -58,7 +58,7 @@ Page({
   // 获取商品评论统计
   getCommentStatistics(productNum) {
     wx.request({
-      url: `${baseUrl}/api/comment/product`,
+      url: `${config.baseUrl}/api/comment/product`,
       data: {
         productNum: productNum,
         page: 1,
@@ -124,7 +124,7 @@ Page({
     }
     
     wx.request({
-      url: `${baseUrl}/api/comment/product`,
+      url: `${config.baseUrl}/api/comment/product`,
       data: requestData,
       success: (res) => {
         if (res.statusCode === 200 && res.data.code === 200) {
@@ -254,4 +254,4 @@ Page({
       delta: 1
     });
   }
-}) 
+})

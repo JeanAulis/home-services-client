@@ -1,3 +1,5 @@
+const { getApiUrl, config } = require('../../utils/config')
+
 Page({
   data: {
     // 删除 user_num
@@ -25,7 +27,7 @@ Page({
     }
     
     wx.request({
-      url: 'http://localhost:8080/api/user/register',
+      url: getApiUrl(config.api.user.register),
       method: 'POST',
       data: {
         userName: this.data.user_name,

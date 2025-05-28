@@ -1,6 +1,6 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
-const apiBaseUrl = 'http://localhost:8080'; // 设置API基础URL，根据实际情况修改
+const { getApiUrl, config } = require('../../../utils/config')
 
 Page({
 	data: {
@@ -98,7 +98,7 @@ Page({
 		});
 
 		wx.request({
-			url: `${apiBaseUrl}/api/product/detail`,
+			url: `${config.baseUrl}/api/product/detail`,
 			method: 'GET',
 			data: {
 				productNum: serviceId
@@ -149,7 +149,7 @@ Page({
 		if (!userInfo || !userInfo.userNum) return;
 
 		wx.request({
-			url: `${apiBaseUrl}/api/address/default`,
+			url: `${config.baseUrl}/api/address/default`,
 			method: 'GET',
 			data: {
 				userNum: userInfo.userNum
@@ -180,7 +180,7 @@ Page({
 		if (!userInfo || !userInfo.userNum) return;
 
 		wx.request({
-			url: `${apiBaseUrl}/api/address/list`,
+			url: `${config.baseUrl}/api/address/list`,
 			method: 'GET',
 			data: {
 				userNum: userInfo.userNum
@@ -208,7 +208,7 @@ Page({
 		if (!userInfo || !userInfo.userNum) return;
 
 		wx.request({
-			url: `${apiBaseUrl}/api/asset/coupons`,
+			url: `${config.baseUrl}/api/asset/coupons`,
 			method: 'GET',
 			data: {
 				userNum: userInfo.userNum
@@ -645,7 +645,7 @@ Page({
 
 		// 调用创建订单API
 		wx.request({
-			url: `${apiBaseUrl}/api/order/create`,
+			url: `${config.baseUrl}/api/order/create`,
 			method: 'POST',
 			header: {
 				'Authorization': `Bearer ${wx.getStorageSync('token')}`,

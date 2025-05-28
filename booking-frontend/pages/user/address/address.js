@@ -1,3 +1,5 @@
+const { getApiUrl, config } = require('../../../utils/config')
+
 Page({
   data: {
     addresses: [],
@@ -38,7 +40,7 @@ Page({
     }
     
     wx.request({
-      url: 'http://localhost:8080/api/address/list',
+      url: getApiUrl(config.api.address.list),
       method: 'GET',
       data: {
         userNum: userInfo.userNum
@@ -146,7 +148,7 @@ Page({
           
           // 调用服务器接口删除地址 - 使用表单格式提交参数
           wx.request({
-            url: 'http://localhost:8080/api/address/delete',
+            url: getApiUrl(config.api.address.delete),
             method: 'POST',
             data: {
               id: numericId,  // 使用id而不是addressId
@@ -216,7 +218,7 @@ Page({
     
     // 调用服务器接口设置默认地址
     wx.request({
-      url: 'http://localhost:8080/api/address/set-default',
+      url: getApiUrl(config.api.address.setDefault),
       method: 'POST',
       data: {
         id: numericId,
@@ -288,4 +290,4 @@ Page({
       icon: 'none'
     });
   }
-}) 
+})
