@@ -28,6 +28,9 @@ public class UserInfo {
     
     @Column(name = "avatar_url")
     private String avatarUrl;
+    
+    @Column(name = "password_migrated", nullable = false)
+    private Boolean passwordMigrated = false;
 
     // getter 和 setter
     public Integer getUserId() { return userId; }
@@ -44,4 +47,6 @@ public class UserInfo {
     public void setOther(String other) { this.other = other; }
     public String getAvatarUrl() { return avatarUrl; }
     public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
-} 
+    public Boolean getPasswordMigrated() { return passwordMigrated; }
+    public void setPasswordMigrated(Boolean passwordMigrated) { this.passwordMigrated = passwordMigrated; }
+}

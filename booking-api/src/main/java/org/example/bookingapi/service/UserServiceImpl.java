@@ -2,9 +2,11 @@ package org.example.bookingapi.service;
 
 import org.example.bookingapi.entity.UserInfo;
 import org.example.bookingapi.repository.UserRepository;
-import org.example.bookingapi.util.MD5Util;
+import org.example.bookingapi.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.util.Optional;
 
@@ -41,8 +43,10 @@ public class UserServiceImpl implements UserService {
                 return null; // 账号已存在
             }
         }
-        // 密码加密
-        userInfo.setUserPasswd(MD5Util.md5(userInfo.getUserPasswd()));
+        // 密码加密 - 使用BCrypt算法
+        userInfo.setUserPasswd(PasswordUtil.encode(userInfo.getUserPasswd()));
+        // 新注册用户密码已迁移
+        userInfo.setPasswordMigrated(true);
         return userRepository.save(userInfo);
     }
 
@@ -68,10 +72,48 @@ public class UserServiceImpl implements UserService {
             }
         }
         
-        if (user != null && user.getUserPasswd().equals(MD5Util.md5(password))) {
-            return user;
+        if (user != null) {
+            // 检查密码是否已迁移
+            if (user.getPasswordMigrated() != null && user.getPasswordMigrated()) {
+                // 已迁移，使用BCrypt验证
+                if (PasswordUtil.matches(password, user.getUserPasswd())) {
+                    return user;
+                }
+            } else {
+                // 未迁移，使用MD5验证（临时兼容）
+                if (user.getUserPasswd().equals(md5(password))) {
+                    // 验证成功后立即迁移密码
+                    user.setUserPasswd(PasswordUtil.encode(password));
+                    user.setPasswordMigrated(true);
+                    userRepository.save(user);
+                    return user;
+                }
+            }
         }
         return null;
+    }
+    
+    /**
+     * MD5加密方法（仅用于密码迁移期间的兼容性）
+     * @param input 输入字符串
+     * @return MD5加密后的字符串
+     */
+    private String md5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("MD5算法不可用", e);
+        }
     }
 
     @Override
