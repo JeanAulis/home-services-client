@@ -31,3 +31,26 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 环境变量和敏感配置文件 ###
+.env
+*.env
+application-local.properties
+application-secret.properties
+*.env.*
+
+### 日志文件 ###
+*.log
+logs/
+
+### 临时文件 ###
+*.tmp
+*.temp
+
+### 数据库文件 ###
+*.db
+*.sqlite
+*.sqlite3
+
+### md文件 ###
+*.md
