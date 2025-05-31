@@ -1,6 +1,7 @@
 // API配置文件
 const config = {
-  baseUrl: 'http://14.103.141.73:8024',
+	// baseUrl: 'http://14.103.141.73:8024',
+	baseUrl: 'https://api.homekeep.xiuyun.xyz',
   
   // API接口路径
   api: {
