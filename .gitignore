@@ -11,3 +11,5 @@
 booking-frontend/miniprogram_npm
 booking-frontend/node_modules
 
+*.crt
+*.key
